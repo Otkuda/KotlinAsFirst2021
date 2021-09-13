@@ -46,7 +46,7 @@ fun daysInMonth(month: Int, year: Int): Int {
     return when {
         month == 2 && ((year % 100 % 4 == 0) && (year % 100 != 0) || (year % 400 == 0)) -> 29
         month == 2 -> 28
-        (month % 2 == 1 && month <= 7) || (month == 8) -> 31
+        (month % 2 != 0 && month <= 7) || (month >= 8 && month % 2 == 0) -> 31
         else -> 30
     }
 }
@@ -75,7 +75,6 @@ fun circleInside(
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val areaOfHole = r * s
-    return ((a * b <= areaOfHole) || (a * c <= areaOfHole) || (c * b <= areaOfHole))
-}
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
+    a <= s && b <= r || a <= r && b <= s || b <= s && c <= r ||
+            b <= r && c <= s || a <= s && c <= r || a <= r && c <= s
