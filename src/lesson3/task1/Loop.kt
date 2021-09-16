@@ -2,9 +2,7 @@
 
 package lesson3.task1
 
-import kotlin.math.max
-import kotlin.math.sqrt
-import kotlin.math.pow
+import kotlin.math.*
 
 // Урок 3: циклы
 // Максимальное количество баллов = 9
@@ -12,8 +10,10 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print(squareSequenceDigit(7))
+    print("123")
 }
+
+fun sqr(n: Int): Int = n * n
 
 /**
  * Пример
@@ -80,7 +80,7 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  */
 fun digitNumber(n: Int): Int {
     var count = 0
-    var number = n
+    var number = abs(n)
     do {
         count++
         number /= 10
@@ -95,9 +95,9 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    if (n <= 1) return n
+    return if (n <= 1) n
     else {
-        return fib(n - 1) + fib(n - 2)
+        fib(n - 1) + fib(n - 2)
     }
 }
 
@@ -167,7 +167,8 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    for (i in 2..(m * n)) {
+    val limit = m * n
+    for (i in 2..limit) {
         if (i % m == 0 && i % n == 0) return i
     }
     return m * n
@@ -200,10 +201,10 @@ fun revert(n: Int): Int {
     var number = n
     var newNumber = 0
     while (number > 0) {
-        newNumber += (number % 10) * (10.0.pow(digitNumber(number))).toInt()
+        newNumber += number % 10 + newNumber * 10
         number /= 10
     }
-    return newNumber / 10
+    return newNumber
 }
 
 /**
@@ -253,7 +254,20 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
-fun sin(x: Double, eps: Double): Double = TODO()
+fun sin(x: Double, eps: Double): Double {
+    var res: Double = 0.0
+    var count = 0
+    var current = x
+    var multiplier = 1
+    while (abs(current) > eps) {
+        current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
+            -(x.pow(multiplier) / factorial(multiplier))
+        res += current
+        count++
+        multiplier += 2
+    }
+    return res
+}
 
 /**
  * Средняя (4 балла)
@@ -275,7 +289,22 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun squareSequenceDigit(n: Int): Int = TODO()
+fun squareSequenceDigit(n: Int): Int {
+    var count = 0
+    var sqr = 0
+    var result = 0
+    while (count < n) {
+        for (i in 1..n) {
+            sqr = sqr(i)
+            count += digitNumber(sqr)
+            if (count >= n) {
+                result = (sqr / 10.0.pow(count - n) % 10).toInt()
+                break
+            }
+        }
+    }
+    return result
+}
 
 /**
  * Сложная (5 баллов)
