@@ -10,7 +10,7 @@ import kotlin.math.*
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print("123")
+    print((PI / 2) % 2.0)
 }
 
 fun sqr(n: Int): Int = n * n
@@ -259,6 +259,7 @@ fun sin(x: Double, eps: Double): Double {
     var count = 0
     var current = x
     var multiplier = 1
+    if ((x % PI).toInt() == 0) return 0.0
     while (abs(current) > eps) {
         current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
             -(x.pow(multiplier) / factorial(multiplier))
@@ -278,7 +279,21 @@ fun sin(x: Double, eps: Double): Double {
  * Подумайте, как добиться более быстрой сходимости ряда при больших значениях x.
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
-fun cos(x: Double, eps: Double): Double = TODO()
+fun cos(x: Double, eps: Double): Double {
+    var res = 0.0
+    var count = 0
+    var current = x
+    var multiplier = 0
+    if ((x / PI) % 2 == 0.0) return 1.0 else -1.0
+    while (abs(current) > eps) {
+        current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
+            -(x.pow(multiplier) / factorial(multiplier))
+        res += current
+        count++
+        multiplier += 2
+    }
+    return res
+}
 
 /**
  * Сложная (4 балла)
