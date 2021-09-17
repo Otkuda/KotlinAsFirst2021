@@ -5,6 +5,7 @@ package lesson2.task2
 import lesson1.task1.sqr
 import kotlin.math.abs
 import kotlin.math.sqrt
+import lesson1.task1.trackLength
 
 /**
  * Пример
@@ -61,10 +62,9 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean {
-    val distanceBetweenCenters = sqrt(sqr(x2 - x1) + sqr(y2 - y1))
-    return (x1 == x2 && y1 == y2 && r2 > r1) || (distanceBetweenCenters <= r2 - r1)
-}
+): Boolean =
+    (x1 == x2 && y1 == y2 && r2 > r1) || (trackLength(x1, y1, x2, y2) <= r2 - r1)
+
 
 /**
  * Средняя (3 балла)

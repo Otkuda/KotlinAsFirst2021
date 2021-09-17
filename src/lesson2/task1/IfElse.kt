@@ -140,14 +140,13 @@ fun rookOrBishopThreatens(
     kingX: Int, kingY: Int,
     rookX: Int, rookY: Int,
     bishopX: Int, bishopY: Int
-): Int {
-    return when {
-        (abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY) -> 3
-        abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
-        kingX == rookX || kingY == rookY -> 1
-        else -> 0
-    }
+): Int = when {
+    (abs(kingX - bishopX) == abs(kingY - bishopY)) && (kingX == rookX || kingY == rookY) -> 3
+    abs(kingX - bishopX) == abs(kingY - bishopY) -> 2
+    kingX == rookX || kingY == rookY -> 1
+    else -> 0
 }
+
 
 /**
  * Простая (2 балла)
@@ -157,13 +156,12 @@ fun rookOrBishopThreatens(
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleType(a: Double, b: Double, c: Double): Int {
-    return when {
-        sqr(a) < sqr(b) + sqr(c) -> 0
-        sqr(a) > sqr(b) + sqr(c) -> 2
-        else -> 1
-    }
+fun triangleType(a: Double, b: Double, c: Double): Int = when {
+    sqr(a) < sqr(b) + sqr(c) -> 0
+    sqr(a) > sqr(b) + sqr(c) -> 2
+    else -> 1
 }
+
 
 fun triangleKind(a: Double, b: Double, c: Double): Int {
     if (a + b < c || a + c < b || b + c < a) return -1

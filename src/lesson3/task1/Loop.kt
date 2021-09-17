@@ -10,7 +10,7 @@ import kotlin.math.*
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print((PI / 2) % 2.0)
+    print(isPalindrome(15751))
 }
 
 fun sqr(n: Int): Int = n * n
@@ -201,7 +201,7 @@ fun revert(n: Int): Int {
     var number = n
     var newNumber = 0
     while (number > 0) {
-        newNumber += number % 10 + newNumber * 10
+        newNumber = number % 10 + newNumber * 10
         number /= 10
     }
     return newNumber
@@ -216,14 +216,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean {
-    val length = digitNumber(n)
-    val firstHalfIfOdd = n / 10.0.pow(length / 2 + 1).toInt()
-    val firstHalfIfEven = n / 10.0.pow(length / 2).toInt()
-    val secondHalf = (n % 10.0.pow(length / 2).toInt())
-    return if ((length % 2 == 0) && (firstHalfIfEven == revert(secondHalf))) true
-    else ((length % 2 != 0) && (firstHalfIfOdd == revert(secondHalf)))
-}
+fun isPalindrome(n: Int): Boolean = n == revert(n)
 
 /**
  * Средняя (3 балла)
