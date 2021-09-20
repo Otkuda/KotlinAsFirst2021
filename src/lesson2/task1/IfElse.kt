@@ -14,7 +14,7 @@ import kotlin.math.min
 // Вместе с предыдущими уроками = 9/12
 
 fun main() {
-
+    ageDescription(123)
 }
 
 /**
@@ -122,7 +122,6 @@ fun whichRookThreatens(
         kingX == rookX2 || kingY == rookY2 -> 2
         kingX == rookX1 || kingY == rookY1 -> 1
         else -> 0
-
     }
 }
 
