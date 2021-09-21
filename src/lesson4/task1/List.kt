@@ -14,7 +14,7 @@ import lesson3.task1.isPrime
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    println(decimal(listOf(1, 3, 12), 14))
+    println(convertToString(0, 2))
 }
 
 val alphabet = listOf<String>(
@@ -270,6 +270,7 @@ fun factorizeToString(n: Int): String {
 fun convert(n: Int, base: Int): List<Int> {
     var num = n
     val res = mutableListOf<Int>()
+    if (n == 0) return listOf(0)
     while (num > 0) {
         res.add(0, num % base)
         num /= base

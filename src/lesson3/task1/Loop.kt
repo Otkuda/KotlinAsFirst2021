@@ -10,7 +10,7 @@ import kotlin.math.*
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print(isPalindrome(15751))
+    print(fib(10))
 }
 
 fun sqr(n: Int): Int = n * n
@@ -95,10 +95,12 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    return if (n <= 1) n
-    else {
-        fib(n - 1) + fib(n - 2)
+    val fib = mutableListOf<Int>()
+    for (i in 1..n) {
+        if (fib.isEmpty() || fib.size == 1) fib.add(1) else
+            fib.add(fib[i - 3] + fib[i - 2])
     }
+    return fib.last()
 }
 
 /**
@@ -299,7 +301,7 @@ fun cos(x: Double, eps: Double): Double {
  */
 fun squareSequenceDigit(n: Int): Int {
     var count = 0
-    var sqr = 0
+    var sqr: Int
     var result = 0
     while (count < n) {
         for (i in 1..n) {
@@ -323,4 +325,19 @@ fun squareSequenceDigit(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun fibSequenceDigit(n: Int): Int = TODO()
+fun fibSequenceDigit(n: Int): Int {
+    var count = 0
+    var fib: Int
+    var result = 0
+    while (count < n) {
+        for (i in 1..n) {
+            fib = fib(i)
+            count += digitNumber(fib)
+            if (count >= n) {
+                result = (fib / 10.0.pow(count - n) % 10).toInt()
+                break
+            }
+        }
+    }
+    return result
+}
