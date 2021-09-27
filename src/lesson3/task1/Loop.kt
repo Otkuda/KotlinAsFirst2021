@@ -10,7 +10,7 @@ import kotlin.math.*
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print(fib(10))
+    print(fib(8))
 }
 
 fun sqr(n: Int): Int = n * n
@@ -95,12 +95,17 @@ fun digitNumber(n: Int): Int {
  * Ряд Фибоначчи определён следующим образом: fib(1) = 1, fib(2) = 1, fib(n+2) = fib(n) + fib(n+1)
  */
 fun fib(n: Int): Int {
-    val fib = mutableListOf<Int>()
-    for (i in 1..n) {
-        if (fib.isEmpty() || fib.size == 1) fib.add(1) else
-            fib.add(fib[i - 3] + fib[i - 2])
+    var fib1 = 1
+    var fib2 = 1
+    var fibSum = 0
+    var i = 0
+    while (i < n - 2) {
+        fibSum = fib1 + fib2
+        fib1 = fib2
+        fib2 = fibSum
+        i++
     }
-    return fib.last()
+    return fib2
 }
 
 /**
@@ -162,11 +167,12 @@ fun collatzSteps(x: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    val limit = m * n
-    for (i in 2..limit) {
-        if (i % m == 0 && i % n == 0) return i
+    var a = m
+    var b = n
+    while (a != 0 && b != 0) {
+        if (a > b) a %= b else b %= a
     }
-    return m * n
+    return (m * n) / (a + b)
 }
 
 /**
