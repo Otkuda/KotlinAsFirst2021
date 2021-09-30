@@ -251,12 +251,12 @@ fun hasDifferentDigits(n: Int): Boolean {
 fun sin(x: Double, eps: Double): Double {
     var res = 0.0
     var count = 0
-    var current = x
+    var current = x % (PI * 2)
     var multiplier = 1
     if ((x % PI).toInt() == 0) return 0.0
     do {
-        current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
-            -(x.pow(multiplier) / factorial(multiplier))
+        current = if (count % 2 == 0) (x % (PI * 2)).pow(multiplier) / factorial(multiplier) else
+            -((x % (PI * 2)).pow(multiplier) / factorial(multiplier))
         res += current
         count++
         multiplier += 2
