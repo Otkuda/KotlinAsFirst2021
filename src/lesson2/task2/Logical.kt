@@ -62,7 +62,7 @@ fun daysInMonth(month: Int, year: Int): Int {
 fun circleInside(
     x1: Double, y1: Double, r1: Double,
     x2: Double, y2: Double, r2: Double
-): Boolean = trackLength(x1, y1, x2, y2) <= r2 - r1
+): Boolean = (x1 == x2 && y1 == y2 && r2 > r1) || trackLength(x1, y1, x2, y2) <= r2 - r1
 
 
 /**

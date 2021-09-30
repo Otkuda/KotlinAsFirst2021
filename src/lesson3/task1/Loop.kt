@@ -249,18 +249,18 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var res: Double = 0.0
+    var res = 0.0
     var count = 0
     var current = x
     var multiplier = 1
     if ((x % PI).toInt() == 0) return 0.0
-    while (abs(current) > eps) {
+    do {
         current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
             -(x.pow(multiplier) / factorial(multiplier))
         res += current
         count++
         multiplier += 2
-    }
+    } while (abs(current) > eps)
     return res
 }
 
