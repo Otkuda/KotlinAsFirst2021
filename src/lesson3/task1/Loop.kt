@@ -232,11 +232,11 @@ fun hasDifferentDigits(n: Int): Boolean {
     var digit = n % 10
     var s = 0
     while (number > 0) {
-        if (digit != number % 10) s++
+        if (digit != number % 10) return true
         digit = number % 10
         number /= 10
     }
-    return s > 0
+    return false
 }
 
 /**

@@ -7,6 +7,10 @@ package lesson5.task1
 // Рекомендуемое количество баллов = 9
 // Вместе с предыдущими уроками = 33/47
 
+fun main() {
+    print("a" == null)
+}
+
 /**
  * Пример
  *
@@ -119,7 +123,7 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = a.keys.all { (a[it] == b[it]) }
 
 /**
  * Простая (2 балла)
@@ -136,7 +140,9 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  *     -> a changes to mutableMapOf() aka becomes empty
  */
 fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
-    TODO()
+    for ((key, value) in b) {
+        if (value == a[key]) a.remove(key)
+    }
 }
 
 /**
