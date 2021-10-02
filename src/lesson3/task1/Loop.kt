@@ -10,7 +10,7 @@ import kotlin.math.*
 // Вместе с предыдущими уроками = 16/21
 
 fun main() {
-    print(fib(8))
+    print(sin(-6.5973445725385655, 1e-10))
 }
 
 fun sqr(n: Int): Int = n * n
@@ -249,18 +249,22 @@ fun hasDifferentDigits(n: Int): Boolean {
  * Использовать kotlin.math.sin и другие стандартные реализации функции синуса в этой задаче запрещается.
  */
 fun sin(x: Double, eps: Double): Double {
-    var res = 0.0
-    var count = 0
-    var current = x % (PI * 2)
+    var sign = 1
+    val angle = x % (2 * PI)
+    var factorial = 1.0
+    var res = angle
+    var current = x
     var multiplier = 1
-    if ((x % PI).toInt() == 0) return 0.0
-    do {
-        current = if (count % 2 == 0) (x % (PI * 2)).pow(multiplier) / factorial(multiplier) else
-            -((x % (PI * 2)).pow(multiplier) / factorial(multiplier))
-        res += current
-        count++
+    if ((x % PI) == 0.0) return 0.0
+    if ((x % (3 * PI / 2)) % 2 == 0.0) return -1.0
+    if ((x % (3 * PI / 2)) % 2 == PI / 2) return 1.0
+    while (abs(current) >= eps) {
+        sign = -sign
+        factorial *= (multiplier + 1) * (multiplier + 2)
         multiplier += 2
-    } while (abs(current) > eps)
+        current = angle.pow(multiplier) / factorial * sign
+        res += current
+    }
     return res
 }
 
@@ -274,17 +278,20 @@ fun sin(x: Double, eps: Double): Double {
  * Использовать kotlin.math.cos и другие стандартные реализации функции косинуса в этой задаче запрещается.
  */
 fun cos(x: Double, eps: Double): Double {
-    var res = 0.0
-    var count = 0
-    var current = x
-    var multiplier = 0
+    val angle = x % (2 * PI)
+    var res = 1.0
+    var current = 1.0
+    var multiplier = 0.0
+    var factorial = 1.0
+    var sign = 1
     if ((x / PI) % 2 == 0.0) return 1.0 else -1.0
-    while (abs(current) > eps) {
-        current = if (count % 2 == 0) x.pow(multiplier) / factorial(multiplier) else
-            -(x.pow(multiplier) / factorial(multiplier))
-        res += current
-        count++
+    if (x % PI == PI / 2) return 0.0
+    while (abs(current) >= eps) {
         multiplier += 2
+        sign = -sign
+        factorial *= (multiplier - 1) * multiplier
+        current = angle.pow(multiplier) / factorial * sign
+        res += current
     }
     return res
 }

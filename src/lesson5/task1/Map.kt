@@ -8,7 +8,12 @@ package lesson5.task1
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-    print("a" == null)
+    print(
+        mergePhoneBooks(
+            mapOf("Emergency" to "112"),
+            mapOf("Emergency" to "112", "Police" to "02")
+        )
+    )
 }
 
 /**
@@ -112,7 +117,6 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
 }
 
 
-
 /**
  * Простая (2 балла)
  *
@@ -152,7 +156,7 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>) {
  * В выходном списке не должно быть повторяющихся элементов,
  * т. е. whoAreInBoth(listOf("Марат", "Семён, "Марат"), listOf("Марат", "Марат")) == listOf("Марат")
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = ((a.toSet()).intersect(b.toSet())).toList()
 
 /**
  * Средняя (3 балла)
@@ -171,7 +175,14 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val res = mapA.toMutableMap()
+    for ((key, value) in mapB) {
+        if ((key in res) && (res[key] != value)) res[key] += ", $value" else
+            res[key] = value
+    }
+    return res
+}
 
 /**
  * Средняя (4 балла)
@@ -183,7 +194,18 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val res = mutableMapOf<String, MutableList<Double>>()
+    val finalRes = mutableMapOf<String, Double>()
+    for ((action, price) in stockPrices) {
+        if (action !in res) res[action] = mutableListOf(price) else
+            res[action]?.add(price)
+    }
+    for ((action, prices) in res) {
+        finalRes[action] = prices.sum() / prices.size.toDouble()
+    }
+    return finalRes
+}
 
 /**
  * Средняя (4 балла)
