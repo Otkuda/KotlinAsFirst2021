@@ -14,7 +14,8 @@ import lesson3.task1.isPrime
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    println(roman(123))
+    val list = listOf(1, 2, 3)
+    println(list.sum())
 }
 
 val alphabet = listOf<String>(
@@ -133,14 +134,8 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double {
-    var res = 0.0
-    if (v.isEmpty()) return 0.0
-    for (el in v) {
-        res += sqr(el)
-    }
-    return sqrt(res)
-}
+fun abs(v: List<Double>): Double = sqrt((v.map { it * it }).sum())
+
 
 /**
  * Простая (2 балла)
@@ -172,14 +167,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int {
-    var res: Int = 0
-    if (a.isEmpty() && b.isEmpty()) return 0
-    for (i in 0 until a.size) {
-        res += a[i] * b[i]
-    }
-    return res
-}
+fun times(a: List<Int>, b: List<Int>): Int = if (a.isEmpty() && b.isEmpty()) 0 else a.mapIndexed { index, it -> it * b[index] }.sum()
 
 /**
  * Средняя (3 балла)
@@ -244,21 +232,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String {
-    var num = n
-    val res = mutableListOf<Int>()
-    while (!isPrime(num)) {
-        for (i in 2..num / 2) {
-            if (num % i == 0) {
-                res.add(i)
-                num /= i
-                break
-            }
-        }
-    }
-    res.add(num)
-    return res.joinToString(separator = "*")
-}
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя (3 балла)
@@ -326,10 +300,10 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    var list = mutableListOf<Int>()
+    val list = mutableListOf<Int>()
     for (i in 0 until str.length) {
         if (str[i].toString() in alphabet) {
-            var index = alphabet.indexOf(str[i].toString())
+            val index = alphabet.indexOf(str[i].toString())
             list.add(index + 10)
         } else list.add(str[i].toString().toInt())
     }
