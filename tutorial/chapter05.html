@@ -1,0 +1,1240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<title>5. Ассоциативные массивы aka Maps и множества aka Sets</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>5. Ассоциативные массивы aka Maps и множества aka Sets</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_введение">Введение</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>В прошлом уроке мы познакомились с вами с различными структурами данных, которые предназначены для хранения упорядоченной последовательности элементов.
+Понятно, что это далеко не единственный тип структур данных, которые существуют, и сегодня мы с вами познакомимся с двумя новыми структурами данных.</p>
+</div>
+<div class="paragraph">
+<p>Чтобы понять первую структуру данных --- <strong>ассоциативный массив</strong> --- далеко ходить не надо, достаточно вспомнить о такой штуке как толковый словарь.
+Словарь связывает элементы отношением "ключ"-"значение": для определенных слов (ключей) он содержит их описание (значения), для всех остальных --- не содержит ничего.
+Подобной структурой обладают, на самом деле, многие вещи: набор товаров с их ценами, список контактов в телефоне, рестораны и рейтинги, и т.д.
+Основная операция, которую они поддерживают, --- это достать значение, соответствующее интересующему нас ключу, т.е. то, что вы делаете, когда ищете значение неизвестного вам слова в словаре.</p>
+</div>
+<div class="paragraph">
+<p>Ассоциативный массив является обобщенным способом представить подобное отношение.
+Давайте на следующем примере посмотрим, как с ним можно работать.
+Представим, что нам необходимо посчитать стоимость нашего списка покупок для заданного набора товаров.
+Сделать это можно при помощи следующей функции.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun shoppingListCost(
+        shoppingList: List&lt;String&gt;,
+        costs: Map&lt;String, Double&gt;): Double {
+    var totalCost = 0.0
+
+    for (item in shoppingList) {
+        val itemCost = costs[item]
+        if (itemCost != null) {
+            totalCost += itemCost
+        }
+    }
+
+    return totalCost
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Что мы здесь видим?
+Наша функция принимает на вход список покупок: параметр <code>shoppingList</code> типа <code>List&lt;String&gt;</code> --- и набор цен для товаров: параметр <code>costs</code> типа <code>Map&lt;String, Double&gt;</code>.
+Данный <strong>параметризованный тип</strong> <code>Map&lt;Key, Value&gt;</code> и является типом ассоциативного массива, у которого типовой параметр <code>Key</code> задает тип ключей, а <code>Value</code> --- тип значений.
+В нашем случае набор товаров с ценами имеет тип <code>Map&lt;String, Double&gt;</code>, т.е. для названия товара содержит его цену в виде действительного числа.</p>
+</div>
+<div class="paragraph">
+<p>Для того чтобы рассчитать общую стоимость выбранного набора товаров, мы заводим новую изменяемую переменную <code>totalCost</code>, которая изначально равна нулю. В конце функции мы вернём значение этой переменной как результат при помощи <code>return</code>.
+После этого мы проходимся по списку покупок при помощи цикла <code>for</code> и для каждой покупки пытаемся достать ее цену из нашего ассоциативного массива при помощи операции индексирования.
+В отличие от индексирования для списка, операция <strong>индексирования</strong> <code>map[key]</code> для ассоциативного массива пытается достать элемент не по какому-то целочисленному индексу, а по ключу соответствующего типа --- в нашем случае, по названию товара, т.е. строке.</p>
+</div>
+<div class="paragraph">
+<p>А вот дальше мы знакомимся с такой очень интересной вещью как <code>null</code>.
+Как мы отметили раньше, ассоциативный массив содержит пары "ключ"-"значение", однако для некоторых ключей соответствующего им значения может не быть.
+Вместе с тем просто так вернуть <strong>"ничего"</strong> мы не можем.
+Как раз для таких ситуаций и необходим объект <code>null</code> --- операция индексирования для ассоциативного массива возвращает <code>null</code> в случае, если для заданного ключа нет значения. После того как мы проверили, что для товара есть его стоимость (<code>itemCost != null</code>), мы добавляем ее к общей стоимости набора; в противном случае мы считаем, что данная покупка просто игнорируется.</p>
+</div>
+<div class="paragraph">
+<p>Попробуем написать тесты для нашей функции.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">@Test
+fun shoppingListCostTest() {
+    val itemCosts = mapOf(
+            &quot;Хлеб&quot; to 50.0,
+            &quot;Молоко&quot; to 100.0
+    )
+    assertEquals(
+            150.0,
+            shoppingListCost(
+                    listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;),
+                    itemCosts
+            )
+    )
+    assertEquals(
+            150.0,
+            shoppingListCost(
+                    listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;, &quot;Кефир&quot;),
+                    itemCosts
+            )
+    )
+    assertEquals(
+            0.0,
+            shoppingListCost(
+                    listOf(&quot;Хлеб&quot;, &quot;Молоко&quot;, &quot;Кефир&quot;),
+                    mapOf()
+            )
+    )
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Как видно из тестов, для <strong>создания</strong> ассоциативного массива может использоваться функция <code>mapOf()</code>, которая принимает на вход набор <strong>пар</strong> "ключ"-"значение" типа <code>Pair&lt;A, B&gt;</code> (в нашем случае, <code>Pair&lt;String, Double&gt;</code>).
+Для создания пары можно использовать либо конструкцию <code>Pair(a, b)</code>, либо запись <code>a to b</code>, обе из которых создадут пару из <code>a</code> и <code>b</code>.
+Для того, чтобы обратиться к первому или второму элементу пары <code>pair</code>, следует использовать запись <code>pair.first</code> или <code>pair.second</code> соответственно.</p>
+</div>
+<div class="paragraph">
+<p>В нашем случае мы создаем пары из названия товара и его стоимости (хлеб за 50.0 и молоко за 100.0), после чего собираем из них ассоциативный массив.
+Затем мы проверяем три случая:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Список покупок содержит хлеб и молоко, и общая стоимость должна быть равна 150.0</p>
+</li>
+<li>
+<p>Список покупок, кроме хлеба и молока, содержит еще кефир, но --- так как его стоимости мы не знаем --- мы его игнорируем, и общая стоимость все равно должна быть равна 150.0</p>
+</li>
+<li>
+<p>Для какого-то списка покупок с <strong>пустым</strong> ассоциативным массивом (мы не знаем ни одной цены товара) общая стоимость должна быть равна 0.0</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>В третьем случае мы создаем пустой ассоциативный массив при помощи функции <code>mapOf()</code> без аргументов.
+Типовые параметры в данном случае компилятор Котлина понимает из того, какой тип должен быть у второго аргумента функции <code>shoppingListCost</code>, поэтому их можно не указывать.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_распространённые_операции_над_ассоциативными_массивами">Распространённые операции над ассоциативными массивами</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Рассмотрим основные операции, доступные над ассоциативными массивами.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>map[key] / map.get(key)</code> возвращает значение для ключа <code>key</code> или <code>null</code> в случае, если значения нет</p>
+</li>
+<li>
+<p><code>map.size / map.count()</code> возвращает количество пар "ключ"-"значение" в ассоциативном массиве</p>
+</li>
+<li>
+<p><code>map + pair</code> возвращает новый ассоциативный массив на основе <code>map</code>, в который добавлено (или изменено) значение ключа, соответствующее паре "ключ"-"значение" из <code>pair</code></p>
+</li>
+<li>
+<p><code>map - key</code> возвращает новый ассоциативный массив на основе <code>map</code>, из которого, наоборот, удалено значение ключа <code>key</code></p>
+</li>
+<li>
+<p><code>map1 + map2</code> собирает два ассоциативных массива в один, причем пары "ключ"-"значение" из <code>map2</code> вытесняют значения из <code>map1</code></p>
+</li>
+<li>
+<p><code>map - listOfKeys</code> возвращает новый ассоциативный массив на основе <code>map</code>, в котором нет ключей из списка <code>listOfKeys</code></p>
+</li>
+<li>
+<p><code>map.getOrDefault(key, defaultValue)</code> является расширенной версией операции индексирования. В случае, если в <code>map</code> есть значение для ключа <code>key</code>, данное выражение вернет его; если значения нет, то будет возвращено значение по умолчанию <code>defaultValue</code>.</p>
+</li>
+<li>
+<p><code>key in map / map.contains(key) / map.containsKey(key)</code> возвращает <code>true</code>, если <code>map</code> содержит значение для ключа <code>key</code> и <code>false</code> в противном случае</p>
+</li>
+<li>
+<p><code>map.containsValue(value)</code> возвращает <code>true</code>, если <code>map</code> содержит значение <code>value</code> для хотя бы одного ключа и <code>false</code> в противном случае</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_изменяемый_ассоциативный_массив">Изменяемый ассоциативный массив</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Как и в случае со списками, обычный ассоциативный массив (или <code>Map</code>) нельзя изменить; если вы хотите иметь такую возможность, то следует использовать изменяемый ассоциативный массив (или <code>MutableMap</code>) типа <code>MutableMap&lt;Key, Value&gt;</code>.
+Аналогично <code>List</code> и <code>MutableList</code>, <code>MutableMap</code> расширяет <code>Map</code>, т.е. объект <code>MutableMap</code> может использоваться везде, где нужен <code>Map</code>, --- в подобных местах вы просто не будете использовать его возможности по модификации.</p>
+</div>
+<div class="paragraph">
+<p><code>MutableMap</code> предоставляет следующие основные возможности по модификации.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>map[key] = value</code> <strong>изменяет</strong> имеющееся значение для заданного ключа или <strong>добавляет</strong> новую пару "ключ"-"значение" в случае, если ключ <code>key</code> не был связан в <code>map</code></p>
+</li>
+<li>
+<p><code>map.remove(key)</code> <strong>удаляет</strong> пару, связанную с ключом <code>key</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Давайте, как и раньше, попробуем изучить возможности <code>MutableMap</code> на следующем примере: из телефонной книги (набора пар "ФИО"-"телефон") следует убрать все записи, не относящиеся к заданному коду страны.
+Сделать это можно, например, следующим образом.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun filterByCountryCode(
+        phoneBook: MutableMap&lt;String, String&gt;,
+        countryCode: String) {
+    val namesToRemove = mutableListOf&lt;String&gt;()
+
+    for ((name, phone) in phoneBook) {
+        if (!phone.startsWith(countryCode)) {
+            namesToRemove.add(name)
+        }
+    }
+
+    for (name in namesToRemove) {
+        phoneBook.remove(name)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Данную функцию можно разбить на две логические части.
+Первым делом мы проходимся по всем записям в нашей записной книжке и отбираем те из них, у которых телефон начинается с кода, отличного от заданного в параметре <code>countryCode</code>.
+Для этого мы используем функцию <code>str.startsWith(prefix)</code>, которая возвращает <code>true</code> в случае, если строка <code>str</code> <strong>начинается</strong> со строки <code>prefix</code>, и <code>false</code>, если это не так.
+Все имена, которые следует удалить, мы записываем в изменяемый список <code>namesToRemove</code>.</p>
+</div>
+<div class="paragraph">
+<p>Обратите внимание на форму заголовка цикла: так как ассоциативный массив является набором пар, при помощи такого синтаксиса мы можем сразу разбить элемент-пару на две отдельные переменные, доступные в теле цикла. Такое разбиение называется <strong>разрушающим присваиванием</strong> и может применяться к различным объектам, представляющим собой набор элементов, в частности, к спискам или парам. Два альтернативных (и более многословных) способа написать данный цикл приведены ниже.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun filterByCountryCode(
+        phoneBook: MutableMap&lt;String, String&gt;,
+        countryCode: String) {
+    val namesToRemove = mutableListOf&lt;String&gt;()
+
+    for (entry in phoneBook) {
+        val (name, phone) = entry
+        if (!phone.startsWith(countryCode)) {
+            namesToRemove.add(name)
+        }
+    }
+
+    for (name in namesToRemove) {
+        phoneBook.remove(name)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun filterByCountryCode(
+        phoneBook: MutableMap&lt;String, String&gt;,
+        countryCode: String) {
+    val namesToRemove = mutableListOf&lt;String&gt;()
+
+    for (entry in phoneBook) {
+        val name = entry.key
+        val phone = entry.value
+        if (!phone.startsWith(countryCode)) {
+            namesToRemove.add(name)
+        }
+    }
+
+    for (name in namesToRemove) {
+        phoneBook.remove(name)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>После того, как мы собрали все имена, которые следует удалить, мы это и делаем при помощи функции <code>map.remove(key)</code>.
+В итоге, после вызова нашей функции с побочным эффектом в переданном <code>MutableMap</code> останутся только записи, у которых номер телефона начинается с нужного нам кода страны.</p>
+</div>
+<div class="paragraph">
+<p>Тесты для нашей функции выглядят следующим образом.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">@Test
+@Tag(&quot;Example&quot;)
+fun filterByCountryCode() {
+    val phoneBook = mutableMapOf(
+            &quot;Quagmire&quot; to &quot;+1-800-555-0143&quot;,
+            &quot;Adam's Ribs&quot; to &quot;+82-000-555-2960&quot;,
+            &quot;Pharmakon Industries&quot; to &quot;+1-800-555-6321&quot;
+    )
+
+    filterByCountryCode(phoneBook, &quot;+1&quot;)
+    assertEquals(2, phoneBook.size)
+
+    filterByCountryCode(phoneBook, &quot;+1&quot;)
+    assertEquals(2, phoneBook.size)
+
+    filterByCountryCode(phoneBook, &quot;+999&quot;)
+    assertEquals(0, phoneBook.size)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Сперва мы при помощи функции <code>mutableMapOf</code> создаем <code>MutableMap</code>, в котором есть три записи, две для кода +1 и одна для кода +82.
+Затем мы пробуем отфильтровать записи по указанным кодам, корректность же проверяем, сравнивая получившийся размер <code>MutableMap</code> с ожидаемым.
+Более правильно, конечно же, было бы сравнивать обновленное значение с эталонным <code>MutableMap</code>, однако инициализация эталона занимает дополнительные 3-4 строчки для каждой проверки, поэтому мы немножечко схитрили таким образом.
+Если запустить наши тесты, то мы увидим, что они успешно проходят.
+При желании вы можете попробовать модифицировать тесты так, чтобы сравнивать результат с эталоном, и посмотреть, изменится ли результат тестирования.</p>
+</div>
+<div class="paragraph">
+<p>К этому моменту у вас, скорее всего, возник следующий, довольно очевидный вопрос --- а зачем наша реализация такая сложная?
+Почему нельзя сразу убирать записи из <code>MutableMap</code> внутри цикла, который перебирает его записи?
+Давайте попробуем и посмотрим, что получится в таком случае.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun filterByCountryCode(
+        phoneBook: MutableMap&lt;String, String&gt;,
+        countryCode: String) {
+    for ((name, phone) in phoneBook) {
+        if (!phone.startsWith(countryCode)) {
+            phoneBook.remove(name)
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Код стал короче и понятнее, вот только при попытке запустить тесты они упадут с ошибкой <code>java.util.ConcurrentModificationException</code>.
+Название ошибки тонко намекает нам, в чем проблема, --- мы пытаемся перебирать элементы структуры данных и <strong>одновременно</strong> изменять эту самую структуру данных.
+В этом мы подобны дровосеку, который решил забраться на сук и срубить его таким образом, --- "ну а что такого, удобно же!"
+К сожалению, как и в жизни, в программировании подобные чудеса не работают --- очень многие структуры данных (в том числе, и <code>MutableMap</code>) не позволяют вам одновременно перебирать и изменять свои элементы.
+Именно поэтому наша реализация состояла из двух отдельных частей: мы сперва собрали те элементы, что требуется удалить, а потом их удалили.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_распространённые_операции_над_изменяемым_ассоциативными_массивами">Распространённые операции над изменяемым ассоциативными массивами</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Рассмотрим основные операции, доступные над изменяемыми ассоциативными массивами.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>map.clear()</code> удаляет все записи из данного <code>MutableMap</code></p>
+</li>
+<li>
+<p><code>map[key] = value / map.put(key, value)</code> добавляет или изменяет соответствующую пару "ключ"-"значение"</p>
+</li>
+<li>
+<p><code>map.putAll(otherMap)</code> добавляет в <code>MutableMap</code> <code>map</code> все пары из <code>otherMap</code>, в случае одинаковых ключей значения из <code>otherMap</code> перезаписывают значения из <code>map</code></p>
+</li>
+<li>
+<p><code>map.remove(key)</code> удаляет пару для ключа <code>key</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_преобразования_между_map_и_mutablemap">Преобразования между <code>Map</code> и <code>MutableMap</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Аналогично обычным и изменяемым спискам, обычные и изменяемые ассоциативные массивы могут быть преобразованы друг в друга при помощи функций конвертации <code>mutableMap.toMap()</code> или <code>map.toMutableMap()</code>.
+Каждая из функций создает <strong>новый</strong> объект на основе имеющегося --- значения остаются одни и те же, но тип у нового объекта будет соответствовать типу для фукции конвертации.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_множества">Множества</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Теперь давайте рассмотрим такой вид структур данных как множества, которые представляют собой абстрацию, крайне близкую математическим множествам.
+Вспомним парочку определений.</p>
+</div>
+<div class="paragraph">
+<p>В математике множеством называется набор каких-либо однотипных элементов, каждый из которых является <strong>уникальным</strong>, --- то есть, во множестве не может быть двух одинаковых элементов.
+Основная операция, которая представляет интерес для множеств, --- это операция вхождения одного множества в другое.</p>
+</div>
+<div class="paragraph">
+<p>В программировании множества используются аналогичным образом.
+Множество <code>Set&lt;T&gt;</code> является набором уникальных с точки зрения равенства на <code>==</code> элементов типа <code>T</code>, и основная доступная операция --- включает или нет множество какой-то элемент.</p>
+</div>
+<div class="paragraph">
+<p>Рассмотрим, как множества могут использоваться на практике.
+Пусть нам необходимо взять какой-то текст (в виде списка слов) и убрать из него определенные слова-паразиты (например, "типа", "как бы", "короче").
+Это можно сделать вот так.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun removeFillerWords(
+        text: List&lt;String&gt;,
+        vararg fillerWords: String): List&lt;String&gt; {
+    val fillerWordSet = setOf(*fillerWords)
+
+    val res = mutableListOf&lt;String&gt;()
+    for (word in text) {
+        if (word !in fillerWordSet) {
+            res += word
+        }
+    }
+    return res
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Наша функция принимает на вход текст <code>text</code> в виде списка строк и, в виде параметра переменной длины <code>fillerWords</code>, --- набор тех слов-паразитов, которые мы хотим из текста удалить.
+Первым делом мы строим из нашего параметра переменной длины множество слов-паразитов при помощи функции <code>setOf</code>.
+Обратите внимание, что здесь мы пользуемся оператором раскрытия <code>*</code> для передачи массива в эту функцию, чтобы итоговое множество было построено из переданных в функцию элементов.</p>
+</div>
+<div class="paragraph">
+<p>После получения этого множества мы проходимся по всем элементам текста и, если элемент не является словом-паразитом (<code>word !in fillerWordSet</code>), мы добавляем его в список результата.
+Когда мы перебрали все элементы, мы возвращаем результат обратно.</p>
+</div>
+<div class="paragraph">
+<p>NB: данная задача очень хорошо ложится в концепцию функций высших порядков, которую мы с вами обсуждали в прошлом уроке. С использованием функции <code>filter</code> наше решение будет выглядеть совсем просто:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun removeFillerWords(
+        text: List&lt;String&gt;,
+        vararg fillerWords: String): List&lt;String&gt; {
+    val fillerWordSet = setOf(*fillerWords)
+    return text.filter { it !in fillerWordSet }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Попробуем написать тесты для нашей функции <code>removeFillerWords</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">@Test
+@Tag(&quot;Example&quot;)
+fun removeFillerWords() {
+    assertEquals(
+        &quot;Я люблю Котлин&quot;.split(&quot; &quot;),
+        removeFillerWords(
+            &quot;Я как-то люблю Котлин&quot;.split(&quot; &quot;),
+            &quot;как-то&quot;
+        )
+    )
+    assertEquals(
+        &quot;Я люблю Котлин&quot;.split(&quot; &quot;),
+        removeFillerWords(
+            &quot;Я как-то люблю таки Котлин&quot;.split(&quot; &quot;),
+            &quot;как-то&quot;,
+            &quot;таки&quot;
+        )
+    )
+    assertEquals(
+        &quot;Я люблю Котлин&quot;.split(&quot; &quot;),
+        removeFillerWords(
+            &quot;Я люблю Котлин&quot;.split(&quot; &quot;),
+            &quot;как-то&quot;,
+            &quot;таки&quot;
+        )
+    )
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При написании тестов мы используем функцию <code>str.split(delim1, delim2, &#8230;&#8203;)</code>, которая разбивает строку-получатель <code>str</code> на список строк по указанным строкам-разделителям <code>delimN</code>, как раз для получения списка строк, соответствующего какому-либо тексту.
+Если запустить наши тесты, то они --- ура-ура --- успешно пройдут.</p>
+</div>
+<div class="paragraph">
+<p>Основной вопрос, который возникает при взгляде на наше решение, --- а зачем здесь множества?
+Почему нельзя было работать с оригинальным массивом слов-паразитов <code>fillerWords</code>?
+И действительно, если поменять решение соответствующим образом, то тесты все также будут проходить.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun removeFillerWords(
+        text: List&lt;String&gt;,
+        vararg fillerWords: String): List&lt;String&gt; {
+    val res = mutableListOf&lt;String&gt;()
+    for (word in text) {
+        if (word !in fillerWords) {
+            res += word
+        }
+    }
+    return res
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если подумать, то станет понятно, что массив или список с элементами, --- это тоже практически множество, необходимо только каким-либо образом обеспечить уникальность элементов.
+Тогда наш вопрос еще более актуален --- зачем вообще иметь отдельный, специальный тип для множества?</p>
+</div>
+<div class="paragraph">
+<p>Тут мы с вами знакомимся с таким понятием, как <strong>эффективность</strong> структуры данных.
+Решение на основе списка, конечно, работает, но <strong>сложность</strong> проверки того, входит или нет какой-то элемент в список, значительно больше, чем аналогичная сложность для множества <code>Set</code>. Это связано именно с тем, что <code>Set</code> специализирован для того, чтобы представлять множество; и все типичные для множества операции реализованы как можно более эффективно.</p>
+</div>
+<div class="paragraph">
+<p>Более подробно вопросы эффективности вы будете изучать дальше на вашем пути обучения программированию, пока что можно запомнить очень простую идею --- множество элементов лучше представлять как множество типа <code>Set</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_распространенные_операции_над_множествами">Распространенные операции над множествами</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Рассмотрим основные операции, доступные над множествами.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>set.size / set.count()</code> возвращает количество элементов в множестве</p>
+</li>
+<li>
+<p><code>e in set / set.contains(e)</code> проверяет, содержится ли элемент <code>e</code> во множестве <code>set</code></p>
+</li>
+<li>
+<p><code>set.intersect(otherSet)</code> осуществляет пересечение множеств</p>
+</li>
+<li>
+<p><code>set.union(otherSet)</code> объединяет два множества</p>
+</li>
+<li>
+<p><code>set + e / set + array / set + list</code> создает новое множество с добавленным элементом или элементами</p>
+</li>
+<li>
+<p><code>set - e / set - array / set - list</code> возвращает множество, из которого удалены указанные элементы</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Все операции поддерживают уникальность элементов в результирующем множестве автоматически.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_изменяемые_множества">Изменяемые множества</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>"И в третий раз&#8230;&#8203;" мы с вами вспомнили о том, что иногда нам хочется <strong>изменять</strong> объекты в программе, в том числе, множества.
+По аналогии с предыдущими случаями, тип изменяемого множества --- это <code>MutableSet&lt;T&gt;</code>, и он расширяет тип обычного множества, добавляя операции по добавлению и удалению из множества элементов.</p>
+</div>
+<div class="paragraph">
+<p>Представим, что вам нужно решить следующую задачу, опять же над текстом в виде списка строк: построить набор уникальных слов, которые встречаются в тексте.
+Одно из возможных решений выглядит следующим образом.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun buildWordSet(text: List&lt;String&gt;): MutableSet&lt;String&gt; {
+    val res = mutableSetOf&lt;String&gt;()
+    for (word in text) res.add(word)
+    return res
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Для добавления новых слов в изменяемое множество, которое является результатом, мы используем функцию <code>set.add(word)</code>.
+Поддержание уникальности содержащихся в множестве элементов выполняется автоматически.
+В остальном, наше решение должно быть достаточно понятным для вас без дополнительных объяснений.</p>
+</div>
+<div class="paragraph">
+<p>Посмотрим на тесты для нашей функции.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">@Test
+@Tag(&quot;Example&quot;)
+fun buildWordSet() {
+    assertEquals(
+        buildWordSet(&quot;Я люблю Котлин&quot;.split(&quot; &quot;)),
+        mutableSetOf(&quot;Я&quot;, &quot;люблю&quot;, &quot;Котлин&quot;)
+    )
+    assertEquals(
+        buildWordSet(&quot;Я люблю люблю Котлин&quot;.split(&quot; &quot;)),
+        mutableSetOf(&quot;Котлин&quot;, &quot;люблю&quot;, &quot;Я&quot;)
+    )
+    assertEquals(
+        buildWordSet(listOf()),
+        mutableSetOf&lt;String&gt;()
+    )
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>На что можно обратить здесь внимание? В отличие от списков, для равенства множеств порядок элементов <strong>не является важным</strong>; причем это верно как для изменяемых, так и для неизменяемых множеств.
+Это напрямую следует из свойств множеств из математики, где равенство множеств работает именно так.</p>
+</div>
+<div class="paragraph">
+<p>Подобный <strong>перенос</strong> свойств объекта из какой-либо предметной области в программирование является одним из ключевых его (программирования) моментов.
+Когда вы используете или создаете абстракции (например, структуры данных) для решения задачи, вы <strong>переводите</strong> предметную область задачи в язык, понятный компьютеру; вместе с тем этот перенос должен сохранять свойства, важные для предметной области.
+Умение сделать это наиболее просто и эффективно придет с опытом.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_распространенные_операции_над_изменяемыми_множествами">Распространенные операции над изменяемыми множествами</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Рассмотрим основные операции, доступные над изменяемыми множествами.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>set.add(element)</code> добавляет элемент в множество</p>
+</li>
+<li>
+<p><code>set.addAll(listOrSet)</code> добавляет все элементы из заданного набора элементов</p>
+</li>
+<li>
+<p><code>set.remove(element)</code> удаляет элемент из множества</p>
+</li>
+<li>
+<p><code>set.removeAll(listOrSet)</code> удаляет все элементы из заданного набора элементов</p>
+</li>
+<li>
+<p><code>set.retainAll(listOrSet)</code> оставляет в множестве только элементы, которые есть в заданном наборе элементов</p>
+</li>
+<li>
+<p><code>set.clear()</code> удаляет из множества все элементы</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Как и раньше, поддержание уникальности элементов выполняется автоматически.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_операции_над_null">Операции над <code>null</code></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Напоследок давайте чуть ближе познакомимся с объектом <code>null</code> --- тем самым специальным значением, которое означает <strong>отсутствие</strong> чего-то в ассоциативном массиве.
+Данная "пустота" в Котлине не может появиться и использоваться просто так; если вы попробуете, например, присвоить <code>null</code> в переменную типа <code>Int</code>, то у вас ничего не получится.
+Дело в том, что значение <code>null</code> является допустимым только для специальных <code>nullable</code> типов; все обычные типы по умолчанию являются <code>non-nullable</code>.</p>
+</div>
+<div class="paragraph">
+<p>Каким образом можно сделать <code>nullable</code> тип? Очень просто --- если вы хотите сделать <code>nullable</code> версию <code>Int</code>, то нужно написать <code>Int?</code>.
+Знак вопроса, обычно выражающий сомнение, в данном контексте делает то же самое --- сигнализирует, что этот тип может как иметь нормальное значение, так и значение <code>null</code>.</p>
+</div>
+<div class="paragraph">
+<p>Есть ли еще какая-либо разница между типами <code>Int</code> и <code>Int?</code>, кроме того, что во втором может храниться <code>null</code>?
+Да, разница есть, и она заключается в том, что многие операции, возможные над <code>Int</code>, нельзя выполнить просто так над <code>Int?</code>.
+Представим, что мы хотим сложить два <code>Int?</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun addNullables(a: Int?, b: Int?): Int = a + b  // ERROR</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Данный код <strong>не будет работать</strong> аж с целыми двумя ошибками: "Operator call corresponds to a dot-qualified call 'a.plus(b)' which is not allowed on a nullable receiver 'a'" и "Type mismatch: inferred type is Int? but Int was expected".
+Эти ошибки вызваны как раз тем, что в переменной с типом <code>Int?</code> может храниться <code>null</code>, а как сложить что-то с тем, чего нет?</p>
+</div>
+<div class="paragraph">
+<p>Так как операции с <code>nullable</code> типами являются потенциально опасными, в Котлине для работы с ними есть специальные <strong>безопасные</strong> операции и операторы, которые учитывают возможность появления <code>null</code>.
+Одним из таких операторов является элвис-оператор <code>?:</code>, названный так в честь схожести с прической короля рок-н-ролла Элвиса Пресли. Рассмотрим, как он работает.</p>
+</div>
+<div class="paragraph">
+<p>Выражение <code>a ?: valueIfNull</code> возвращает <code>a</code> в случае, если <code>a</code> не равно <code>null</code>, и <code>valueIfNull</code> в противном случае.
+Это позволяет предоставить "значение по умолчанию" для случая, когда в переменной хранится <code>null</code>.
+В нашем случае сложения двух чисел мы можем считать, что если какого-то числа нет (<code>null</code>), то оно равно нулю.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun addNullables(a: Int?, b: Int?): Int = (a ?: 0) + (b ?: 0)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Еще один <code>null</code>-специфичный оператор --- это оператор безопасного вызова <code>?.</code>.
+Он используется в случаях, когда необходимо <strong>безопасно</strong> вызвать функцию над объектом, который может быть <code>null</code>.
+Выражение <code>a?.foo(b, c)</code> возвращает результат вызова функции <code>foo</code> с аргументами <code>b</code> и <code>c</code> над получателем <code>a</code>, если <code>a</code> не равен <code>null</code>; в противном случае возвращается <code>null</code>.
+Пусть нам нужно вернуть сумму элементов в <code>nullable</code> списке.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun sumOfNullableList(list: List&lt;Int&gt;?): Int = list?.sum()  // ERROR</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Такой код не будет работать, потому что <code>list?.sum()</code> может вернуть <code>null</code>. Если подсмотреть в IntelliJ IDEA, то можно увидеть, что тип такого выражения, --- <code>Int?</code>; чтобы исправить ситуацию с типом возвращаемого значения, можно воспользоваться элвис-оператором.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun sumOfNullableList(list: List&lt;Int&gt;?): Int = list?.sum() ?: 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Третий оператор, относящийся к <code>null</code>, но не являющийся безопасным, --- это оператор <code>!!</code>.
+Его смысл очень прост --- он делает из <code>nullable</code> выражения <code>non-nullable</code> выражение.
+В случае, если выражение имеет нормальное значение, эта операция завершается успешно.
+А вот если в выражении был <code>null</code>, это приводит к ошибке <code>NullPointerException</code>; по этой причине использовать этот оператор можно только тогда, когда вы уверены в том, что выражение не содержит <code>null</code>.
+Например, пусть вы работаете с ассоциативным массивом следующим образом.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">val map = getMapOfNumbers()
+if (map[key] != null) {
+    val correctedNumber = map[key] + correction // ERROR
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Несмотря на то, что мы проверили значение в <code>if</code>, Котлин считает, что <code>map[key]</code> может вернуть <code>null</code> и выдает ошибку компиляции.
+Если мы считаем, что значение действительно не может поменяться, то можно воспользоваться <code>!!</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">val map = getMapOfNumbers()
+if (map[key] != null) {
+    val correctedNumber = map[key]!! + correction
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Кто-то может спросить: подождите, мы в самом начале этого урока делали ровно такую же операцию, и никакого оператора <code>!!</code> там не было.
+Вспомним, о чем идет речь.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun shoppingListCost(
+        shoppingList: List&lt;String&gt;,
+        costs: Map&lt;String, Double&gt;): Double {
+    var totalCost = 0.0
+
+    for (item in shoppingList) {
+        val itemCost = costs[item]
+        if (itemCost != null) {
+            totalCost += itemCost // No `!!` operator
+        }
+    }
+
+    return totalCost
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Что здесь происходит?
+Тут нам помогает такая вещь как "умные приведения типов" или смарт-касты.
+Компилятор Котлина, увидев, что <strong>неизменяемое</strong> выражение <code>itemCost</code> проверили на неравенство <code>null</code>, "стирает" с его типа знак вопроса внутри <code>if</code>; именно поэтому <code>itemCost</code> можно использовать без каких-либо безопасных операторов.
+Если присмотреться, то IntelliJ IDEA специальным образом подсвечивает подобные ситуации в редакторе кода.</p>
+</div>
+<div class="paragraph">
+<p>Почему это не работает для <code>map[key]</code>?
+Именно потому что выражение <code>map[key]</code> не является неизменяемым, то есть результат его вычисления может быть разным в разные моменты времени; для того, чтобы сохранить безопасность кода, компилятор не делает никаких опасных предположений и отдает всю ответственность вам.</p>
+</div>
+<div class="paragraph">
+<p>Если попробовать описать правила работы с <code>null</code> в компактном виде, то они могут выглядеть следующим образом.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Если у вас <strong>нет</strong> никакого осмысленного значения по умолчанию для объекта, проверьте на <code>null</code> в <code>if</code> или <code>when</code> и воспользуйтесь смарт-кастами</p>
+</li>
+<li>
+<p>Если у вас <strong>есть</strong> какое-либо значение по умолчанию, можно применить элвис-оператор</p>
+</li>
+<li>
+<p>Если вы хотите вызвать функции над <code>nullable</code> объектом, воспользуйтесь оператором безопасного вызова</p>
+</li>
+<li>
+<p>Если вы точно-точно знаете, что <code>nullable</code> объект на самом деле не может содержать <code>null</code>, можете применить оператор <code>!!</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Этими правилами покрываются 99 из 100 ситуаций, с которыми вы можете столкнуться при программировании на Котлине.
+К тому моменту, как вы окажетесь в той самой "1 из 100" ситуации, вы уже будете разбираться в программировании достаточно, чтобы справиться с ней самостоятельно.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_упражнения">Упражнения</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Откройте файл <code>src/lesson5/task1/Map.kt</code> в проекте <code>KotlinAsFirst</code>.
+Выберите любую из задач в нём.
+Придумайте её решение и запишите его в теле соответствующей функции.</p>
+</div>
+<div class="paragraph">
+<p>Откройте файл <code>test/lesson5/task1/Tests.kt</code>, найдите в нём тестовую функцию&#8201;&#8212;&#8201;её название должно совпадать с названием написанной вами функции.
+Запустите тестирование, в случае обнаружения ошибок исправьте их и добейтесь прохождения теста.
+Подумайте, все ли необходимые проверки включены в состав тестовой функции, добавьте в неё недостающие проверки.</p>
+</div>
+<div class="paragraph">
+<p>После этого решите еще одну или несколько задач из урока 5.
+Обратите внимание, что некоторые задачи (<code>propagateHandshakes</code>, <code>findSumOfTwo</code> и <code>bagPacking</code>) действительно являются сложными и могут для своего решения потребовать от вас знакомства с дополнительными материалами.
+Если вы очень хотите решить эти задачи, но самостоятельно у вас это не получается, попробуйте поискать возможные подходы к их решению в Интернете.
+Убедительная просьба не слепо копировать готовое решение, а постараться разобраться в нем и понять его основную идею.</p>
+</div>
+<div class="paragraph">
+<p>Многие из задач урока 5 могут быть решены без использования множеств или ассоциативных массивов&#8201;&#8212;&#8201;тем не менее, постарайтесь использовать именно их.
+Подумайте, какие вычисления вы можете не делать при использовании множеств или ассоциативных массивов?
+Как вам кажется, делает ли это ваше решение более эффективным?</p>
+</div>
+<div class="paragraph">
+<p>Убедитесь в том, что можете решать задачи с использованием множеств и/или ассоциативных массивов уверенно и без посторонней помощи.
+Рекомендуется ориентироваться на сумму в 8-9 баллов за этот урок и общую сумму в 33 балла и выше за первые 5 уроков.
+После этого переходите к следующему разделу.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_дополнительное_чтение">Дополнительное чтение</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Википедия. "Динамическое программирование"</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-09-17 10:26:03 +0300
+</div>
+</div>
+</body>
+</html>

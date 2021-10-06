@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 2.0.16">
+<title>4. Списки</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
+<style>
+/*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
+/* Uncomment the following line when using as a custom stylesheet */
+/* @import "https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700"; */
+html{font-family:sans-serif;-webkit-text-size-adjust:100%}
+a{background:none}
+a:focus{outline:thin dotted}
+a:active,a:hover{outline:0}
+h1{font-size:2em;margin:.67em 0}
+b,strong{font-weight:bold}
+abbr{font-size:.9em}
+abbr[title]{cursor:help;border-bottom:1px dotted #dddddf;text-decoration:none}
+dfn{font-style:italic}
+hr{height:0}
+mark{background:#ff0;color:#000}
+code,kbd,pre,samp{font-family:monospace;font-size:1em}
+pre{white-space:pre-wrap}
+q{quotes:"\201C" "\201D" "\2018" "\2019"}
+small{font-size:80%}
+sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}
+sup{top:-.5em}
+sub{bottom:-.25em}
+img{border:0}
+svg:not(:root){overflow:hidden}
+figure{margin:0}
+audio,video{display:inline-block}
+audio:not([controls]){display:none;height:0}
+fieldset{border:1px solid silver;margin:0 2px;padding:.35em .625em .75em}
+legend{border:0;padding:0}
+button,input,select,textarea{font-family:inherit;font-size:100%;margin:0}
+button,input{line-height:normal}
+button,select{text-transform:none}
+button,html input[type=button],input[type=reset],input[type=submit]{-webkit-appearance:button;cursor:pointer}
+button[disabled],html input[disabled]{cursor:default}
+input[type=checkbox],input[type=radio]{padding:0}
+button::-moz-focus-inner,input::-moz-focus-inner{border:0;padding:0}
+textarea{overflow:auto;vertical-align:top}
+table{border-collapse:collapse;border-spacing:0}
+*,::before,::after{box-sizing:border-box}
+html,body{font-size:100%}
+body{background:#fff;color:rgba(0,0,0,.8);padding:0;margin:0;font-family:"Noto Serif","DejaVu Serif",serif;line-height:1;position:relative;cursor:auto;-moz-tab-size:4;-o-tab-size:4;tab-size:4;word-wrap:anywhere;-moz-osx-font-smoothing:grayscale;-webkit-font-smoothing:antialiased}
+a:hover{cursor:pointer}
+img,object,embed{max-width:100%;height:auto}
+object,embed{height:100%}
+img{-ms-interpolation-mode:bicubic}
+.left{float:left!important}
+.right{float:right!important}
+.text-left{text-align:left!important}
+.text-right{text-align:right!important}
+.text-center{text-align:center!important}
+.text-justify{text-align:justify!important}
+.hide{display:none}
+img,object,svg{display:inline-block;vertical-align:middle}
+textarea{height:auto;min-height:50px}
+select{width:100%}
+.subheader,.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{line-height:1.45;color:#7a2518;font-weight:400;margin-top:0;margin-bottom:.25em}
+div,dl,dt,dd,ul,ol,li,h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6,pre,form,p,blockquote,th,td{margin:0;padding:0}
+a{color:#2156a5;text-decoration:underline;line-height:inherit}
+a:hover,a:focus{color:#1d4b8f}
+a img{border:0}
+p{line-height:1.6;margin-bottom:1.25em;text-rendering:optimizeLegibility}
+p aside{font-size:.875em;line-height:1.35;font-style:italic}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{font-family:"Open Sans","DejaVu Sans",sans-serif;font-weight:300;font-style:normal;color:#ba3925;text-rendering:optimizeLegibility;margin-top:1em;margin-bottom:.5em;line-height:1.0125em}
+h1 small,h2 small,h3 small,#toctitle small,.sidebarblock>.content>.title small,h4 small,h5 small,h6 small{font-size:60%;color:#e99b8f;line-height:0}
+h1{font-size:2.125em}
+h2{font-size:1.6875em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.375em}
+h4,h5{font-size:1.125em}
+h6{font-size:1em}
+hr{border:solid #dddddf;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em}
+em,i{font-style:italic;line-height:inherit}
+strong,b{font-weight:bold;line-height:inherit}
+small{font-size:60%;line-height:inherit}
+code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+ul,ol,dl{line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
+ul,ol{margin-left:1.5em}
+ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0}
+ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
+ul.square{list-style-type:square}
+ul.circle{list-style-type:circle}
+ul.disc{list-style-type:disc}
+ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
+dl dt{margin-bottom:.3125em;font-weight:bold}
+dl dd{margin-bottom:1.25em}
+blockquote{margin:0 0 1.25em;padding:.5625em 1.25em 0 1.1875em;border-left:1px solid #ddd}
+blockquote,blockquote p{line-height:1.6;color:rgba(0,0,0,.85)}
+@media screen and (min-width:768px){h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2}
+h1{font-size:2.75em}
+h2{font-size:2.3125em}
+h3,#toctitle,.sidebarblock>.content>.title{font-size:1.6875em}
+h4{font-size:1.4375em}}
+table{background:#fff;margin-bottom:1.25em;border:1px solid #dedede;word-wrap:normal}
+table thead,table tfoot{background:#f7f8f7}
+table thead tr th,table thead tr td,table tfoot tr th,table tfoot tr td{padding:.5em .625em .625em;font-size:inherit;color:rgba(0,0,0,.8);text-align:left}
+table tr th,table tr td{padding:.5625em .625em;font-size:inherit;color:rgba(0,0,0,.8)}
+table tr.even,table tr.alt{background:#f8f8f7}
+table thead tr th,table tfoot tr th,table tbody tr td,table tr td,table tfoot tr td{line-height:1.6}
+h1,h2,h3,#toctitle,.sidebarblock>.content>.title,h4,h5,h6{line-height:1.2;word-spacing:-.05em}
+h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title strong,h4 strong,h5 strong,h6 strong{font-weight:400}
+.center{margin-left:auto;margin-right:auto}
+.stretch{width:100%}
+.clearfix::before,.clearfix::after,.float-group::before,.float-group::after{content:" ";display:table}
+.clearfix::after,.float-group::after{clear:both}
+:not(pre).nobreak{word-wrap:normal}
+:not(pre).nowrap{white-space:nowrap}
+:not(pre).pre-wrap{white-space:pre-wrap}
+:not(pre):not([class^=L])>code{font-size:.9375em;font-style:normal!important;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background:#f7f7f8;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
+pre{color:rgba(0,0,0,.9);font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;line-height:1.45;text-rendering:optimizeSpeed}
+pre code,pre pre{color:inherit;font-size:inherit;line-height:inherit}
+pre>code{display:block}
+pre.nowrap,pre.nowrap pre{white-space:pre;word-wrap:normal}
+em em{font-style:normal}
+strong strong{font-weight:400}
+.keyseq{color:rgba(51,51,51,.8)}
+kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background:#f7f7f7;border:1px solid #ccc;border-radius:3px;box-shadow:0 1px 0 rgba(0,0,0,.2),inset 0 0 0 .1em #fff;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
+.keyseq kbd:first-child{margin-left:0}
+.keyseq kbd:last-child{margin-right:0}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
+b.button::before,b.button::after{position:relative;top:-1px;font-weight:400}
+b.button::before{content:"[";padding:0 3px 0 2px}
+b.button::after{content:"]";padding:0 2px 0 3px}
+p a>code:hover{color:rgba(0,0,0,.9)}
+#header,#content,#footnotes,#footer{width:100%;margin:0 auto;max-width:62.5em;*zoom:1;position:relative;padding-left:.9375em;padding-right:.9375em}
+#header::before,#header::after,#content::before,#content::after,#footnotes::before,#footnotes::after,#footer::before,#footer::after{content:" ";display:table}
+#header::after,#content::after,#footnotes::after,#footer::after{clear:both}
+#content{margin-top:1.25em}
+#content::before{content:none}
+#header>h1:first-child{color:rgba(0,0,0,.85);margin-top:2.25rem;margin-bottom:0}
+#header>h1:first-child+#toc{margin-top:8px;border-top:1px solid #dddddf}
+#header>h1:only-child,body.toc2 #header>h1:nth-last-child(2){border-bottom:1px solid #dddddf;padding-bottom:8px}
+#header .details{border-bottom:1px solid #dddddf;line-height:1.45;padding-top:.25em;padding-bottom:.25em;padding-left:.25em;color:rgba(0,0,0,.6);display:flex;flex-flow:row wrap}
+#header .details span:first-child{margin-left:-.125em}
+#header .details span.email a{color:rgba(0,0,0,.85)}
+#header .details br{display:none}
+#header .details br+span::before{content:"\00a0\2013\00a0"}
+#header .details br+span.author::before{content:"\00a0\22c5\00a0";color:rgba(0,0,0,.85)}
+#header .details br+span#revremark::before{content:"\00a0|\00a0"}
+#header #revnumber{text-transform:capitalize}
+#header #revnumber::after{content:"\00a0"}
+#content>h1:first-child:not([class]){color:rgba(0,0,0,.85);border-bottom:1px solid #dddddf;padding-bottom:8px;margin-top:0;padding-top:1rem;margin-bottom:1.25rem}
+#toc{border-bottom:1px solid #e7e7e9;padding-bottom:.5em}
+#toc>ul{margin-left:.125em}
+#toc ul.sectlevel0>li>a{font-style:italic}
+#toc ul.sectlevel0 ul.sectlevel1{margin:.5em 0}
+#toc ul{font-family:"Open Sans","DejaVu Sans",sans-serif;list-style-type:none}
+#toc li{line-height:1.3334;margin-top:.3334em}
+#toc a{text-decoration:none}
+#toc a:active{text-decoration:underline}
+#toctitle{color:#7a2518;font-size:1.2em}
+@media screen and (min-width:768px){#toctitle{font-size:1.375em}
+body.toc2{padding-left:15em;padding-right:0}
+#toc.toc2{margin-top:0!important;background:#f8f8f7;position:fixed;width:15em;left:0;top:0;border-right:1px solid #e7e7e9;border-top-width:0!important;border-bottom-width:0!important;z-index:1000;padding:1.25em 1em;height:100%;overflow:auto}
+#toc.toc2 #toctitle{margin-top:0;margin-bottom:.8rem;font-size:1.2em}
+#toc.toc2>ul{font-size:.9em;margin-bottom:0}
+#toc.toc2 ul ul{margin-left:0;padding-left:1em}
+#toc.toc2 ul.sectlevel0 ul.sectlevel1{padding-left:0;margin-top:.5em;margin-bottom:.5em}
+body.toc2.toc-right{padding-left:0;padding-right:15em}
+body.toc2.toc-right #toc.toc2{border-right-width:0;border-left:1px solid #e7e7e9;left:auto;right:0}}
+@media screen and (min-width:1280px){body.toc2{padding-left:20em;padding-right:0}
+#toc.toc2{width:20em}
+#toc.toc2 #toctitle{font-size:1.375em}
+#toc.toc2>ul{font-size:.95em}
+#toc.toc2 ul ul{padding-left:1.25em}
+body.toc2.toc-right{padding-left:0;padding-right:20em}}
+#content #toc{border:1px solid #e0e0dc;margin-bottom:1.25em;padding:1.25em;background:#f8f8f7;border-radius:4px}
+#content #toc>:first-child{margin-top:0}
+#content #toc>:last-child{margin-bottom:0}
+#footer{max-width:none;background:rgba(0,0,0,.8);padding:1.25em}
+#footer-text{color:hsla(0,0%,100%,.8);line-height:1.44}
+#content{margin-bottom:.625em}
+.sect1{padding-bottom:.625em}
+@media screen and (min-width:768px){#content{margin-bottom:1.25em}
+.sect1{padding-bottom:1.25em}}
+.sect1:last-child{padding-bottom:0}
+.sect1+.sect1{border-top:1px solid #e7e7e9}
+#content h1>a.anchor,h2>a.anchor,h3>a.anchor,#toctitle>a.anchor,.sidebarblock>.content>.title>a.anchor,h4>a.anchor,h5>a.anchor,h6>a.anchor{position:absolute;z-index:1001;width:1.5ex;margin-left:-1.5ex;display:block;text-decoration:none!important;visibility:hidden;text-align:center;font-weight:400}
+#content h1>a.anchor::before,h2>a.anchor::before,h3>a.anchor::before,#toctitle>a.anchor::before,.sidebarblock>.content>.title>a.anchor::before,h4>a.anchor::before,h5>a.anchor::before,h6>a.anchor::before{content:"\00A7";font-size:.85em;display:block;padding-top:.1em}
+#content h1:hover>a.anchor,#content h1>a.anchor:hover,h2:hover>a.anchor,h2>a.anchor:hover,h3:hover>a.anchor,#toctitle:hover>a.anchor,.sidebarblock>.content>.title:hover>a.anchor,h3>a.anchor:hover,#toctitle>a.anchor:hover,.sidebarblock>.content>.title>a.anchor:hover,h4:hover>a.anchor,h4>a.anchor:hover,h5:hover>a.anchor,h5>a.anchor:hover,h6:hover>a.anchor,h6>a.anchor:hover{visibility:visible}
+#content h1>a.link,h2>a.link,h3>a.link,#toctitle>a.link,.sidebarblock>.content>.title>a.link,h4>a.link,h5>a.link,h6>a.link{color:#ba3925;text-decoration:none}
+#content h1>a.link:hover,h2>a.link:hover,h3>a.link:hover,#toctitle>a.link:hover,.sidebarblock>.content>.title>a.link:hover,h4>a.link:hover,h5>a.link:hover,h6>a.link:hover{color:#a53221}
+details,.audioblock,.imageblock,.literalblock,.listingblock,.stemblock,.videoblock{margin-bottom:1.25em}
+details{margin-left:1.25rem}
+details>summary{cursor:pointer;display:block;position:relative;line-height:1.6;margin-bottom:.625rem;-webkit-tap-highlight-color:transparent}
+details>summary::before{content:"";border:solid transparent;border-left:solid;border-width:.3em 0 .3em .5em;position:absolute;top:.5em;left:-1.25rem;transform:translateX(15%)}
+details[open]>summary::before{border:solid transparent;border-top:solid;border-width:.5em .3em 0;transform:translateY(15%)}
+details>summary::after{content:"";width:1.25rem;height:1em;position:absolute;top:.3em;left:-1.25rem}
+.admonitionblock td.content>.title,.audioblock>.title,.exampleblock>.title,.imageblock>.title,.listingblock>.title,.literalblock>.title,.stemblock>.title,.openblock>.title,.paragraph>.title,.quoteblock>.title,table.tableblock>.title,.verseblock>.title,.videoblock>.title,.dlist>.title,.olist>.title,.ulist>.title,.qlist>.title,.hdlist>.title{text-rendering:optimizeLegibility;text-align:left;font-family:"Noto Serif","DejaVu Serif",serif;font-size:1rem;font-style:italic}
+table.tableblock.fit-content>caption.title{white-space:nowrap;width:0}
+.paragraph.lead>p,#preamble>.sectionbody>[class=paragraph]:first-of-type p{font-size:1.21875em;line-height:1.6;color:rgba(0,0,0,.85)}
+.admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
+.admonitionblock>table td.icon{text-align:center;width:80px}
+.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
+.admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #dddddf;color:rgba(0,0,0,.6);word-wrap:anywhere}
+.admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
+.exampleblock>.content{border:1px solid #e6e6e6;margin-bottom:1.25em;padding:1.25em;background:#fff;border-radius:4px}
+.exampleblock>.content>:first-child{margin-top:0}
+.exampleblock>.content>:last-child{margin-bottom:0}
+.sidebarblock{border:1px solid #dbdbd6;margin-bottom:1.25em;padding:1.25em;background:#f3f3f2;border-radius:4px}
+.sidebarblock>:first-child{margin-top:0}
+.sidebarblock>:last-child{margin-bottom:0}
+.sidebarblock>.content>.title{color:#7a2518;margin-top:0;text-align:center}
+.exampleblock>.content>:last-child>:last-child,.exampleblock>.content .olist>ol>li:last-child>:last-child,.exampleblock>.content .ulist>ul>li:last-child>:last-child,.exampleblock>.content .qlist>ol>li:last-child>:last-child,.sidebarblock>.content>:last-child>:last-child,.sidebarblock>.content .olist>ol>li:last-child>:last-child,.sidebarblock>.content .ulist>ul>li:last-child>:last-child,.sidebarblock>.content .qlist>ol>li:last-child>:last-child{margin-bottom:0}
+.literalblock pre,.listingblock>.content>pre{border-radius:4px;overflow-x:auto;padding:1em;font-size:.8125em}
+@media screen and (min-width:768px){.literalblock pre,.listingblock>.content>pre{font-size:.90625em}}
+@media screen and (min-width:1280px){.literalblock pre,.listingblock>.content>pre{font-size:1em}}
+.literalblock pre,.listingblock>.content>pre:not(.highlight),.listingblock>.content>pre[class=highlight],.listingblock>.content>pre[class^="highlight "]{background:#f7f7f8}
+.literalblock.output pre{color:#f7f7f8;background:rgba(0,0,0,.9)}
+.listingblock>.content{position:relative}
+.listingblock code[data-lang]::before{display:none;content:attr(data-lang);position:absolute;font-size:.75em;top:.425rem;right:.5rem;line-height:1;text-transform:uppercase;color:inherit;opacity:.5}
+.listingblock:hover code[data-lang]::before{display:block}
+.listingblock.terminal pre .command::before{content:attr(data-prompt);padding-right:.5em;color:inherit;opacity:.5}
+.listingblock.terminal pre .command:not([data-prompt])::before{content:"$"}
+.listingblock pre.highlightjs{padding:0}
+.listingblock pre.highlightjs>code{padding:1em;border-radius:4px}
+.listingblock pre.prettyprint{border-width:0}
+.prettyprint{background:#f7f7f8}
+pre.prettyprint .linenums{line-height:1.45;margin-left:2em}
+pre.prettyprint li{background:none;list-style-type:inherit;padding-left:0}
+pre.prettyprint li code[data-lang]::before{opacity:1}
+pre.prettyprint li:not(:first-child) code[data-lang]::before{display:none}
+table.linenotable{border-collapse:separate;border:0;margin-bottom:0;background:none}
+table.linenotable td[class]{color:inherit;vertical-align:top;padding:0;line-height:inherit;white-space:normal}
+table.linenotable td.code{padding-left:.75em}
+table.linenotable td.linenos{border-right:1px solid;opacity:.35;padding-right:.5em}
+pre.pygments .lineno{border-right:1px solid;opacity:.35;display:inline-block;margin-right:.75em}
+pre.pygments .lineno::before{content:"";margin-right:-.125em}
+.quoteblock{margin:0 1em 1.25em 1.5em;display:table}
+.quoteblock:not(.excerpt)>.title{margin-left:-1.5em;margin-bottom:.75em}
+.quoteblock blockquote,.quoteblock p{color:rgba(0,0,0,.85);font-size:1.15rem;line-height:1.75;word-spacing:.1em;letter-spacing:0;font-style:italic;text-align:justify}
+.quoteblock blockquote{margin:0;padding:0;border:0}
+.quoteblock blockquote::before{content:"\201c";float:left;font-size:2.75em;font-weight:bold;line-height:.6em;margin-left:-.6em;color:#7a2518;text-shadow:0 1px 2px rgba(0,0,0,.1)}
+.quoteblock blockquote>.paragraph:last-child p{margin-bottom:0}
+.quoteblock .attribution{margin-top:.75em;margin-right:.5ex;text-align:right}
+.verseblock{margin:0 1em 1.25em}
+.verseblock pre{font-family:"Open Sans","DejaVu Sans",sans-serif;font-size:1.15rem;color:rgba(0,0,0,.85);font-weight:300;text-rendering:optimizeLegibility}
+.verseblock pre strong{font-weight:400}
+.verseblock .attribution{margin-top:1.25rem;margin-left:.5ex}
+.quoteblock .attribution,.verseblock .attribution{font-size:.9375em;line-height:1.45;font-style:italic}
+.quoteblock .attribution br,.verseblock .attribution br{display:none}
+.quoteblock .attribution cite,.verseblock .attribution cite{display:block;letter-spacing:-.025em;color:rgba(0,0,0,.6)}
+.quoteblock.abstract blockquote::before,.quoteblock.excerpt blockquote::before,.quoteblock .quoteblock blockquote::before{display:none}
+.quoteblock.abstract blockquote,.quoteblock.abstract p,.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{line-height:1.6;word-spacing:0}
+.quoteblock.abstract{margin:0 1em 1.25em;display:block}
+.quoteblock.abstract>.title{margin:0 0 .375em;font-size:1.15em;text-align:center}
+.quoteblock.excerpt>blockquote,.quoteblock .quoteblock{padding:0 0 .25em 1em;border-left:.25em solid #dddddf}
+.quoteblock.excerpt,.quoteblock .quoteblock{margin-left:0}
+.quoteblock.excerpt blockquote,.quoteblock.excerpt p,.quoteblock .quoteblock blockquote,.quoteblock .quoteblock p{color:inherit;font-size:1.0625rem}
+.quoteblock.excerpt .attribution,.quoteblock .quoteblock .attribution{color:inherit;font-size:.85rem;text-align:left;margin-right:0}
+p.tableblock:last-child{margin-bottom:0}
+td.tableblock>.content{margin-bottom:1.25em;word-wrap:anywhere}
+td.tableblock>.content>:last-child{margin-bottom:-1.25em}
+table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
+table.grid-all>*>tr>*{border-width:1px}
+table.grid-cols>*>tr>*{border-width:0 1px}
+table.grid-rows>*>tr>*{border-width:1px 0}
+table.frame-all{border-width:1px}
+table.frame-ends{border-width:1px 0}
+table.frame-sides{border-width:0 1px}
+table.frame-none>colgroup+*>:first-child>*,table.frame-sides>colgroup+*>:first-child>*{border-top-width:0}
+table.frame-none>:last-child>:last-child>*,table.frame-sides>:last-child>:last-child>*{border-bottom-width:0}
+table.frame-none>*>tr>:first-child,table.frame-ends>*>tr>:first-child{border-left-width:0}
+table.frame-none>*>tr>:last-child,table.frame-ends>*>tr>:last-child{border-right-width:0}
+table.stripes-all tr,table.stripes-odd tr:nth-of-type(odd),table.stripes-even tr:nth-of-type(even),table.stripes-hover tr:hover{background:#f8f8f7}
+th.halign-left,td.halign-left{text-align:left}
+th.halign-right,td.halign-right{text-align:right}
+th.halign-center,td.halign-center{text-align:center}
+th.valign-top,td.valign-top{vertical-align:top}
+th.valign-bottom,td.valign-bottom{vertical-align:bottom}
+th.valign-middle,td.valign-middle{vertical-align:middle}
+table thead th,table tfoot th{font-weight:bold}
+tbody tr th{background:#f7f8f7}
+tbody tr th,tbody tr th p,tfoot tr th,tfoot tr th p{color:rgba(0,0,0,.8);font-weight:bold}
+p.tableblock>code:only-child{background:none;padding:0}
+p.tableblock{font-size:1em}
+ol{margin-left:1.75em}
+ul li ol{margin-left:1.5em}
+dl dd{margin-left:1.125em}
+dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
+ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist>li>p:first-child{margin-left:-1em}
+ul.checklist>li>p:first-child>.fa-square-o:first-child,ul.checklist>li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist>li>p:first-child>input[type=checkbox]:first-child{margin-right:.25em}
+ul.inline{display:flex;flex-flow:row wrap;list-style:none;margin:0 0 .625em -1.25em}
+ul.inline>li{margin-left:1.25em}
+.unstyled dl dt{font-weight:400;font-style:normal}
+ol.arabic{list-style-type:decimal}
+ol.decimal{list-style-type:decimal-leading-zero}
+ol.loweralpha{list-style-type:lower-alpha}
+ol.upperalpha{list-style-type:upper-alpha}
+ol.lowerroman{list-style-type:lower-roman}
+ol.upperroman{list-style-type:upper-roman}
+ol.lowergreek{list-style-type:lower-greek}
+.hdlist>table,.colist>table{border:0;background:none}
+.hdlist>table>tbody>tr,.colist>table>tbody>tr{background:none}
+td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
+td.hdlist1{font-weight:bold;padding-bottom:1.25em}
+td.hdlist2{word-wrap:anywhere}
+.literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
+.colist td:not([class]):first-child{padding:.4em .75em 0;line-height:1;vertical-align:top}
+.colist td:not([class]):first-child img{max-width:none}
+.colist td:not([class]):last-child{padding:.25em 0}
+.thumb,.th{line-height:0;display:inline-block;border:4px solid #fff;box-shadow:0 0 0 1px #ddd}
+.imageblock.left{margin:.25em .625em 1.25em 0}
+.imageblock.right{margin:.25em 0 1.25em .625em}
+.imageblock>.title{margin-bottom:0}
+.imageblock.thumb,.imageblock.th{border-width:6px}
+.imageblock.thumb>.title,.imageblock.th>.title{padding:0 .125em}
+.image.left,.image.right{margin-top:.25em;margin-bottom:.25em;display:inline-block;line-height:0}
+.image.left{margin-right:.625em}
+.image.right{margin-left:.625em}
+a.image{text-decoration:none;display:inline-block}
+a.image object{pointer-events:none}
+sup.footnote,sup.footnoteref{font-size:.875em;position:static;vertical-align:super}
+sup.footnote a,sup.footnoteref a{text-decoration:none}
+sup.footnote a:active,sup.footnoteref a:active{text-decoration:underline}
+#footnotes{padding-top:.75em;padding-bottom:.75em;margin-bottom:.625em}
+#footnotes hr{width:20%;min-width:6.25em;margin:-.25em 0 .75em;border-width:1px 0 0}
+#footnotes .footnote{padding:0 .375em 0 .225em;line-height:1.3334;font-size:.875em;margin-left:1.2em;margin-bottom:.2em}
+#footnotes .footnote a:first-of-type{font-weight:bold;text-decoration:none;margin-left:-1.05em}
+#footnotes .footnote:last-of-type{margin-bottom:0}
+#content #footnotes{margin-top:-.625em;margin-bottom:0;padding:.75em 0}
+.gist .file-data>table{border:0;background:#fff;width:100%;margin-bottom:0}
+.gist .file-data>table td.line-data{width:99%}
+div.unbreakable{page-break-inside:avoid}
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background:#00fafa}
+.black{color:#000}
+.black-background{background:#000}
+.blue{color:#0000bf}
+.blue-background{background:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background:#fa00fa}
+.gray{color:#606060}
+.gray-background{background:#7d7d7d}
+.green{color:#006000}
+.green-background{background:#007d00}
+.lime{color:#00bf00}
+.lime-background{background:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background:#7d0000}
+.navy{color:#000060}
+.navy-background{background:#00007d}
+.olive{color:#606000}
+.olive-background{background:#7d7d00}
+.purple{color:#600060}
+.purple-background{background:#7d007d}
+.red{color:#bf0000}
+.red-background{background:#fa0000}
+.silver{color:#909090}
+.silver-background{background:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background:#fafa00}
+span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
+.admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
+.admonitionblock td.icon .icon-note::before{content:"\f05a";color:#19407c}
+.admonitionblock td.icon .icon-tip::before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
+.admonitionblock td.icon .icon-warning::before{content:"\f071";color:#bf6900}
+.admonitionblock td.icon .icon-caution::before{content:"\f06d";color:#bf3400}
+.admonitionblock td.icon .icon-important::before{content:"\f06a";color:#bf0000}
+.conum[data-value]{display:inline-block;color:#fff!important;background:rgba(0,0,0,.8);border-radius:50%;text-align:center;font-size:.75em;width:1.67em;height:1.67em;line-height:1.67em;font-family:"Open Sans","DejaVu Sans",sans-serif;font-style:normal;font-weight:bold}
+.conum[data-value] *{color:#fff!important}
+.conum[data-value]+b{display:none}
+.conum[data-value]::after{content:attr(data-value)}
+pre .conum[data-value]{position:relative;top:-.125em}
+b.conum *{color:inherit!important}
+.conum:not([data-value]):empty{display:none}
+dt,th.tableblock,td.content,div.footnote{text-rendering:optimizeLegibility}
+h1,h2,p,td.content,span.alt,summary{letter-spacing:-.01em}
+p strong,td.content strong,div.footnote strong{letter-spacing:-.005em}
+p,blockquote,dt,td.content,span.alt,summary{font-size:1.0625rem}
+p{margin-bottom:1.25rem}
+.sidebarblock p,.sidebarblock dt,.sidebarblock td.content,p.tableblock{font-size:1em}
+.exampleblock>.content{background:#fffef7;border-color:#e0e0dc;box-shadow:0 1px 4px #e0e0dc}
+.print-only{display:none!important}
+@page{margin:1.25cm .75cm}
+@media print{*{box-shadow:none!important;text-shadow:none!important}
+html{font-size:80%}
+a{color:inherit!important;text-decoration:underline!important}
+a.bare,a[href^="#"],a[href^="mailto:"]{text-decoration:none!important}
+a[href^="http:"]:not(.bare)::after,a[href^="https:"]:not(.bare)::after{content:"(" attr(href) ")";display:inline-block;font-size:.875em;padding-left:.25em}
+abbr[title]{border-bottom:1px dotted}
+abbr[title]::after{content:" (" attr(title) ")"}
+pre,blockquote,tr,img,object,svg{page-break-inside:avoid}
+thead{display:table-header-group}
+svg{max-width:100%}
+p,blockquote,dt,td.content{font-size:1em;orphans:3;widows:3}
+h2,h3,#toctitle,.sidebarblock>.content>.title{page-break-after:avoid}
+#header,#content,#footnotes,#footer{max-width:none}
+#toc,.sidebarblock,.exampleblock>.content{background:none!important}
+#toc{border-bottom:1px solid #dddddf!important;padding-bottom:0!important}
+body.book #header{text-align:center}
+body.book #header>h1:first-child{border:0!important;margin:2.5em 0 1em}
+body.book #header .details{border:0!important;display:block;padding:0!important}
+body.book #header .details span:first-child{margin-left:0!important}
+body.book #header .details br{display:block}
+body.book #header .details br+span::before{content:none!important}
+body.book #toc{border:0!important;text-align:left!important;padding:0!important;margin:0!important}
+body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-break-before:always}
+.listingblock code[data-lang]::before{display:block}
+#footer{padding:0 .9375em}
+.hide-on-print{display:none!important}
+.print-only{display:block!important}
+.hide-for-print{display:none!important}
+.show-for-print{display:inherit!important}}
+@media amzn-kf8,print{#header>h1:first-child{margin-top:1.25rem}
+.sect1{padding:0!important}
+.sect1+.sect1{border:0}
+#footer{background:none}
+#footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
+@media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
+</style>
+</head>
+<body class="article">
+<div id="header">
+<h1>4. Списки</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="_введение">Введение</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Начиная с этого раздела мы переходим к изучению составных типов данных, включающих в себя несколько элементов простых типов.
+Такие типы очень часто необходимы в программировании.
+Вспомним, например, задачу про поиск минимального корня биквадратного уравнения ax<sup>4</sup> + bx<sup>2</sup> + c = 0 из урока 2.
+В гораздо более распространённой формулировке она выглядела бы так: найти ВСЕ корни биквадратного уравнения.</p>
+</div>
+<div class="paragraph">
+<p>Можно ли написать функцию, которая эту задачу решит?
+Конечно, да, но результатом подобной функции должен быть <em>список</em> найденных корней биквадратного уравнения.
+<em>Список</em>&#8201;&#8212;&#8201;это и есть один из очень распространённых составных типов со следующими свойствами:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>список может включать в себя произвольное количество <em>элементов</em> (от нуля до бесконечности);</p>
+</li>
+<li>
+<p>количество элементов в списке называется его размером;</p>
+</li>
+<li>
+<p>все элементы списка имеют один и тот же тип (в свою очередь, этот тип может быть простым&#8201;&#8212;&#8201;список вещественных чисел, или составным&#8201;&#8212;&#8201;список строк, или список списков целых чисел, или любые другие варианты);</p>
+</li>
+<li>
+<p>в остальном элементы списка независимы друг от друга.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Рассмотрим решение задачи о поиске корней биквадратного уравнения на Котлине:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun biRoots(a: Double, b: Double, c: Double): List&lt;Double&gt; {
+    if (a == 0.0) {
+        if (b == 0.0) return listOf()
+        val bc = -c / b
+        if (bc &lt; 0.0) return listOf()
+        val root = sqrt(bc)
+        return if (root == 0.0) listOf(root) else listOf(-root, root)
+    }
+    val d = discriminant(a, b, c)
+    if (d &lt; 0.0) return listOf()
+    val y1 = (-b + sqrt(d)) / (2 * a)
+    val y2 = (-b - sqrt(d)) / (2 * a)
+    // part1: List&lt;Double&gt;
+    val part1 = if (y1 &lt; 0) listOf() else if (y1 == 0.0) listOf(0.0) else {
+        val x1 = sqrt(y1)
+        listOf(-x1, x1)
+    }
+    // part2: List&lt;Double&gt;
+    val part2 = if (y2 &lt; 0) listOf() else if (y2 == 0.0) listOf(0.0) else {
+        val x2 = sqrt(y2)
+        listOf(-x2, x2)
+    }
+    return part1 + part2
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Данное решение построено по алгоритму, приведённому в конце второго урока,
+с той лишь разницей, что здесь мы ищем все имеющиеся корни:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Первый <strong>if</strong> рассматривает тривиальный случай a = 0 и более простое уравнение bx<sup>2</sup> = -c. Оно либо не имеет корней (с / b &gt; 0), либо имеет один корень 0 (c / b = 0), либо два корня (c / b &lt; 0).</p>
+</li>
+<li>
+<p>Затем мы делаем замену y = x<sup>2</sup> и считаем дискриминант d = b<sup>2</sup> - 4ac. Если он отрицателен, уравнение не имеет корней.</p>
+</li>
+<li>
+<p>Если дискриминант равен 0, уравнение ay<sup>2</sup> + by + c = 0 имеет один корень. В зависимости от его знака, биквадратное уравнение либо не имеет корней, либо имеет один корень 0, либо имеет два корня.</p>
+</li>
+<li>
+<p>В противном случае дискриминант положителен и уравнение ay<sup>2</sup> + by + c = 0 имеет два корня. Каждый из них, в зависимости от его знака, превращается в ноль, один или два корней биквадратного уравнения.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Посмотрите на тип результата функции <code>biRoots</code>&#8201;&#8212;&#8201;он указан как <code>List&lt;Double&gt;</code>.
+<code>List</code> в Котлине&#8201;&#8212;&#8201;это и есть список.
+В угловых скобках <code>&lt;&gt;</code> указывается так называемый <em>типовой аргумент</em>&#8201;&#8212;&#8201;тип элементов списка,
+ то есть <code>List&lt;Double&gt;</code> вместе&#8201;&#8212;&#8201;это список вещественных чисел.</p>
+</div>
+<div class="paragraph">
+<p>Для создания списков, удобно использовать функцию <code>listOf()</code>.
+Аргументы этой функции&#8201;&#8212;&#8201;это элементы создаваемого списка, их может быть произвольное количество, в том числе 0.
+В ряде случаев, когда биквадратное уравнение не имеет корней, функция <code>biRoots</code> возвращает пустой список результатов.</p>
+</div>
+<div class="paragraph">
+<p>В последнем, самом сложном случае, когда уравнение ay<sup>2</sup> + by + c = 0 имеет два корня y<sub>1</sub> и y<sub>2</sub>,
+мы формируем решения уравнений x<sup>2</sup> = y<sub>1</sub> и x<sup>2</sup> = y<sub>2</sub> в виде списков part1 и part2.
+Обе эти промежуточные переменные имеют тип <code>List&lt;Double&gt;</code>&#8201;&#8212;&#8201;в этом можно убедиться в IDE, поставив на них курсор ввода и нажав комбинацию клавиш <code>Ctrl+Q</code>.
+В последнем операторе <strong>return</strong> мы <strong>складываем</strong> два этих списка друг с другом: <code>return part1 + part2</code>,
+образуя таким образом третий список, содержащий в себе все элементы двух предыдущих.</p>
+</div>
+<div class="paragraph">
+<p>Функцию <code>biRoots</code> можно несколько упростить, обратив внимание на то,
+что мы в ней <strong>четыре</strong> раза решаем одну и ту же задачу: поиск корней уравнения x<sup>2</sup> = y.
+Для программиста такая ситуация должна сразу превращаться в сигнал&#8201;&#8212;&#8201;<strong>следует</strong> написать для решения этой задачи отдельную, более простую функцию:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun sqRoots(y: Double) =
+        if (y &lt; 0) listOf()
+        else if (y == 0.0) listOf(0.0)
+        else {
+            val root = sqrt(y)
+            // Результат!
+            listOf(-root, root)
+        }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Посмотрите внимательнее на оператор <strong>if..else if..else</strong>.
+Первые две его ветки формируют результат сразу же, используя <code>listOf()</code> и <code>listOf(0.0)</code>.
+А вот ветка <strong>else</strong> вначале создаёт промежуточную переменную <code>root</code> и уже потом формирует результат <code>listOf(-root, root)</code>.
+Запомните: результат ветки в таких случаях формирует <strong>последний</strong> её оператор.</p>
+</div>
+<div class="paragraph">
+<p>Эту же функцию можно переписать с использованием оператора <strong>when</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun sqRoots(y: Double) =
+        when {
+            y &lt; 0 -&gt; listOf()
+            y == 0.0 -&gt; listOf(0.0)
+            else -&gt; {
+                val root = sqrt(y)
+                // Результат!
+                listOf(-root, root)
+            }
+        }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>С использованием <code>sqRoots</code> функция <code>biRoots</code> примет следующий вид:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun biRoots(a: Double, b: Double, c: Double): List&lt;Double&gt; {
+    if (a == 0.0) {
+        return if (b == 0.0) listOf()
+        else sqRoots(-c / b)
+    }
+    val d = discriminant(a, b, c)
+    if (d &lt; 0.0) return listOf()
+    if (d == 0.0) return sqRoots(-b / (2 * a))
+    val y1 = (-b + sqrt(d)) / (2 * a)
+    val y2 = (-b - sqrt(d)) / (2 * a)
+    return sqRoots(y1) + sqRoots(y2)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Из исходных 24 строчек осталось только 11, да и понимание текста функции стало существенно проще.</p>
+</div>
+<div class="paragraph">
+<p>Напишем теперь тестовую функцию для проверки работы функции <code>biRoots</code>.
+Для этой цели последовательно решим с её помощью следующие уравнения:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>0x<sup>4</sup> + 0x<sup>2</sup> + 1 = 0 (корней нет)</p>
+</li>
+<li>
+<p>0x<sup>4</sup> + 1x<sup>2</sup> + 2 = 0 (корней нет)</p>
+</li>
+<li>
+<p>0x<sup>4</sup> + 1x<sup>2</sup> - 4 = 0 (корни -2, 2)</p>
+</li>
+<li>
+<p>1x<sup>4</sup> - 2x<sup>2</sup> + 4 = 0 (корней нет)</p>
+</li>
+<li>
+<p>1x<sup>4</sup> - 2x<sup>2</sup> + 1 = 0 (корни -1, 1)</p>
+</li>
+<li>
+<p>1x<sup>4</sup> + 3x<sup>2</sup> + 2 = 0 (корней нет)</p>
+</li>
+<li>
+<p>1x<sup>4</sup> - 5x<sup>2</sup> + 4 = 0 (корни -2, -1, 1, 2)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun biRoots() {
+    assertEquals(listOf&lt;Double&gt;(), biRoots(0.0, 0.0, 1.0))
+    assertEquals(listOf&lt;Double&gt;(), biRoots(0.0, 1.0, 2.0))
+    assertEquals(listOf(-2.0, 2.0), biRoots(0.0, 1.0, -4.0))
+    assertEquals(listOf&lt;Double&gt;(), biRoots(1.0, -2.0, 4.0))
+    assertEquals(listOf(-1.0, 1.0), biRoots(1.0, -2.0, 1.0))
+    assertEquals(listOf&lt;Double&gt;(), biRoots(1.0, 3.0, 2.0))
+    assertEquals(listOf(-2.0, -1.0, 1.0, 2.0), biRoots(1.0, -5.0, 4.0))
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Обратите внимание, что здесь мы используем запись <code>listOf&lt;Double&gt;()</code> для создания пустого списка.
+Дело в том, что для вызовов вроде <code>listOf(-2.0, 2.0)</code>
+тип элементов создаваемого списка понятен из аргументов функции&#8201;&#8212;&#8201;это <code>List&lt;Double&gt;</code>.
+А вот вызов <code>listOf()</code> без аргументов не даёт никакой информации о типе элементов списка,
+в то же время, например, пустой список строк и пустой список целых чисел&#8201;&#8212;&#8201;с точки зрения Котлина не одно и то же.</p>
+</div>
+<div class="paragraph">
+<p>Во многих случаях Котлин, тем не менее, может понять, о каком списке идёт речь.
+Например, функция <code>biRoots</code> имеет результат <code>List&lt;Double&gt;</code>,
+а значит, все списки, используемые в операторах <strong>return</strong>, должны иметь такой же тип.
+Случай с вызовом <code>assertEquals</code>, однако, не несёт достаточной информации, чтобы понять тип элементов,
+и мы вынуждены записать вызов функции более подробно&#8201;&#8212;&#8201;<code>listOf&lt;Double&gt;()</code>, указывая <em>типовой аргумент</em> <code>&lt;Double&gt;</code>
+<strong>между</strong> именем вызываемой функции и списком её аргументов в круглых скобках.</p>
+</div>
+<div class="paragraph">
+<p>Запустим теперь написанную тестовую функцию. Мы получим проваленный тест из-за последней проверки:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>org.opentest4j.AssertionFailedError: expected: &lt;[-2.0, -1.0, 1.0, 2.0]&gt; but was: &lt;[-2.0, 2.0, -1.0, 1.0]&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>То есть мы ожидали список корней -2, -1, 1, 2, а получили вместо этого -2, 2, -1, 1.
+Дело в том, что списки в Котлине считаются равными, если совпадают их размеры, и соответствующие элементы списков равны.
+Списки, состоящие из одних и тех же элементов, но на разных местах, считаются разными.</p>
+</div>
+<div class="paragraph">
+<p>В этом месте программист должен задуматься, а что, собственно, он хочет в точности от функции <code>biRoots</code>.
+Должны ли найденные корни быть упорядочены по возрастанию, или они могут присутствовать в списке в любом порядке?
+Если должны, то он должен исправить функцию <code>biRoots</code>, а если нет&#8201;&#8212;&#8201;то тестовую функцию,
+так как она требует от тестируемой функции больше, чем та по факту даёт.</p>
+</div>
+<div class="paragraph">
+<p>В обоих случаях нам придётся отсортировать список найденных корней перед сравнением.
+В Котлине это можно сделать, вызвав функцию <code>.sorted()</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun biRoots() {
+    // ...                                                               v
+    assertEquals(listOf(-2.0, -1.0, 1.0, 2.0), biRoots(1.0, -5.0, 4.0).sorted())
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В уроке 3 мы уже встречались с функциями с <em>получателем</em> <code>.toInt()</code> и <code>.toDouble()</code>.
+Функция <code>.sorted()</code> также требует наличия получателя: вызов <code>list.sorted()</code> создаёт список того же размера,
+что и исходный, но его элементы будут упорядочены по возрастанию.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_распространённые_операции_над_списками">Распространённые операции над списками</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Перечислим некоторые операции над списками, имеющиеся в библиотеке языка Котлин:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>listOf(&#8230;&#8203;)</code>&#8201;&#8212;&#8201;создание нового списка.</p>
+</li>
+<li>
+<p><code>list1 + list2</code>&#8201;&#8212;&#8201;сложение двух списков, сумма списков содержит все элементы их обоих.</p>
+</li>
+<li>
+<p><code>list + element</code>&#8201;&#8212;&#8201;сложение списка и элемента, сумма содержит все элементы <code>list</code> и дополнительно <code>element</code></p>
+</li>
+<li>
+<p><code>list.size</code>&#8201;&#8212;&#8201;получение размера списка (Int).</p>
+</li>
+<li>
+<p><code>list.isEmpty()</code>, <code>list.isNotEmpty()</code>&#8201;&#8212;&#8201;получение признаков пустоты и непустоты списка (Boolean).</p>
+</li>
+<li>
+<p><code>list[i]</code>&#8201;&#8212;&#8201;индексация, то есть получение <em>элемента</em> списка с целочисленным <em>индексом</em> (номером) <code>i</code>. По правилам Котлина, в списке из <code>n</code> элементов они имеют индексы, начинающиеся с нуля: 0, 1, 2, &#8230;&#8203;, последний элемент списка имеет индекс <code>n - 1</code>. То есть, при использовании записи <code>list[i]</code> должно быть справедливо <code>i &gt;= 0 &amp;&amp; i &lt; list.size</code>. В противном случае выполнение программы будет прервано с ошибкой (использование индекса за пределами границ списка).</p>
+</li>
+<li>
+<p><code>list.sublist(from, to)</code>&#8201;&#8212;&#8201;создание списка меньшего размера (подсписка), в который войдут элементы списка <code>list</code> с индексами <code>from</code>, <code>from + 1</code>, &#8230;&#8203;, <code>to - 2</code>, <code>to - 1</code>. Элемент с индексом <code>to</code> не включается.</p>
+</li>
+<li>
+<p><code>element in list</code>&#8201;&#8212;&#8201;проверка принадлежности элемента <code>element</code> списку <code>list</code>.</p>
+</li>
+<li>
+<p><code>for (element in list) { &#8230;&#8203; }</code>&#8201;&#8212;&#8201;цикл <strong>for</strong>, перебирающий все элементы списка <code>list</code>.</p>
+</li>
+<li>
+<p><code>list.first()</code>&#8201;&#8212;&#8201;получение первого элемента списка (если список пуст, выполнение программы будет прервано с ошибкой).</p>
+</li>
+<li>
+<p><code>list.last()</code>&#8201;&#8212;&#8201;получение последнего элемента списка (аналогично).</p>
+</li>
+<li>
+<p><code>list.indexOf(element)</code>&#8201;&#8212;&#8201;поиск индекса элемента <code>element</code> в списке <code>list</code>. Результат этой функции равен -1, если элемент в списке отсутствует. В противном случае при обращении к списку <code>list</code> по вычисленному индексу мы получим <code>element</code>.</p>
+</li>
+<li>
+<p><code>list.min()</code>, <code>list.max()</code>&#8201;&#8212;&#8201;поиск минимального и максимального элемента в списке.</p>
+</li>
+<li>
+<p><code>list.minOrNull()</code>, <code>list.maxOrNull()</code>&#8201;&#8212;&#8201;то же, но возвращает <code>null</code> для пустого списка.</p>
+</li>
+<li>
+<p><code>list.sum()</code>&#8201;&#8212;&#8201;сумма элементов в списке.</p>
+</li>
+<li>
+<p><code>list.sorted()</code>, <code>list.sortedDescending()</code>&#8201;&#8212;&#8201;построение отсортированного списка (по возрастанию или по убыванию) из имеющегося.</p>
+</li>
+<li>
+<p><code>list1 == list2</code>&#8201;&#8212;&#8201;сравнение двух списков на равенство. Списки равны, если равны их размеры и соответствующие элементы.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_мутирующие_списки">Мутирующие списки</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Мутирующий список</em> является разновидностью обычного, его тип определяется как <code>MutableList&lt;ElementType&gt;</code>.
+В дополнение к тем возможностям, которые есть у всех списков в Котлине,
+мутирующий список может изменяться по ходу выполнения программы или функции.
+Это означает, что мутирующий список позволяет:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Изменять своё содержимое операторами <code>list[i] = element</code>.</p>
+</li>
+<li>
+<p><strong>Добавлять</strong> элементы в конец списка, с увеличением размера на 1: <code>list.add(element)</code>.</p>
+</li>
+<li>
+<p><strong>Удалять</strong> элементы из списка, с уменьшением размера на 1 (если элемент был в списке): <code>list.remove(element)</code>.</p>
+</li>
+<li>
+<p><strong>Удалять</strong> элементы из списка по индексу, с уменьшением размера на 1: <code>list.removeAt(index)</code>.</p>
+</li>
+<li>
+<p><strong>Вставлять</strong> элементы в середину списка: <code>list.add(index, element)</code>&#8201;&#8212;&#8201;вставляет элемент <code>element</code> по индексу <code>index</code>, сдвигая все последующие элементы на 1, например <code>listOf(1, 2, 3).add(1, 7)</code> даст результат <code>[1, 7, 2, 3]</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Для создания мутирующего списка можно использовать функцию <code>mutableListOf(&#8230;&#8203;)</code>, аналогичную <code>listOf(&#8230;&#8203;)</code>.</p>
+</div>
+<div class="paragraph">
+<p>Рассмотрим пример. Пусть имеется исходный список целых чисел <code>list</code>.
+Требуется построить список, состоящий из его отрицательных элементов, порядок их в списке должен остаться прежним.
+Для этого требуется:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>создать пустой мутирующий список</p>
+</li>
+<li>
+<p>пройтись по всем элементам исходного списка и добавить их в мутирующий список, если они отрицательны</p>
+</li>
+<li>
+<p>вернуть заполненный мутирующий список</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun negativeList(list: List&lt;Int&gt;): List&lt;Int&gt; {
+    val result = mutableListOf&lt;Int&gt;()
+    for (element in list) {
+        if (element &lt; 0) {
+            result.add(element)
+        }
+    }
+    return result
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Здесь промежуточная переменная <code>result</code> имеет тип <code>MutableList&lt;Int&gt;</code>
+(убедитесь в этом в IDE с помощью комбинации <code>Ctrl+Q</code>).
+Несмотря на это, мы можем использовать её в операторе <strong>return</strong> функции с результатом <code>List&lt;Int&gt;</code>.
+Происходит это потому, что тип <code>MutableList&lt;Int&gt;</code> является разновидностью типа <code>List&lt;Int&gt;</code>, то есть,
+любой мутирующий список является также и просто списком (обратное неверно&#8201;&#8212;&#8201; не любой список является мутирующим).
+На языке математики это означает, что ОДЗ (область допустимых значений) типа <code>MutableList&lt;Int&gt;</code>
+является <strong>подмножеством</strong> ОДЗ типа <code>List&lt;Int&gt;</code>.</p>
+</div>
+<div class="paragraph">
+<p>В следующем примере функция принимает на вход уже <strong>мутирующий</strong> список целых чисел,
+и меняет в нём все положительные числа на противоположные по знаку:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun invertPositives(list: MutableList&lt;Int&gt;) {
+    for (i in 0 until list.size) {
+        val element = list[i]
+        if (element &gt; 0) {
+            list[i] = -element
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Функция <code>invertPositives</code> не имеет результата.
+Это ещё один пример функции с побочным эффектом, которые уже встречались нам в первом уроке.
+Единственный смысл вызова данной функции&#8201;&#8212;&#8201;это изменение мутирующего списка, переданного ей как аргумента.</p>
+</div>
+<div class="paragraph">
+<p>Обратите внимание на заголовок цикла <strong>for</strong>.
+Здесь мы вынуждены перебирать не элементы списка, а их индексы,
+причём запись <code>i in 0 until list.size</code> эквивалентна <code>i in 0..list.size - 1</code>
+(использование <code>until</code> несколько лучше, так как позволяет избежать лишнего вычитания единицы).
+Прямой перебор элементов списка в данном примере не проходит:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun invertPositives(list: MutableList&lt;Int&gt;) {
+    for (element in list) {
+        if (element &gt; 0) {
+            element = -element // Val cannot be reassigned
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Параметр цикла <strong>for</strong> является неизменяемым.
+Записать здесь <code>list[i] = -element</code> тоже не получится, так как индекс <code>i</code> нам неизвестен.
+Возможна, правда, вот такая, чуть более хитрая запись, перебирающая элементы и индексы одновременно:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun invertPositives(list: MutableList&lt;Int&gt;) {
+    for ((index, element) in list.withIndex()) {
+        if (element &gt; 0) {
+            list[index] = -element
+        }
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Использованная здесь функция <code>list.withIndex()</code> из исходного списка формирует другой список,
+содержащий  <em>пары</em> (индекс, элемент),
+а цикл <code>for((index, element) in &#8230;&#8203;)</code> перебирает параллельно и элементы и их индексы.
+О том, что такое <em>пара</em> и как ей пользоваться в Котлине, мы подробнее поговорим позже.</p>
+</div>
+<div class="paragraph">
+<p>В общем и целом, редко когда стоит пользоваться функциями, основной смысл которых заключается в изменении их параметров.
+Посмотрите, например, как выглядит тестовая функция для <code>invertPositives</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun invertPositives() {
+    val list1 = mutableListOf(1, 2, 3)
+    invertPositives(list1)
+    assertEquals(listOf(-1, -2, -3), list1)
+    val list2 = mutableListOf(-1, 2, 4, -5)
+    invertPositives(list2)
+    assertEquals(listOf(-1, -2, -4, -5), list2)
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Если ранее у нас одна проверка всегда занимала одну строку,
+то в этом примере она занимает три строки из-за необходимости создания промежуточных переменных <code>list1</code> и <code>list2</code>.
+Кроме этого, факт изменения <code>list1</code>, <code>list2</code> при вызове <code>invertPositives</code> склонен ускользать от внимания читателя,
+затрудняя понимание программы.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_функции_высшего_порядка_над_списками">Функции высшего порядка над списками</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Вернёмся ещё раз к задаче формирования списка из отрицательных чисел в исходном списке.
+На Котлине, данная задача допускает ещё и такое, очень короткое решение:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun negativeList(list: List&lt;Int&gt;) = list.filter { it &lt; 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Это короткое решение, однако, является довольно ёмким в плане его содержания. Попробуем в нём разобраться.</p>
+</div>
+<div class="paragraph">
+<p><code>list.filter</code>&#8201;&#8212;&#8201;это один из примеров так называемой <em>функции высшего порядка</em>.
+Суть функции <code>filter</code> в том, что она фильтрует содержимое списка-получателя.
+Её результатом также является список, содержащий все элементы списка-получателя, удовлетворяющие определённому условию.</p>
+</div>
+<div class="paragraph">
+<p>Как же она это делает и что такое вообще <em>функция высшего порядка</em>?
+Это тоже <em>функция</em>, которая, однако, принимает в качестве параметра <strong>другую функцию</strong>.
+Более подробная запись вызова <code>filter</code> выглядела бы так:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun negativeList(list: List&lt;Int&gt;) = list.filter(fun(it: Int) = it &lt; 0)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Функция-аргумент в данном случае должна иметь параметр <code>it</code> того же типа, что и элементы списка,
+и результат типа <code>Boolean</code>. В этой записи она отличается от обычной функции только отсутствием имени.
+Функция <code>filter</code> передаёт функции-аргументу каждый элемент списка.
+Если функция-аргумент вернула <code>true</code>, элемент помещается в список-результат, если <code>false</code>&#8201;&#8212;&#8201;он фильтруется.</p>
+</div>
+<div class="paragraph">
+<p>Более короткая запись <code>list.filter({ it &lt; 0 })</code> использует так называемую <em>лямбду</em> <code>{ it &lt; 0 }</code>
+в качестве аргумента функции <code>filter</code>.
+Этот краткий синтаксис не включает в себя не только имени функции, но и ключевого слова <strong>fun</strong>,
+а также явного указания имён и типов параметров.
+При этом предполагается, что:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>параметр называется <strong>it</strong>; если параметру хочется дать другое имя, лямбда записывается как, например, <code>{ element -&gt; element &lt; 0 }</code></p>
+</li>
+<li>
+<p>тип параметра&#8201;&#8212;&#8201;ровно тот, который требуется функции высшего порядка, для <code>filter</code> это тип элементов списка</p>
+</li>
+<li>
+<p>тип результата&#8201;&#8212;&#8201;опять-таки ровно тот, что требуется</p>
+</li>
+<li>
+<p>в фигурные скобки помещается блок, определяющий результат функции; в идеале он состоит из одного оператора, в данном случае это <code>it &lt; 0</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Наконец, в том случае, если <em>лямбда</em> является <strong>последним</strong> аргументом функции,
+при вызове функции разрешается вынести её за круглые скобки: <code>list.filter() { it &lt; 0 }</code>.
+Если других аргументов у функции нет, разрешается опустить в этой записи круглые скобки,
+получив запись из исходного примера: <code>list.filter { it &lt; 0 }</code></p>
+</div>
+<div class="paragraph">
+<p>Функции высшего порядка с первого взгляда могут показаться очень сложными,
+но реально это довольно простая вещь, позволяющая свести запись алгоритмов к более компактной.
+Рассмотрим другую типичную задачу: из имеющегося массива целых чисел сформировать другой массив,
+содержащий квадраты чисел первого массива.
+Задача решается в одну строчку с помощью функции высшего порядка <code>map</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun squares(list: List&lt;Int&gt;) = list.map { it * it }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>list.map</code> предназначена для преобразования списка <code>list</code> в другой список такого же размера,
+при этом над каждым элементом списка <code>list</code> выполняется преобразование, указанное в функции-аргументе <code>map</code>.
+Тип параметра функции-аргумента совпадает с типом элементов списка <code>list</code>,
+а вот тип результата может быть произвольным.
+Например, преобразование <code>list.map { "$it" }</code> создаст из списка чисел вида [0, 1, 2] список строк ["0", "1", "2"].</p>
+</div>
+<div class="paragraph">
+<p>Чуть более сложный пример: проверка числа на простоту.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun isPrime(n: Int) = n &gt;= 2 &amp;&amp; (2..n/2).all { n % it != 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Функция высшего порядка <code>all</code> в данном примере вызывается для получателя-интервала: <code>2..n/2</code>.
+Применима она и для списка, как и для любого другого объекта, элементы которого можно перебрать с помощью <strong>for</strong>.
+Функция <code>all</code> имеет логический результат и возвращает <strong>true</strong>,
+если функция-аргумент возвращает <strong>true</strong> для ВСЕХ элементов списка.
+Тип параметра функции-аргумента совпадает с типом элементов списка, тип результата&#8201;&#8212;&#8201;<code>Boolean</code>.
+Аналогично можно было бы применить функцию высшего порядка <code>any</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun isNotPrime(n: Int) = n &lt; 2 || (2..n/2).any { n % it == 0 }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Функция высшего порядка <code>any</code> возвращает <strong>true</strong>,
+если функция-аргумент возвращает <strong>true</strong> ХОТЯ БЫ для одного элемента списка.</p>
+</div>
+<div class="paragraph">
+<p>Наконец, функция высшего порядка <code>fold</code> предназначена для "сворачивания" списка в один элемент или значение.
+Например:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun multiplyAll(list: List&lt;Int&gt;) = list.fold(1.0) {
+    previousResult, element -&gt; previousResult * element
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Функция <code>fold</code> работает следующим образом.
+Изначально она берёт свой первый аргумент (в данном примере 1.0) и сохраняет его как текущий результат.
+Далее перебираются все элементы списка получателя и для каждого из них применяется указанная лямбда,
+которая из текущего результата <code>previousResult</code> с предыдущего шага и очередного элемента <code>element</code>
+делает текущий результат этого шага (в данном примере предыдущий результат домножается на очередной элемент).
+По окончании элементов списка последний текущий результат становится окончательным.
+В данном примере результатом будет произведение всех элементов списка (или 1.0, если список пуст).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_строки">Строки</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Строки <code>String</code> во многих отношениях подобны спискам, хотя формально и не являются ими.
+Список состоит из однотипных элементов, к которым можно обращаться по индексу и перебирать с помощью цикла <strong>for</strong>.
+Строки же точно так же состоят из символов <code>Char</code>, к которым также можно обращаться по индексу
+и которые также можно перебирать с помощью цикла <strong>for</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Напомним, что строковый <em>литерал</em> (явно указанная строка) в Котлине записывается в двойных кавычках.
+Переменную <code>name</code> произвольного типа можно преобразовать в строку, используя запись <code>"$name"</code>&#8201;&#8212;&#8201;строковый шаблон,
+или чуть более сложную запись <code>name.toString()</code> с тем же самым результатом.</p>
+</div>
+<div class="paragraph">
+<p>Как мы видим, <code>$</code> внутри строкового литерала имеет специальный смысл&#8201;&#8212;&#8201;вместо <code>$name</code> в строку будет подставлено содержимое переменной <code>name</code>.
+Как быть, если мы хотим просто включить в строку символ доллара?
+В этом случае следует применить так называемое <em>экранирование</em>, добавив перед символом доллара символ <code>\</code>.
+Например: <code>"The price is 9.99 \$"</code>.</p>
+</div>
+<div class="paragraph">
+<p><em>Экранирование</em> может применяться и для добавления в строку различных специальных символов,
+не имеющих своего обозначения либо имеющих специальный смысл внутри строкового литерала.
+Например: <code>\n</code>&#8201;&#8212;&#8201;символ новой строки, <code>\t</code>&#8201;&#8212;&#8201;символ табуляции, <code>\\</code>&#8201;&#8212;&#8201;символ "обратная косая черта",
+<code>\"</code>&#8201;&#8212;&#8201;символ "двойная кавычка".</p>
+</div>
+<div class="paragraph">
+<p>Строки в Котлине являются неизменяемыми, то есть изменить какой-либо символ в уже созданной строке нельзя,
+можно только создать новую. В этом смысле они аналогичны немутирующим спискам <code>List</code>.</p>
+</div>
+<div class="paragraph">
+<p>Перечислим наиболее распространённые операции над строками:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>string1 + string2</code>&#8201;&#8212;&#8201;сложение или конкатенация строк, приписывание второй строки к первой.</p>
+</li>
+<li>
+<p><code>string + char</code>&#8201;&#8212;&#8201;сложение строки и символа (с тем же смыслом).</p>
+</li>
+<li>
+<p><code>string.length</code>&#8201;&#8212;&#8201;длина строки, то есть количество символов в ней.</p>
+</li>
+<li>
+<p><code>string.isEmpty()</code>, <code>string.isNotEmpty()</code>&#8201;&#8212;&#8201;получение признаков пустоты и непустоты строки (Boolean).</p>
+</li>
+<li>
+<p><code>string[i]</code>&#8201;&#8212;&#8201;индексация, то есть получение символа по целочисленному <em>индексу</em> (номеру) <code>i</code> в диапазоне от 0 до <code>string.length - 1</code>.</p>
+</li>
+<li>
+<p><code>string.substring(from, to)</code>&#8201;&#8212;&#8201;создание строки меньшего размера (подстроки), в который войдут символы строки <code>string</code> с индексами <code>from</code>, <code>from + 1</code>, &#8230;&#8203;, <code>to - 2</code>, <code>to - 1</code>. Символ с индексом <code>to</code> не включается.</p>
+</li>
+<li>
+<p><code>char in string</code>&#8201;&#8212;&#8201;проверка принадлежности символа <code>char</code> строке <code>string</code>.</p>
+</li>
+<li>
+<p><code>for (char in list) { &#8230;&#8203; }</code>&#8201;&#8212;&#8201;цикл <strong>for</strong>, перебирающий все символы строки <code>string</code>.</p>
+</li>
+<li>
+<p><code>string.first()</code>&#8201;&#8212;&#8201;получение первого символа строки.</p>
+</li>
+<li>
+<p><code>string.last()</code>&#8201;&#8212;&#8201;получение последнего символа строки.</p>
+</li>
+<li>
+<p><code>string.indexOf(char, startFrom)</code>&#8201;&#8212;&#8201;найти индекс первого символа <code>char</code> в строке, начиная с индекса <code>startFrom</code>.</p>
+</li>
+<li>
+<p><code>string.lastIndexOf(char, startFrom)</code>&#8201;&#8212;&#8201;найти индекс первого символа <code>char</code> в строке, идя с конца и начиная с индекса <code>startFrom</code>.</p>
+</li>
+<li>
+<p><code>string.toLowerCase()</code>&#8201;&#8212;&#8201;преобразование строки в нижний регистр, то есть замена прописных букв строчными.</p>
+</li>
+<li>
+<p><code>string.toUpperCase()</code>&#8201;&#8212;&#8201;преобразование строки в верхний регистр, то есть замена строчных букв прописными.</p>
+</li>
+<li>
+<p><code>string.capitalize()</code>&#8201;&#8212;&#8201;замена ПЕРВОЙ буквы строки прописной.</p>
+</li>
+<li>
+<p><code>string.trim()</code>&#8201;&#8212;&#8201;удаление из строки пробельных символов в начале и конце: <code>"  ab c "</code> преобразуется в <code>"ab c"</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>В качестве примера рассмотрим функцию, проверяющую, является ли строка палиндромом.
+В палиндроме первый символ должен быть равен последнему, второй предпоследнему и т.д.
+Пример палиндрома: "А роза упала на лапу Азора".
+Из этого примера видно, что одни и те же буквы в разном регистре следует считать равными с точки зрения данной задачи.
+Кроме этого, не следует принимать во внимание пробелы. Решение на Котлине может быть таким:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun isPalindrome(str: String): Boolean {
+    val lowerCase = str.toLowerCase().filter { it != ' ' }
+    for (i in 0..lowerCase.length / 2) {
+        if (lowerCase[i] != lowerCase[lowerCase.length - i - 1]) return false
+    }
+    return true
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Обратите внимание, что мы с самого начала переписываем исходную строку <code>str</code> в промежуточную переменную <code>lowerCase</code>,
+преобразуя все буквы в нижний регистр и удаляя из строки все пробелы.
+Функция <code>filter</code> работает для строк точно так же, как и для списков&#8201;&#8212;&#8201;в строке оставляются только те символы, для которых функция-аргумент <code>{ it != ' '}</code> вернёт <strong>true</strong>.
+Затем мы перебираем символы в первой половине строки, сравнивая каждый из них с символом из второй половины.
+Символ с индексом 0 (первый) должен соответствовать символу с индексом <code>length - 1</code> (последнему) и так далее.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_преобразование_из_списка_в_строку">Преобразование из списка в строку</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Очень часто используемой в Котлине является сложная функция преобразования списка в строку <code>joinToString()</code>.
+Её заголовок выглядит примерно так:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun &lt;T&gt; List&lt;T&gt;.joinToString(
+        separator: String = &quot;, &quot;,
+        prefix: String = &quot;&quot;,
+        postfix: String = &quot;&quot;,
+        limit: Int = -1,
+        truncated: String = &quot;...&quot;,
+        transform: (T) -&gt; String = { &quot;$it&quot; }
+): String {
+    // ...
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Получателем данной функции может быть список с произвольным типом элементов: <code>List&lt;T&gt;</code>.
+Такая запись описывает так называемую настраиваемую функцию, о них мы будем говорить подробнее позже.</p>
+</div>
+<div class="paragraph">
+<p>Все пять параметров этой функции имеют так называемые <em>значения по умолчанию</em>.
+Это значит, что при желании мы можем вызвать эту функцию вообще не указывая аргументов.
+Например, <code>listOf(1, 2, 3).joinToString()</code> даст нам следующий результат: <code>"1, 2, 3"</code>&#8201;&#8212;&#8201;выводя в строку все элементы списка через запятую.
+Возможна, однако, более тонкая настройка вывода:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>параметр <code>separator</code> задаёт разделитель между элементами</p>
+</li>
+<li>
+<p>параметр <code>prefix</code> задаёт строку, которая выводится перед самым первым элементом списка (префикс)</p>
+</li>
+<li>
+<p>аналогично, параметр <code>postfix</code> задаёт строку, которая выводится после самого последнего элемента списка (постфикс)</p>
+</li>
+<li>
+<p>параметр <code>limit</code> задаёт максимальное количество выводимых элементов. Значение -1 соответствует неограниченному количеству элементов, но, скажем, вызов <code>listOf(1, 2, 3).joinToString(", ", "", "", 1)</code> будет иметь результат <code>"1, &#8230;&#8203;"</code> вместо результата по умолчанию <code>"1, 2, 3"</code></p>
+</li>
+<li>
+<p>параметр <code>truncated</code> используется, если задан <code>limit</code>, и заменяет все элементы списка, которые не поместились в строке</p>
+</li>
+<li>
+<p>параметр <code>transform</code> задаёт способ преобразования каждого из элементов списка в строку&#8201;&#8212;&#8201;по умолчанию это <code>"$it"</code> для элемента списка <code>it</code>, может быть изменён с помощью лямбды (см. функции высшего порядка выше)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Рассмотрим простой пример: необходимо написать функцию,
+которая по заданному списку целых чисел вида <code>[3, 6, 5, 4, 9]</code> сформирует строку, содержащую пример их суммирования:
+<code>"3 + 6 + 5 + 4 + 9 = 26"</code>. На Котлине это записывается так:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun buildSumExample(list: List&lt;Int&gt;) = list.joinToString(separator = &quot; + &quot;, postfix = &quot; = ${list.sum()}&quot;)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>В данном случае нам требуется вызов функции <code>joinToString</code>,
+все параметры которой имеют некоторые значения по умолчанию, то есть не требуют обязательного указания при вызове.
+Нам требуется указать разделитель чисел <code>" + "</code> и
+в конце вывода добавить знак <code>=</code> с приписанной к нему суммой чисел из списка.
+Для этого нам необходимо указать значения параметров <code>separator</code> и <code>postfix</code>,
+при этом остальные параметры мы указывать не хотим.
+В этом случае используются так называемые <em>именованные аргументы</em>, например: <code>separator = " + "</code>.
+Эта запись указывает, что аргумент <code>" + "</code> соответствует параметру функции <code>separator</code>.
+Если бы имена <code>separator</code> и <code>postfix</code> не указывались, возникла бы путаница,
+поскольку неясно, какому именно из строковых параметров функции соответствует тот или иной аргумент вызова.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_массивы">Массивы</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Массив <strong>Array</strong>&#8201;&#8212;&#8201;ещё один тип, предназначенный для хранения и модификации некоторого количества однотипных элементов.
+С точки зрения возможностей, массив похож на мутирующий список <strong>MutableList</strong>;
+главным их отличием является отсутствие возможности изменять свой размер&#8201;&#8212;&#8201;для массивов отсутствуют функции <code>add</code> и <code>remove</code>.</p>
+</div>
+<div class="paragraph">
+<p>Для обращения к элементу массива служит оператор индексации: <code>array[i]</code>,
+причём есть возможность как читать содержимое массива, так и изменять его.
+Для создания массива, удобно использовать функцию <code>arrayOf()</code>, аналогичную <code>listOf()</code> для списков.</p>
+</div>
+<div class="paragraph">
+<p>Почти все возможности, имеющиеся для списков, имеются и для массивов тоже.
+Исключением являются функции для создания подсписков <code>sublist</code>.
+Также, массивы не следует сравнивать на равенство с помощью <code>array1 == array2</code>,
+поскольку во многих случаях такое сравнение даёт неверный результат (подробности про это&#8201;&#8212;&#8201;в разделе 4.5).
+Массив можно преобразовать к обычному списку с помощью <code>array.toList()</code>
+либо к мутирующему списку с помощью <code>array.toMutableList()</code>.
+Список, в свою очередь, можно преобразовать к массиву с помощью <code>list.toTypedArray()</code>.</p>
+</div>
+<div class="paragraph">
+<p>В целом, при написании программ на Котлине почти нет случаев, когда массивы использовать необходимо.
+Одним из немногих примеров является главная функция, параметр которой имеет тип <code>Array&lt;String&gt;</code>&#8201;&#8212;&#8201;через него в программу передаются аргументы командной строки.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_параметры_переменной_длины">Параметры переменной длины</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>В некоторых случаях бывает удобно при вызове функции не передавать ей аргумент типа <strong>List</strong> или <strong>Array</strong>,
+а просто перечислить элементы этого списка при вызове.
+Например, чтобы сформировать список квадратов чисел от 1 до 3 с помощью рассмотренной выше функции <code>squares</code>,
+нам пришлось бы вызвать данную функцию как <code>squares(listOf(1, 2, 3))</code>.
+Вызов выглядел бы проще без прямого указания <code>listOf</code>: просто как <code>squares(1, 2, 3)</code>.
+Для поддержки этой возможности программисты придумали <em>параметры переменной длины</em>,
+в Котлине они называются <strong>vararg</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun squares(vararg array: Int) = squares(array.toList())</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>При вызове подобной функции вместо параметра <code>array</code> может быть подставлено любое (в том числе ноль)
+количество аргументов указанного типа, в данном случае&#8201;&#8212;&#8201;<strong>Int</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Я неслучайно назвал параметр именно <code>array</code>: функция может использовать такой параметр,
+как будто это массив соответствующего типа&#8201;&#8212;&#8201;в данном случае <strong>Array&lt;Int&gt;</strong>.
+В теле функции мы используем вызов <code>array.toList()</code>, чтобы свести задачу к уже решённой&#8201;&#8212;&#8201;функция <code>squares</code>, принимающая аргумент типа <strong>List&lt;Int&gt;</strong>, у нас уже имеется.
+Если необходимо подставить вместо <strong>vararg</strong>-параметра уже имеющийся массив,
+следует использовать <em>оператор раскрытия</em> <code>*</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="kotlin">fun squares(array: Array&lt;Int&gt;) = squares(*array)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Здесь мы вызываем уже написанную функцию <code>squares</code>, принимающую параметр переменной длины.</p>
+</div>
+<div class="paragraph">
+<p>В библиотеке Котлина имеется довольно много функций, имеющих <strong>vararg</strong>-параметр.
+Два классических примера были рассмотрены в этом разделе&#8201;&#8212;&#8201;это функции <code>listOf(&#8230;&#8203;)</code> и <code>mutableListOf(&#8230;&#8203;)</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_упражнения">Упражнения</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Откройте файл <code>src/lesson4/task1/List.kt</code> в проекте <code>KotlinAsFirst</code>. Выберите любую из задач в нём.
+Придумайте её решение и запишите его в теле соответствующей функции.</p>
+</div>
+<div class="paragraph">
+<p>Откройте файл <code>test/lesson4/task1/Tests.kt</code>,
+найдите в нём тестовую функцию&#8201;&#8212;&#8201;её название должно совпадать с названием написанной вами функции.
+Запустите тестирование, в случае обнаружения ошибок исправьте их и добейтесь прохождения теста.
+Подумайте, все ли необходимые проверки включены в состав тестовой функции, добавьте в неё недостающие проверки.</p>
+</div>
+<div class="paragraph">
+<p>Решите ещё хотя бы одну задачу из урока 4 на ваш выбор,
+попробуйте применить в процессе решения известные вам функции высшего порядка.
+Убедитесь в том, что можете решать такие задачи уверенно и без посторонней помощи.
+Попробуйте в решении хотя бы одной задачи применить функции высшего порядка.</p>
+</div>
+<div class="paragraph">
+<p>По возможности решите одну из задач, помеченных как "Сложная" или "Очень Сложная".
+Если вам потребуется преобразование списка в строку, примените <code>list.joinToString()</code>.
+Имейте в виду, что последняя задача, функция <strong>russian</strong>, ДЕЙСТВИТЕЛЬНО очень сложная,
+и для её решения может потребоваться значительное время. Если вам не удалось решить
+хотя бы одну "Сложную" задачу, решите вместо этого две "Средних" задачи.
+Ориентируйтесь на общую сумму в 8-9 баллов.</p>
+</div>
+<div class="paragraph">
+<p>Переходите к следующему разделу.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2021-09-17 10:26:03 +0300
+</div>
+</div>
+</body>
+</html>

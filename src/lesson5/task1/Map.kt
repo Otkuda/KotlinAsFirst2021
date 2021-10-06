@@ -8,12 +8,7 @@ package lesson5.task1
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-    print(
-        mergePhoneBooks(
-            mapOf("Emergency" to "112"),
-            mapOf("Emergency" to "112", "Police" to "02")
-        )
-    )
+    print(findSumOfTwo(emptyList(), 1))
 }
 
 /**
@@ -222,7 +217,22 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(
+    stuff: Map<String, Pair<String, Double>>,
+    kind: String
+): String? {
+    val list = mutableListOf<Pair<String, Pair<String, Double>>>()
+    val map = mutableMapOf<Double, String>()
+    for ((key, pair) in stuff) {
+        list.add(pair.first to (key to pair.second))
+    }
+    for ((first, second) in list) {
+        if (first == kind) {
+            map[second.second] = second.first
+        }
+    }
+    return if (map.isNotEmpty()) map[map.keys.sorted()[0]] else null
+}
 
 /**
  * Средняя (3 балла)
@@ -233,7 +243,7 @@ fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): S
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toSet() - chars).isEmpty()
 
 /**
  * Средняя (4 балла)
@@ -247,7 +257,18 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val res = mutableMapOf<String, Int>()
+    for (el in list.toSet()) {
+        var i = 0
+        for (char in list) {
+            if (el == char) i++
+        }
+        if (i > 1) res[el] = i
+    }
+    return res
+}
 
 /**
  * Средняя (3 балла)
@@ -261,7 +282,17 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+
+fun hasAnagrams(words: List<String>): Boolean {
+    var count = 1
+    for (word in words) {
+        for (i in count until words.size) {
+            if (word.toList().sorted() == words[i].toList().sorted()) return true
+        }
+        count++
+    }
+    return false
+}
 
 /**
  * Сложная (5 баллов)
@@ -316,7 +347,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 4) -> Pair(0, 2)
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
-fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> = TODO()
+fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    for (i in 0 until list.size) {
+        if ((number - list[i] in list) && (number - list[i] != list[i])) return i to list.indexOf(number - list[i])
+    }
+    return -1 to -1
+}
 
 /**
  * Очень сложная (8 баллов)
