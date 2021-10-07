@@ -160,6 +160,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
     return list
 }
 
+
 /**
  * Средняя (3 балла)
  *
