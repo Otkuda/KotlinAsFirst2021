@@ -97,11 +97,10 @@ fun digitNumber(n: Int): Int {
 fun fib(n: Int): Int {
     var fib1 = 1
     var fib2 = 1
-    var fibSum = 0
+    var fibSum: Int
     var i = 0
     while (i < n - 2) {
-        fibSum = fib1 + fib2
-        fib1 = fib2
+        fibSum = fib1 + fib2.also { fib1 = fib2 }
         fib2 = fibSum
         i++
     }

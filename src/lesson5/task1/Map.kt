@@ -2,13 +2,17 @@
 
 package lesson5.task1
 
+import lesson4.task1.mean
+
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
 // Рекомендуемое количество баллов = 9
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-    print(findSumOfTwo(emptyList(), 1))
+    val list = listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0)
+    val list2 = list.groupBy { it.second }
+    val res = list2.keys.groupBy { list2[it]?.first()?.first }
 }
 
 /**
@@ -103,10 +107,7 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
     val res = mutableMapOf<Int, MutableList<String>>()
     for ((name, mark) in grades) {
-        if (mark !in res) {
-            res[mark] = mutableListOf()
-        }
-        res[mark]?.add(name)
+        (res.getOrPut(mark) { mutableListOf() }).add(name)
     }
     return res
 }
@@ -170,7 +171,10 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = ((a.toSet()).
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+fun mergePhoneBooks(
+    mapA: Map<String, String>,
+    mapB: Map<String, String>
+): Map<String, String> {
     val res = mapA.toMutableMap()
     for ((key, value) in mapB) {
         if ((key in res) && (res[key] != value)) res[key] += ", $value" else
@@ -190,14 +194,11 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
 fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val res = mutableMapOf<String, MutableList<Double>>()
+    val list2 = stockPrices.groupBy { it.second }
+    val res = list2.keys.groupBy { list2[it]?.first()?.first }
     val finalRes = mutableMapOf<String, Double>()
-    for ((action, price) in stockPrices) {
-        if (action !in res) res[action] = mutableListOf(price) else
-            res[action]?.add(price)
-    }
     for ((action, prices) in res) {
-        finalRes[action] = prices.sum() / prices.size.toDouble()
+        finalRes[action.toString()] = prices.sum() / prices.size.toDouble()
     }
     return finalRes
 }
@@ -243,7 +244,7 @@ fun findCheapestStuff(
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toSet() - chars).isEmpty()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toLowerCase().toSet() - chars).isEmpty()
 
 /**
  * Средняя (4 балла)

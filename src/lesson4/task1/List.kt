@@ -14,8 +14,7 @@ import lesson3.task1.isPrime
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    val list = listOf(1, 2, 3)
-    println(list.sum())
+    print('a' - 'c')
 }
 
 val alphabet = listOf<String>(
@@ -134,7 +133,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = sqrt((v.map { it * it }).sum())
+fun abs(v: List<Double>): Double = sqrt(v.sumOf { it * it })
 
 
 /**
@@ -168,7 +167,8 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
-fun times(a: List<Int>, b: List<Int>): Int = if (a.isEmpty() && b.isEmpty()) 0 else a.mapIndexed { index, it -> it * b[index] }.sum()
+fun times(a: List<Int>, b: List<Int>): Int =
+    if (a.isEmpty() && b.isEmpty()) 0 else a.mapIndexed { index, it -> it * b[index] }.sum()
 
 /**
  * Средняя (3 балла)
@@ -180,7 +180,7 @@ fun times(a: List<Int>, b: List<Int>): Int = if (a.isEmpty() && b.isEmpty()) 0 e
  */
 fun polynom(p: List<Int>, x: Int): Int {
     var res = 0
-    for (i in 0 until p.size) {
+    for (i in p.indices) {
         res += (p[i] * x.toDouble().pow(i)).toInt()
     }
     return res
@@ -302,11 +302,9 @@ fun decimal(digits: List<Int>, base: Int): Int {
  */
 fun decimalFromString(str: String, base: Int): Int {
     val list = mutableListOf<Int>()
-    for (i in 0 until str.length) {
-        if (str[i].toString() in alphabet) {
-            val index = alphabet.indexOf(str[i].toString())
-            list.add(index + 10)
-        } else list.add(str[i].toString().toInt())
+    for (i in str.indices) {
+        if (str[i].toInt() >= 97) list.add(str[i].toInt() - 87)
+        else list.add(str[i].toString().toInt())
     }
     return decimal(list, base)
 }
@@ -330,7 +328,7 @@ fun roman(n: Int): String {
             num -= ints[count]
             res += romans[count]
         }
-        count += 1
+        count++
     }
     return res
 }
