@@ -3,10 +3,10 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
-import lesson1.task1.sqr
 import kotlin.math.sqrt
 import kotlin.math.pow
 import lesson3.task1.isPrime
+import java.lang.Character.getNumericValue
 
 // Урок 4: списки
 // Максимальное количество баллов = 12
@@ -14,10 +14,10 @@ import lesson3.task1.isPrime
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    print('a' - 'c')
+    print(russian(2123))
 }
 
-val alphabet = listOf<String>(
+val alphabet = listOf(
     "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
     "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v",
     "w", "x", "y", "z"
@@ -178,13 +178,7 @@ fun times(a: List<Int>, b: List<Int>): Int =
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0 при любом x.
  */
-fun polynom(p: List<Int>, x: Int): Int {
-    var res = 0
-    for (i in p.indices) {
-        res += (p[i] * x.toDouble().pow(i)).toInt()
-    }
-    return res
-}
+fun polynom(p: List<Int>, x: Int): Int = p.mapIndexed { index, it -> it * x.toDouble().pow(index) }.sum().toInt()
 
 /**
  * Средняя (3 балла)
@@ -280,13 +274,8 @@ fun convertToString(n: Int, base: Int): String {
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int {
-    var res = 0
-    for (i in 0 until digits.size) {
-        res += (digits[i] * (base.toDouble()).pow(digits.size - 1 - i)).toInt()
-    }
-    return res
-}
+fun decimal(digits: List<Int>, base: Int): Int =
+    digits.mapIndexed { index, it -> it * (base.toDouble()).pow(digits.size - 1 - index) }.sum().toInt()
 
 /**
  * Сложная (4 балла)
@@ -301,11 +290,7 @@ fun decimal(digits: List<Int>, base: Int): Int {
  * (например, str.toInt(base)), запрещается.
  */
 fun decimalFromString(str: String, base: Int): Int {
-    val list = mutableListOf<Int>()
-    for (i in str.indices) {
-        if (str[i].toInt() >= 97) list.add(str[i].toInt() - 87)
-        else list.add(str[i].toString().toInt())
-    }
+    val list = str.toMutableList().map { getNumericValue(it) }
     return decimal(list, base)
 }
 
@@ -340,4 +325,59 @@ fun roman(n: Int): String {
  * Например, 375 = "триста семьдесят пять",
  * 23964 = "двадцать три тысячи девятьсот шестьдесят четыре"
  */
-fun russian(n: Int): String = TODO()
+val russianNumbers = listOf(
+    listOf(
+        "", "один", "два", "три", "четыре",
+        "пять", "шесть", "семь", "восемь", "девять"
+    ), listOf(
+        "", "десять", "двадцать", "тридцать", "сорок", "пятьдесят",
+        "шестьдесят", "семьдесят", "восемьдесят", "девяносто"
+    ), listOf(
+        "", "сто", "двести", "триста", "четыреста", "пятьсот",
+        "шестьсот", "семьсот", "восемьсот", "девятьсот"
+    ), listOf(
+        "одиннадцать", "двенадцать", "тринадцать", "четырнадцать",
+        "пятнадцать", "шестнадцать", "семнадцать", "восемнадцать", "девятнадцать"
+    )
+)
+
+val thousandVariants = listOf("тысяча", "тысячи", "тысяч")
+
+fun convertDigitToRussian(n: Int): String {
+    val res = mutableListOf<String>()
+    var count = 0
+    var num = n
+    while (num > 0) {
+        if (num % 100 in 11..19 && count == 0) {
+            res.add(russianNumbers[3][num % 100 - 11])
+            num /= 100
+            count += 2
+        } else {
+            res.add(russianNumbers[count][num % 10])
+            num /= 10
+            count++
+        }
+    }
+    return res.filter { it != "" }.reversed().joinToString(separator = " ")
+}
+
+fun russian(n: Int): String {
+    val index = when {
+        ((n / 1000) % 100 in 11..19) -> 2
+        ((n / 1000) % 10 == 1) -> 0
+        ((n / 1000) % 10 in 2..4) -> 1
+        else -> 2
+    }
+    val thousands = when {
+        ((n / 1000) % 10 == 1 && (n / 1000) % 100 !in 11..19) -> convertDigitToRussian(n / 1000).dropLast(2) + "на"
+        ((n / 1000) % 10 == 2 && (n / 1000) % 100 !in 11..19) -> convertDigitToRussian(n / 1000).dropLast(1) + "е"
+        else -> convertDigitToRussian(n / 1000)
+    }
+    val hundreds = when {
+        n % 1000 == 0 -> ""
+        else -> " " + convertDigitToRussian(n % 1000)
+    }
+    return if (n < 1000) convertDigitToRussian(n)
+    else thousands + " " + thousandVariants[index] + hundreds
+
+}
