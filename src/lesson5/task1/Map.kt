@@ -10,9 +10,8 @@ import lesson4.task1.mean
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-    val list = listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0)
-    val list2 = list.groupBy { it.second }
-    val res = list2.keys.groupBy { list2[it]?.first()?.first }
+    val list = listOf("a", "b", "a")
+    print(list.groupBy { it }.mapValues { it.value.count() }.filterValues { it > 1 })
 }
 
 /**
@@ -177,8 +176,8 @@ fun mergePhoneBooks(
 ): Map<String, String> {
     val res = mapA.toMutableMap()
     for ((key, value) in mapB) {
-        if ((key in res) && (res[key] != value)) res[key] += ", $value" else
-            res[key] = value
+        if ((key in res) && (res[key] != value)) res[key] += ", $value"
+        else res[key] = value
     }
     return res
 }
@@ -193,15 +192,9 @@ fun mergePhoneBooks(
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
-    val list2 = stockPrices.groupBy { it.second }
-    val res = list2.keys.groupBy { list2[it]?.first()?.first }
-    val finalRes = mutableMapOf<String, Double>()
-    for ((action, prices) in res) {
-        finalRes[action.toString()] = prices.sum() / prices.size.toDouble()
-    }
-    return finalRes
-}
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> =
+    stockPrices.groupBy({ it.first }, { it.second }).mapValues { mean(it.value) }
+
 
 /**
  * Средняя (4 балла)
@@ -221,19 +214,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
 fun findCheapestStuff(
     stuff: Map<String, Pair<String, Double>>,
     kind: String
-): String? {
-    val list = mutableListOf<Pair<String, Pair<String, Double>>>()
-    val map = mutableMapOf<Double, String>()
-    for ((key, pair) in stuff) {
-        list.add(pair.first to (key to pair.second))
-    }
-    for ((first, second) in list) {
-        if (first == kind) {
-            map[second.second] = second.first
-        }
-    }
-    return if (map.isNotEmpty()) map[map.keys.sorted()[0]] else null
-}
+): String? = stuff.filter { it.value.first == kind }.minByOrNull { it.value.second }?.key
 
 /**
  * Средняя (3 балла)
@@ -244,7 +225,7 @@ fun findCheapestStuff(
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toLowerCase().toSet() - chars).isEmpty()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toSet() - chars).isEmpty()
 
 /**
  * Средняя (4 балла)
@@ -259,17 +240,8 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toLowerCase()
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
 
-fun extractRepeats(list: List<String>): Map<String, Int> {
-    val res = mutableMapOf<String, Int>()
-    for (el in list.toSet()) {
-        var i = 0
-        for (char in list) {
-            if (el == char) i++
-        }
-        if (i > 1) res[el] = i
-    }
-    return res
-}
+fun extractRepeats(list: List<String>): Map<String, Int> =
+    list.groupBy { it }.mapValues { it.value.count() }.filterValues { it > 1 }
 
 /**
  * Средняя (3 балла)
