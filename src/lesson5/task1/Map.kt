@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import lesson4.task1.mean
+import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -10,8 +11,7 @@ import lesson4.task1.mean
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-    val list = listOf("a", "b", "a")
-    print(list.groupBy { it }.mapValues { it.value.count() }.filterValues { it > 1 })
+
 }
 
 /**
@@ -214,7 +214,7 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
 fun findCheapestStuff(
     stuff: Map<String, Pair<String, Double>>,
     kind: String
-): String? = stuff.filter { it.value.first == kind }.minByOrNull { it.value.second }?.key
+): String? = stuff.filterValues { it.first == kind }.minByOrNull { it.value.second }?.key
 
 /**
  * Средняя (3 балла)
@@ -321,7 +321,7 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
-    for (i in 0 until list.size) {
+    for (i in list.indices) {
         if ((number - list[i] in list) && (number - list[i] != list[i])) return i to list.indexOf(number - list[i])
     }
     return -1 to -1
@@ -348,4 +348,29 @@ fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
  *     450
  *   ) -> emptySet()
  */
-fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> = TODO()
+fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<String> {
+    val listOfTreasures = treasures.toList()
+    val table = mutableListOf<MutableList<Pair<Int, MutableSet<String>>>>()
+    for (i in 0..treasures.size) {
+        table.add(mutableListOf())
+        for (j in 0..capacity) table[i].add(Pair(0, mutableSetOf()))
+    }
+
+    for (col in 1..treasures.size) {
+        for (cap in 0..capacity) {
+            val name = listOfTreasures[col - 1].first
+            val weight = listOfTreasures[col - 1].second.first
+            val price = listOfTreasures[col - 1].second.second
+            when {
+                weight > cap -> table[col][cap] = table[col - 1][cap]
+                table[col - 1][cap - weight].first + price > table[col - 1][cap].first ->
+                    table[col][cap] = Pair(
+                        table[col - 1][cap - weight].first + price,
+                        (table[col - 1][cap - weight].second + name).toMutableSet()
+                    )
+                else -> table[col][cap] = table[col - 1][cap]
+            }
+        }
+    }
+    return table[treasures.size][capacity].second
+}
