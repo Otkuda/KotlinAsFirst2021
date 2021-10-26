@@ -3,7 +3,6 @@
 package lesson5.task1
 
 import lesson4.task1.mean
-import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -11,7 +10,7 @@ import kotlin.math.max
 // Вместе с предыдущими уроками = 33/47
 
 fun main() {
-
+    println(findSumOfTwo(listOf(1, 2, 3), 4))
 }
 
 /**
@@ -321,10 +320,12 @@ fun propagateHandshakes(friends: Map<String, Set<String>>): Map<String, Set<Stri
  *   findSumOfTwo(listOf(1, 2, 3), 6) -> Pair(-1, -1)
  */
 fun findSumOfTwo(list: List<Int>, number: Int): Pair<Int, Int> {
+    val map = mutableMapOf<Int, Int>()
     for (i in list.indices) {
-        if ((number - list[i] in list) && (number - list[i] != list[i])) return i to list.indexOf(number - list[i])
+        if (number - list[i] in map) return Pair(map.getOrDefault(number - list[i], -1), i)
+        map[list[i]] = i
     }
-    return -1 to -1
+    return Pair(-1, -1)
 }
 
 /**

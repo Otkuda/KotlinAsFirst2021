@@ -14,7 +14,7 @@ import java.lang.Character.getNumericValue
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    print(russian(2123))
+    print('a'.toInt())
 }
 
 val alphabet = listOf(
@@ -258,14 +258,9 @@ fun convert(n: Int, base: Int): List<Int> {
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, n.toString(base) и подобные), запрещается.
  */
-fun convertToString(n: Int, base: Int): String {
-    val list = convert(n, base).toMutableList()
-    var res = ""
-    for (i in 0 until list.size) {
-        res += if (list[i] >= 10) alphabet[list[i] - 10] else list[i].toString()
-    }
-    return res
-}
+
+fun convertToString(n: Int, base: Int): String =
+    convert(n, base).joinToString(separator = "") { if (it < 10) it.toString() else (it + 87).toChar().toString() }
 
 /**
  * Средняя (3 балла)
@@ -289,10 +284,8 @@ fun decimal(digits: List<Int>, base: Int): Int =
  * Использовать функции стандартной библиотеки, напрямую и полностью решающие данную задачу
  * (например, str.toInt(base)), запрещается.
  */
-fun decimalFromString(str: String, base: Int): Int {
-    val list = str.toMutableList().map { getNumericValue(it) }
-    return decimal(list, base)
-}
+fun decimalFromString(str: String, base: Int): Int = decimal(str.toList().map { getNumericValue(it) }, base)
+
 
 /**
  * Сложная (5 баллов)
