@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.NumberFormatException
 
 // Урок 6: разбор строк, исключения
 // Максимальное количество баллов = 13
@@ -78,7 +79,7 @@ fun dateStrToDigit(str: String): String {
     val month = months.indexOf(line[1]) + 1
     val year = line[2].toInt()
     return if (daysInMonth(month, year) >= day && line[1] in months)
-        String.format("%02d.%02d.%02d", day, month, year) else ""
+        String.format("%02d.%02d.$year", day, month) else ""
 }
 
 /**
@@ -91,7 +92,19 @@ fun dateStrToDigit(str: String): String {
  * Обратите внимание: некорректная с точки зрения календаря дата (например, 30 февраля 2009) считается неверными
  * входными данными.
  */
-fun dateDigitToStr(digital: String): String = TODO()
+fun dateDigitToStr(digital: String): String {
+    val line = digital.split(".")
+    try {
+        if (line.size != 3 || line[1].toInt() !in 1..12) return ""
+        val day = line[0].toInt()
+        val month = months[line[1].toInt() - 1]
+        val year = line[2].toInt()
+        return if (daysInMonth(line[1].toInt(), year) >= day)
+            String.format("$day $month $year", day) else ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
+}
 
 /**
  * Средняя (4 балла)
@@ -107,7 +120,9 @@ fun dateDigitToStr(digital: String): String = TODO()
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String {
+    val regex = "[+()-]".toRegex()
+}
 
 /**
  * Средняя (5 баллов)
