@@ -52,7 +52,7 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    val l = null
+    print('1'.toInt())
 }
 
 val months = listOf(
@@ -75,11 +75,15 @@ val months = listOf(
 fun dateStrToDigit(str: String): String {
     val line = str.split(" ")
     if (line.size != 3) return ""
-    val day = line[0].toInt()
-    val month = months.indexOf(line[1]) + 1
-    val year = line[2].toInt()
-    return if (daysInMonth(month, year) >= day && line[1] in months)
-        String.format("%02d.%02d.$year", day, month) else ""
+    try {
+        val day = line[0].toInt()
+        val month = months.indexOf(line[1]) + 1
+        val year = line[2].toInt()
+        return if (daysInMonth(month, year) >= day && line[1] in months)
+            String.format("%02d.%02d.$year", day, month) else ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
 }
 
 /**
@@ -120,7 +124,10 @@ fun dateDigitToStr(digital: String): String {
  *
  * PS: Дополнительные примеры работы функции можно посмотреть в соответствующих тестах.
  */
-fun flattenPhoneNumber(phone: String): String = TODO()
+fun flattenPhoneNumber(phone: String): String =
+    if (phone.matches(Regex("""(\+? *[- \d]*(\([-\d ]+\)[-\d ]+)?)""")))
+        phone.filter { it !in " ()-" } else ""
+
 
 /**
  * Средняя (5 баллов)
@@ -132,7 +139,17 @@ fun flattenPhoneNumber(phone: String): String = TODO()
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int = TODO()
+fun bestLongJump(jumps: String): Int {
+    val line = jumps.split(" ")
+    var max = -1
+    for (el in line) {
+        if ((el != "-") && (el != "%")) {
+            var n = el.toIntOrNull() ?: return -1
+            max = kotlin.math.max(n, max)
+        }
+    }
+    return max
+}
 
 /**
  * Сложная (6 баллов)
