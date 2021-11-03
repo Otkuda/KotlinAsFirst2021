@@ -3,6 +3,7 @@
 package lesson6.task1
 
 import lesson2.task2.daysInMonth
+import java.lang.IllegalArgumentException
 import java.lang.NumberFormatException
 
 // Урок 6: разбор строк, исключения
@@ -52,7 +53,8 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    print('1'.toInt())
+    val regex = Regex("""([\d*\-%]+ ?)+""")
+    println(regex.matches(" -"))
 }
 
 val months = listOf(
@@ -140,15 +142,9 @@ fun flattenPhoneNumber(phone: String): String =
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val line = jumps.split(" ")
-    var max = -1
-    for (el in line) {
-        if ((el != "-") && (el != "%")) {
-            var n = el.toIntOrNull() ?: return -1
-            max = kotlin.math.max(n, max)
-        }
-    }
-    return max
+    val regex = Regex("""([\d*\-%]+ ?)+""")
+    if (regex.matches(jumps)) return jumps.split(" ").mapNotNull { it.toIntOrNull() }.maxOrNull() ?: -1
+    return -1
 }
 
 /**
@@ -173,7 +169,23 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val line = expression.split(" ")
+    var res = 0
+    var minus = 1
+    require(line.isNotEmpty())
+    for (el in line) {
+        if (line.indexOf(el) % 2 == 0) {
+            require(el.all { it in '0'..'9' })
+            res += el.toInt() * minus
+        } else minus = when (el) {
+            "+" -> 1
+            "-" -> -1
+            else -> throw IllegalArgumentException()
+        }
+    }
+    return res
+}
 
 /**
  * Сложная (6 баллов)
@@ -184,7 +196,15 @@ fun plusMinus(expression: String): Int = TODO()
  * Вернуть индекс начала первого повторяющегося слова, или -1, если повторов нет.
  * Пример: "Он пошёл в в школу" => результат 9 (индекс первого 'в')
  */
-fun firstDuplicateIndex(str: String): Int = TODO()
+fun firstDuplicateIndex(str: String): Int {
+    var index = 0
+    val list = str.split(" ").map { it.toLowerCase() }
+    for ((first, second) in list.zipWithNext()) {
+        if (first == second) return index
+        index += first.length + 1
+    }
+    return -1
+}
 
 /**
  * Сложная (6 баллов)
@@ -197,7 +217,9 @@ fun firstDuplicateIndex(str: String): Int = TODO()
  * или пустую строку при нарушении формата строки.
  * Все цены должны быть больше нуля либо равны нулю.
  */
-fun mostExpensive(description: String): String = TODO()
+fun mostExpensive(description: String): String {
+    TODO()
+}
 
 /**
  * Сложная (6 баллов)
