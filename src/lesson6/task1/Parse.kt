@@ -218,7 +218,21 @@ fun firstDuplicateIndex(str: String): Int {
  * Все цены должны быть больше нуля либо равны нулю.
  */
 fun mostExpensive(description: String): String {
-    TODO()
+    val list = description.split("; ")
+    var max = 0.0
+    var nameMax = ""
+    for (el in list) {
+        val pair = el.split(" ")
+        if (pair.size != 2) return ""
+        val name = pair[0]
+        val price = pair[1].toDoubleOrNull()
+        if (price == null || price < 0) return ""
+        if (price > max) {
+            max = price
+            nameMax = name
+        }
+    }
+    return nameMax
 }
 
 /**
