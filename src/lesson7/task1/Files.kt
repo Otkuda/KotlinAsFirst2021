@@ -11,26 +11,12 @@ import java.io.File
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    val str = File("input/sibilants_in1.txt").readLines()
-    for (line in str) {
-        println(line.replace(Regex("""[жчшщЖЧШЩ][ыяюЫЯЮ]""")) {
-            when (it.value.toLowerCase()) {
-                "жы" -> "жи"
-                "жя" -> "жа"
-                "жю" -> "жу"
-                "чы" -> "чи"
-                "чя" -> "ча"
-                "чю" -> "чи"
-                "шы" -> "ши"
-                "шя" -> "ша"
-                "шю" -> "шу"
-                "щы" -> "щи"
-                "щю" -> "щу"
-                "щя" -> "ща"
-                else -> it.value
-            }
-        })
-    }
+    val list = listOf("Карминовый", "Боязливый", "Некрасивый", "Остроумный", "БелогЛазый", "ФиолетОвый")
+    val sortedList =
+        list.map { it.toLowerCase() }.filter { it.toSet().size == it.length }.sortedBy { it.length }
+            .dropWhile { it.length != list.last().length }
+
+    print(sortedList)
 }
 
 /**
@@ -307,7 +293,16 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val list = mutableListOf<String>()
+    for (line in File(inputName).readLines()) list.add(line.toLowerCase())
+    val sortedList =
+        list.filter { it.toSet().size == it.length }.sortedBy { it.length }
+            .dropWhile { it.length != list.last().length }
+    for (el in sortedList) {
+        if (el != sortedList.last()) writer.write("${el.capitalize()}, ") else writer.write(el.capitalize())
+    }
+    writer.close()
 }
 
 /**
