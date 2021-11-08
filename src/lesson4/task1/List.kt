@@ -168,7 +168,7 @@ fun center(list: MutableList<Double>): MutableList<Double> {
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.
  */
 fun times(a: List<Int>, b: List<Int>): Int =
-    if (a.isEmpty() && b.isEmpty()) 0 else a.mapIndexed { index, it -> it * b[index] }.sum()
+    if (a.isEmpty() || b.isEmpty()) 0 else a.mapIndexed { index, it -> it * b[index] }.sum()
 
 /**
  * Средняя (3 балла)

@@ -224,7 +224,8 @@ fun findCheapestStuff(
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = (word.toSet() - chars).isEmpty()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean =
+    (word.toLowerCase().toSet() - chars.map { it.toLowerCase() }).isEmpty()
 
 /**
  * Средняя (4 балла)
