@@ -295,12 +295,12 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
     val list = mutableListOf<String>()
-    for (line in File(inputName).readLines()) list.add(line.toLowerCase())
+    for (line in File(inputName).readLines()) list.add(line)
     val sortedList =
-        list.filter { it.toSet().size == it.length }.sortedBy { it.length }
+        list.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
             .dropWhile { it.length != list.last().length }
     for (el in sortedList) {
-        if (el != sortedList.last()) writer.write("${el.capitalize()}, ") else writer.write(el.capitalize())
+        if (el != sortedList.last()) writer.write("$el, ") else writer.write(el)
     }
     writer.close()
 }
