@@ -2,7 +2,10 @@
 
 package lesson7.task1
 
+import lesson4.task1.invertPositives
+import ru.spbstu.wheels.out
 import java.io.File
+import java.lang.StringBuilder
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -11,12 +14,7 @@ import java.io.File
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    val list = listOf("Карминовый", "Боязливый", "Некрасивый", "Остроумный", "БелогЛазый", "ФиолетОвый")
-    val sortedList =
-        list.map { it.toLowerCase() }.filter { it.toSet().size == it.length }.sortedBy { it.length }
-            .dropWhile { it.length != list.last().length }
-
-    print(sortedList)
+    print(top20Words("input/onegin.txt"))
 }
 
 /**
@@ -173,7 +171,15 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    TODO()
+    val text = File(inputName).readText()
+    val longestLineLength = text.split("\n").maxOf { it.trim().length }
+    val outputString = StringBuilder()
+    text.lines().map { it.trim() }.forEach { line ->
+        val symbolsToShift = (longestLineLength - line.length) / 2
+        val finalLine = " ".repeat(symbolsToShift) + line
+        outputString.appendLine(finalLine)
+    }
+    File(outputName).writeText(outputString.toString())
 }
 
 /**
@@ -204,7 +210,25 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
-    TODO()
+    val text = File(inputName).readText()
+    val longestLineLength = text.split("\n").maxOf { it.trim().length }
+    val outputString = StringBuilder()
+    text.lines().map { it.trim() }.forEach { line ->
+        val finalLine = StringBuilder()
+        val numOfSpaces = line.count { it == ' ' }
+        var length = line.length
+        line.forEach { char ->
+            if (char != ' ') finalLine.append(char)
+            else {
+                if ((longestLineLength - length) % numOfSpaces != 0) {
+                    finalLine.append(" ".repeat((longestLineLength - length) / numOfSpaces + 2))
+                    length++
+                } else finalLine.append(" ".repeat((longestLineLength - length) / numOfSpaces + 1))
+            }
+        }
+        outputString.appendLine(finalLine)
+    }
+    File(outputName).writeText(outputString.toString())
 }
 
 /**
@@ -227,7 +251,16 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  * Ключи в ассоциативном массиве должны быть в нижнем регистре.
  *
  */
-fun top20Words(inputName: String): Map<String, Int> = TODO()
+fun top20Words(inputName: String): Map<String, Int> {
+    val result = mutableMapOf<String, Int>()
+    val file = File(inputName).readText().split(Regex("""[^a-zА-ЯA-Zа-я]+""")).map { it.toLowerCase() }
+    val set = file.toSet().sortedByDescending { word -> file.count { it == word } }
+    set.forEach { word ->
+        val count = file.count { it == word }
+        result[word] = count
+    }
+    return result
+}
 
 /**
  * Средняя (14 баллов)

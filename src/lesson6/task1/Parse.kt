@@ -77,14 +77,14 @@ val months = listOf(
 fun dateStrToDigit(str: String): String {
     val line = str.split(" ")
     if (line.size != 3) return ""
-    try {
+    return try {
         val day = line[0].toInt()
         val month = months.indexOf(line[1]) + 1
         val year = line[2].toInt()
-        return if (daysInMonth(month, year) >= day && line[1] in months)
+        if (daysInMonth(month, year) >= day && line[1] in months)
             String.format("%02d.%02d.$year", day, month) else ""
     } catch (e: NumberFormatException) {
-        return ""
+        ""
     }
 }
 
