@@ -4,6 +4,7 @@ package lesson7.task1
 
 import lesson4.task1.invertPositives
 import ru.spbstu.wheels.out
+import ru.spbstu.wheels.toMutableMap
 import java.io.File
 import java.lang.StringBuilder
 
@@ -253,13 +254,15 @@ fun alignFileByWidth(inputName: String, outputName: String) {
  */
 fun top20Words(inputName: String): Map<String, Int> {
     val result = mutableMapOf<String, Int>()
-    val file = File(inputName).readText().split(Regex("""[^a-zА-ЯA-Zа-я]+""")).map { it.toLowerCase() }
-    val set = file.toSet().sortedByDescending { word -> file.count { it == word } }
-    set.forEach { word ->
-        val count = file.count { it == word }
-        result[word] = count
+    val file = File(inputName)
+    file.readLines().forEach { line ->
+        val words = line.split(Regex("""[^a-zA-Zа-яА-ЯёЁ]""")).map { it.toLowerCase() }.filter { it != "" }
+        words.forEach { word ->
+            result[word] = result.getOrDefault(word, 0) + 1
+        }
     }
-    return result
+    val minValue = if (result.size < 20) 0 else result.toList().sortedByDescending { it.second }[19].second
+    return result.toList().sortedByDescending { it.second }.takeWhile { it.second >= minValue }.toMap()
 }
 
 /**
