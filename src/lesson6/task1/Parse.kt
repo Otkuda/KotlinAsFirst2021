@@ -142,8 +142,8 @@ fun flattenPhoneNumber(phone: String): String =
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
 fun bestLongJump(jumps: String): Int {
-    val regex = Regex("""([\d*\-%]+ ?)+""")
-    if (regex.matches(jumps)) return jumps.split(" ").mapNotNull { it.toIntOrNull() }.maxOrNull() ?: -1
+    if (Regex("""([\d*\-%]+ ?)+""").matches(jumps)) return jumps.split(" ").mapNotNull { it.toIntOrNull() }.maxOrNull()
+        ?: -1
     return -1
 }
 
@@ -174,14 +174,16 @@ fun plusMinus(expression: String): Int {
     var res = 0
     var minus = 1
     require(line.isNotEmpty())
-    for (el in line) {
-        if (line.indexOf(el) % 2 == 0) {
-            require(el.all { it in '0'..'9' })
-            res += el.toInt() * minus
-        } else minus = when (el) {
-            "+" -> 1
-            "-" -> -1
-            else -> throw IllegalArgumentException()
+    for (i in line.indices) {
+        if (i % 2 == 0) {
+            require(line[i].all { it in '0'..'9'})
+            res += line[i].toInt() * minus
+        } else {
+            minus = when (line[i]) {
+                "+" -> 1
+                "-" -> -1
+                else -> throw IllegalArgumentException()
+            }
         }
     }
     return res
