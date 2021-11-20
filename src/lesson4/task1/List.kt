@@ -14,7 +14,7 @@ import java.lang.Character.getNumericValue
 // Вместе с предыдущими уроками = 24/33
 
 fun main() {
-    print('a'.toInt())
+    print(88.toChar())
 }
 
 val alphabet = listOf(
@@ -260,7 +260,7 @@ fun convert(n: Int, base: Int): List<Int> {
  */
 
 fun convertToString(n: Int, base: Int): String =
-    convert(n, base).joinToString(separator = "") { if (it < 10) it.toString() else (it + 87).toChar().toString() }
+    convert(n, base).joinToString(separator = "") { if (it < 10) it.toString() else ('W' + it).toString() }
 
 /**
  * Средняя (3 балла)

@@ -16,8 +16,27 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    println(19935 / 22)
+    val outputName = "temp.txt"
+    val inputName = "input/sibilants_in1.txt"
+    val vowels = mapOf("Ы" to "И", "Я" to "А", "Ю" to "У", "ы" to "и", "я" to "а", "ю" to "у")
+
+    File(outputName).bufferedWriter().use {
+        for (string in File(inputName).bufferedReader().readLines()) {
+            val errors = Regex("""[жчшщ][ыяю]""", RegexOption.IGNORE_CASE).findAll(string)
+            var str = string
+            for (value in errors) {
+                val i = value.range.last
+                val j = string[i].toString()
+                str = str.replaceRange(i..i, vowels[j]!!)
+                println(value)
+                println(value.range)
+                println(string[i])
+            }
+            it.write(str + "\n")
+        }
+    }
 }
+
 
 /**
  * Пример
@@ -72,16 +91,15 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  * Подчёркивание в середине и/или в конце строк значения не имеет.
  */
 fun deleteMarked(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    for (line in File(inputName).readLines()) {
-        if (line.isNotEmpty()) {
-            if (line[0] != '_') {
-                writer.write(line)
-                writer.newLine()
-            }
-        } else writer.newLine()
+    File(outputName).bufferedWriter().use {
+        for (line in File(inputName).readLines()) {
+            if (line.isNotEmpty()) {
+                if (line[0] != '_') {
+                    it.write(line + "\n")
+                }
+            } else it.newLine()
+        }
     }
-    writer.close()
 }
 
 /**
@@ -128,30 +146,19 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  *
  */
 fun sibilants(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    val regex = Regex("""[жчшщЖЧШЩ][ыяюЫЯЮ]""")
-    for (line in File(inputName).readLines()) {
-        val newLine = line.replace(regex) {
-            when (it.value.toLowerCase()) {
-                "жы" -> "жи"
-                "жя" -> "жа"
-                "жю" -> "жу"
-                "чы" -> "чи"
-                "чя" -> "ча"
-                "чю" -> "чу"
-                "шы" -> "ши"
-                "шя" -> "ша"
-                "шю" -> "шу"
-                "щы" -> "щи"
-                "щю" -> "щу"
-                "щя" -> "ща"
-                else -> it.value
-            }
+    val letters = mapOf("Ы" to "И", "Я" to "А", "Ю" to "У", "ы" to "и", "я" to "а", "ю" to "у")
+    val outputString = StringBuilder()
+    File(inputName).readLines().forEach { line ->
+        val mistakes = Regex("""[жчшщЖЧШЩ][ыяюЫЯЮ]""").findAll(line)
+        var string = line
+        for (el in mistakes) {
+            val i = el.range.last
+            val char = string[i].toString()
+            string = string.replaceRange(i..i, letters[char]!!)
         }
-        writer.write(newLine)
-        writer.newLine()
+        outputString.appendLine(string)
     }
-    writer.close()
+    File(outputName).writeText(outputString.toString())
 }
 
 
@@ -331,8 +338,9 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
+    val text = File(inputName).readText().split(Regex("""\s""")).filter { it != "" }
     val list = mutableListOf<String>()
-    for (line in File(inputName).readLines()) list.add(line)
+    for (line in text) list.add(line)
     val sortedList =
         list.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
             .dropWhile { it.length != list.last().length }
@@ -569,6 +577,28 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val outputString = StringBuilder()
+    val result = (lhv / rhv).toString()
+    val firstLine = "  $lhv | $rhv"
+    val setOfDifferences = mutableListOf<String>()
+    val stringLhv = lhv.toString()
+    var index = 0
+    outputString.appendLine(firstLine)
+    for (i in result.indices) {
+        var delimiter = ""
+        var stringToPrint = ""
+        if (i == 0) {
+            val num = rhv * result[i].toString().toInt()
+            val part = " -" + (num).toString()
+            setOfDifferences.add(((lhv / 100) - num).toString())
+            stringToPrint = part + " ".repeat(firstLine.length - part.length - rhv.toString().length) + result
+            delimiter = " " + "-".repeat(part.length - 1)
+            index += num.toString().length
+            outputString.appendLine(stringToPrint)
+            outputString.appendLine(delimiter)
+        } else {
+            val stepRes = setOfDifferences[i - 1] + stringLhv[index]
+        }
+    }
 }
 

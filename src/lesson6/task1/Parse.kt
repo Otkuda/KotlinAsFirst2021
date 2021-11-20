@@ -53,8 +53,10 @@ fun timeSecondsToStr(seconds: Int): String {
  * Пример: консольный ввод
  */
 fun main() {
-    val regex = Regex("""([\d*\-%]+ ?)+""")
-    println(regex.matches(" -"))
+    val list = "a 0".split("; ")
+    for (el in list) {
+        println(el.split(" "))
+    }
 }
 
 val months = listOf(
@@ -141,11 +143,14 @@ fun flattenPhoneNumber(phone: String): String =
  * Прочитать строку и вернуть максимальное присутствующее в ней число (717 в примере).
  * При нарушении формата входной строки или при отсутствии в ней чисел, вернуть -1.
  */
-fun bestLongJump(jumps: String): Int {
-    if (Regex("""([\d*\-%]+ ?)+""").matches(jumps)) return jumps.split(" ").mapNotNull { it.toIntOrNull() }.maxOrNull()
-        ?: -1
-    return -1
-}
+fun bestLongJump(jumps: String) =
+    if (Regex("""([\d*\-%]+ ?)+""").matches(jumps)) {
+        jumps
+            .split(" ")
+            .mapNotNull { it.toIntOrNull() }
+            .maxOrNull()
+            ?: -1
+    } else -1
 
 /**
  * Сложная (6 баллов)
@@ -176,7 +181,7 @@ fun plusMinus(expression: String): Int {
     require(line.isNotEmpty())
     for (i in line.indices) {
         if (i % 2 == 0) {
-            require(line[i].all { it in '0'..'9'})
+            require(line[i].all { it in '0'..'9' })
             res += line[i].toInt() * minus
         } else {
             minus = when (line[i]) {
@@ -229,7 +234,7 @@ fun mostExpensive(description: String): String {
         val name = pair[0]
         val price = pair[1].toDoubleOrNull()
         if (price == null || price < 0) return ""
-        if (price > max) {
+        if (price >= max) {
             max = price
             nameMax = name
         }
