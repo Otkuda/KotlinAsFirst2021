@@ -7,6 +7,7 @@ import ru.spbstu.wheels.out
 import ru.spbstu.wheels.toMutableMap
 import java.io.File
 import java.lang.StringBuilder
+import kotlin.math.pow
 
 // Урок 7: работа с файлами
 // Урок интегральный, поэтому его задачи имеют сильно увеличенную стоимость
@@ -15,7 +16,7 @@ import java.lang.StringBuilder
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    print(top20Words("input/onegin.txt"))
+    println(19935 / 22)
 }
 
 /**
@@ -529,7 +530,22 @@ fun markdownToHtml(inputName: String, outputName: String) {
  *
  */
 fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
-    TODO()
+    val result = lhv * rhv
+    val newRhv = rhv.toString().reversed()
+    val longestStringLength = result.toString().length + 1
+    val outputString = StringBuilder()
+    outputString.appendLine(" ".repeat(longestStringLength - lhv.toString().length) + lhv.toString())
+    outputString.appendLine("*" + " ".repeat(result.toString().length - rhv.toString().length) + rhv.toString())
+    outputString.appendLine("-".repeat(longestStringLength))
+    for (i in newRhv.indices) {
+        val num = newRhv[i].toString().toInt() * lhv
+        val lineToPrint = if (i == 0) " ".repeat(longestStringLength - num.toString().length) + num.toString()
+        else "+" + " ".repeat(longestStringLength - num.toString().length - 1 - i) + num.toString()
+        outputString.appendLine(lineToPrint)
+    }
+    outputString.appendLine("-".repeat(longestStringLength))
+    outputString.appendLine(" $result")
+    File(outputName).writeText(outputString.toString())
 }
 
 
@@ -539,17 +555,16 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
-19935 | 22
--198     906
-----
-13
--0
---
-135
--132
-----
-3
-
+  19935 | 22
+ -198     906
+ ----
+    13
+    -0
+    --
+    135
+   -132
+   ----
+      3
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
