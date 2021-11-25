@@ -552,7 +552,7 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 ----
 3
 
- * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
+ * Используемые пробелы, оступы и дефисы должны в точности соответствовать примеру.
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
