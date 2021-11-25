@@ -16,25 +16,9 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    val outputName = "temp.txt"
-    val inputName = "input/sibilants_in1.txt"
-    val vowels = mapOf("Ы" to "И", "Я" to "А", "Ю" to "У", "ы" to "и", "я" to "а", "ю" to "у")
-
-    File(outputName).bufferedWriter().use {
-        for (string in File(inputName).bufferedReader().readLines()) {
-            val errors = Regex("""[жчшщ][ыяю]""", RegexOption.IGNORE_CASE).findAll(string)
-            var str = string
-            for (value in errors) {
-                val i = value.range.last
-                val j = string[i].toString()
-                str = str.replaceRange(i..i, vowels[j]!!)
-                println(value)
-                println(value.range)
-                println(string[i])
-            }
-            it.write(str + "\n")
-        }
-    }
+    val text = File("input/chaotic_in2.txt").readLines()
+    val sortedlist = text.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
+    println(sortedlist.dropWhile { it.length != sortedlist.last().length })
 }
 
 
@@ -180,10 +164,10 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    val text = File(inputName).readLines()
-    val longestLineLength = text.maxOf { it.trim().length }
+    val text = File(inputName).readText()
+    val longestLineLength = text.split("\n").maxOf { it.trim().length }
     val outputString = StringBuilder()
-    text.map { it.trim() }.forEach { line ->
+    text.lines().map { it.trim() }.forEach { line ->
         val symbolsToShift = (longestLineLength - line.length) / 2
         val finalLine = " ".repeat(symbolsToShift) + line
         outputString.appendLine(finalLine)
@@ -337,13 +321,12 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
+    val text = File(inputName).readLines().toMutableList()
     File(outputName).bufferedWriter().use { writer ->
-        val text = File(inputName).readLines().toMutableList()
         val sortedList =
             text.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
-                .dropWhile { it.length != text.last().length }
-        writer.write(sortedList.joinToString(separator = ", "))
-        writer.close()
+        writer.write(sortedList.dropWhile { it.length != sortedList.last().toSet().size }
+            .joinToString(separator = ", "))
     }
 }
 
