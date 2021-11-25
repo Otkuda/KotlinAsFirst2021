@@ -16,7 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    printDivisionProcess(485796, 796345435, "temp.txt")
+    printDivisionProcess(1, 1, "temp.txt")
 }
 
 
@@ -571,21 +571,30 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 outputString.appendLine("$lhv | $rhv")
                 listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
-                if (remains.toString().length >= stringLhv.length) outputString.appendLine("-".repeat(remains.toString().length))
+                if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
+                    "-".repeat(
+                        remains.toString().length
+                    )
+                )
                 else outputString.appendLine("-".repeat(num.length))
                 numOfSpaces += num.length - listOfDifferences[0].toString().length
                 index += num.length - 1
-                lastLineLength = if (remains.toString().length >= stringLhv.length) remains.toString().length
-                else num.length
+                lastLineLength =
+                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
+                    else num.length
             } else {
                 outputString.appendLine(" $lhv | $rhv")
                 listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
-                if (remains.toString().length >= stringLhv.length) outputString.appendLine("-".repeat(remains.toString().length))
+                if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
+                    "-".repeat(
+                        remains.toString().length
+                    )
+                )
                 else outputString.appendLine("-".repeat(num.length))
                 numOfSpaces += num.length - listOfDifferences[0].toString().length
                 index += num.length - 1
-                lastLineLength = if (remains.toString().length >= stringLhv.length) remains.toString().length
+                lastLineLength = if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
                 else num.length
             }
         } else {
