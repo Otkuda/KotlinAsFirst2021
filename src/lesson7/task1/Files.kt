@@ -180,10 +180,10 @@ fun sibilants(inputName: String, outputName: String) {
  *
  */
 fun centerFile(inputName: String, outputName: String) {
-    val text = File(inputName).readText()
-    val longestLineLength = text.split("\n").maxOf { it.trim().length }
+    val text = File(inputName).readLines()
+    val longestLineLength = text.maxOf { it.trim().length }
     val outputString = StringBuilder()
-    text.lines().map { it.trim() }.forEach { line ->
+    text.map { it.trim() }.forEach { line ->
         val symbolsToShift = (longestLineLength - line.length) / 2
         val finalLine = " ".repeat(symbolsToShift) + line
         outputString.appendLine(finalLine)
@@ -337,17 +337,14 @@ fun transliterate(inputName: String, dictionary: Map<Char, String>, outputName: 
  * Обратите внимание: данная функция не имеет возвращаемого значения
  */
 fun chooseLongestChaoticWord(inputName: String, outputName: String) {
-    val writer = File(outputName).bufferedWriter()
-    val text = File(inputName).readText().split(Regex("""\s""")).filter { it != "" }
-    val list = mutableListOf<String>()
-    for (line in text) list.add(line)
-    val sortedList =
-        list.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
-            .dropWhile { it.length != list.last().length }
-    for (el in sortedList) {
-        if (el != sortedList.last()) writer.write("$el, ") else writer.write(el)
+    File(outputName).bufferedWriter().use { writer ->
+        val text = File(inputName).readLines().toMutableList()
+        val sortedList =
+            text.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
+                .dropWhile { it.length != text.last().length }
+        writer.write(sortedList.joinToString(separator = ", "))
+        writer.close()
     }
-    writer.close()
 }
 
 /**
@@ -563,20 +560,21 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
-  19935 | 22
- -198     906
- ----
-    13
-    -0
-    --
-    135
-   -132
-   ----
-      3
+19935 | 22
+-198     906
+----
+13
+-0
+--
+135
+-132
+----
+3
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
+    /*
     val outputString = StringBuilder()
     val result = (lhv / rhv).toString()
     val firstLine = "  $lhv | $rhv"
@@ -600,5 +598,6 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
             val stepRes = setOfDifferences[i - 1] + stringLhv[index]
         }
     }
+    */ TODO()
 }
 
