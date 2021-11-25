@@ -16,7 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    printDivisionProcess(485796, 7965, "temp.txt")
+    printDivisionProcess(485796564, 7963455, "temp.txt")
 }
 
 
