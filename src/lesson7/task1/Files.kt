@@ -16,7 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    printDivisionProcess(19935, 22, "temp.txt")
+    printDivisionProcess(15, 9, "temp.txt")
 }
 
 
@@ -567,7 +567,7 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     for (i in result.indices) {
         if (i == 0) {
             val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
-            if (stringLhv.length == num.length) {
+            if (stringLhv.length == num.length && result.length == 1) {
                 outputString.appendLine("$lhv | $rhv")
                 listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
