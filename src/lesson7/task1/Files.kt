@@ -16,7 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    printDivisionProcess(1, 1, "temp.txt")
+    printDivisionProcess(1, 2, "temp.txt")
 }
 
 
@@ -573,14 +573,14 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
                 if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
                     "-".repeat(
-                        remains.toString().length
+                        remains.toString().length + 1
                     )
                 )
                 else outputString.appendLine("-".repeat(num.length))
                 numOfSpaces += num.length - listOfDifferences[0].toString().length
                 index += num.length - 1
                 lastLineLength =
-                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
+                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length + 1
                     else num.length
             } else {
                 outputString.appendLine(" $lhv | $rhv")
@@ -588,14 +588,15 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
                 if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
                     "-".repeat(
-                        remains.toString().length
+                        remains.toString().length + 1
                     )
                 )
                 else outputString.appendLine("-".repeat(num.length))
                 numOfSpaces += num.length - listOfDifferences[0].toString().length
                 index += num.length - 1
-                lastLineLength = if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
-                else num.length
+                lastLineLength =
+                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length + 1
+                    else num.length
             }
         } else {
             val numUp = listOfDifferences[i - 1].toString() + stringLhv[index]
