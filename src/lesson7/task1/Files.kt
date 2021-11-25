@@ -16,9 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    val text = File("input/chaotic_in2.txt").readLines()
-    val sortedlist = text.filter { it.toLowerCase().toSet().size == it.length }.sortedBy { it.length }
-    println(sortedlist.dropWhile { it.length != sortedlist.last().length })
+    printDivisionProcess(2, 20, "temp.txt")
 }
 
 
@@ -553,34 +551,43 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 -132
 ----
 3
+
  * Используемые пробелы, отступы и дефисы должны в точности соответствовать примеру.
  *
  */
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
-    /*
     val outputString = StringBuilder()
     val result = (lhv / rhv).toString()
-    val firstLine = "  $lhv | $rhv"
-    val setOfDifferences = mutableListOf<String>()
+    val firstLine = " $lhv | $rhv"
+    val remains = lhv % rhv
+    val listOfDifferences = mutableListOf<Int>()
     val stringLhv = lhv.toString()
+    var numOfSpaces = 0
     var index = 0
+    var lastLineLength = 2
     outputString.appendLine(firstLine)
     for (i in result.indices) {
-        var delimiter = ""
-        var stringToPrint = ""
         if (i == 0) {
-            val num = rhv * result[i].toString().toInt()
-            val part = " -" + (num).toString()
-            setOfDifferences.add(((lhv / 100) - num).toString())
-            stringToPrint = part + " ".repeat(firstLine.length - part.length - rhv.toString().length) + result
-            delimiter = " " + "-".repeat(part.length - 1)
-            index += num.toString().length
-            outputString.appendLine(stringToPrint)
-            outputString.appendLine(delimiter)
+            val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
+            listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
+            outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
+            outputString.appendLine("-".repeat(num.length))
+            numOfSpaces += num.length - listOfDifferences[0].toString().length
+            index += num.length - 1
         } else {
-            val stepRes = setOfDifferences[i - 1] + stringLhv[index]
+            val numUp = listOfDifferences[i - 1].toString() + stringLhv[index]
+            val numDown = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
+            listOfDifferences.add(numUp.toInt() + numDown.toInt())
+            outputString.appendLine(" ".repeat(numOfSpaces) + numUp)
+            outputString.appendLine(" ".repeat(numOfSpaces + (numUp.length - numDown.length)) + numDown)
+            val lastLine = " ".repeat(numOfSpaces + (numUp.length - numDown.length)) + "-".repeat(numDown.length)
+            outputString.appendLine(lastLine)
+            index += numDown.length - 1
+            numOfSpaces += numDown.length - listOfDifferences[i].toString().length
+            lastLineLength = if (result[i] == result.last()) lastLine.length else 0
         }
     }
-    */ TODO()
+    outputString.appendLine(" ".repeat(lastLineLength - 1) + remains.toString())
+    File(outputName).writeText(outputString.toString())
 }
 
