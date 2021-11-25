@@ -16,7 +16,7 @@ import kotlin.math.pow
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
 fun main() {
-    printDivisionProcess(11, 2, "temp.txt")
+    printDivisionProcess(19935, 22, "temp.txt")
 }
 
 
@@ -558,23 +558,32 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
 fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val outputString = StringBuilder()
     val result = (lhv / rhv).toString()
-    val firstLine = " $lhv | $rhv"
     val remains = lhv % rhv
     val listOfDifferences = mutableListOf<Int>()
     val stringLhv = lhv.toString()
     var numOfSpaces = 0
     var index = 0
     var lastLineLength = 0
-    outputString.appendLine(firstLine)
     for (i in result.indices) {
         if (i == 0) {
             val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
-            listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
-            outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
-            outputString.appendLine("-".repeat(num.length))
-            numOfSpaces += num.length - listOfDifferences[0].toString().length
-            index += num.length - 1
-            lastLineLength = num.length
+            if (stringLhv.length == num.length) {
+                outputString.appendLine("$lhv | $rhv")
+                listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
+                outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
+                outputString.appendLine("-".repeat(num.length))
+                numOfSpaces += num.length - listOfDifferences[0].toString().length
+                index += num.length - 1
+                lastLineLength = num.length
+            } else {
+                outputString.appendLine(" $lhv | $rhv")
+                listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
+                outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
+                outputString.appendLine("-".repeat(num.length))
+                numOfSpaces += num.length - listOfDifferences[0].toString().length
+                index += num.length - 1
+                lastLineLength = num.length
+            }
         } else {
             val numUp = listOfDifferences[i - 1].toString() + stringLhv[index]
             val numDown = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
