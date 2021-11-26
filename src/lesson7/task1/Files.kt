@@ -569,13 +569,13 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
                 outputString.appendLine("$lhv | $rhv")
                 outputString.appendLine(" ".repeat(stringLhv.length - num.length) + "$num   " + result)
                 outputString.appendLine("-".repeat(stringLhv.length))
-                outputString.appendLine(" ".repeat(stringLhv.length - remains.toString().length - 1) + remains.toString())
+                outputString.appendLine(" ".repeat(stringLhv.length - remains.toString().length) + remains.toString())
             } else {
                 outputString.appendLine(" $lhv | $rhv")
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
                 outputString.appendLine("-".repeat(num.length))
                 if (result.length == 1)
-                    outputString.appendLine(" ".repeat(stringLhv.length - remains.toString().length + 1) + remains.toString())
+                    outputString.appendLine(" ".repeat(stringLhv.length + 1 - remains.toString().length) + remains.toString())
                 else {
                     nextNum = (nextNum.toInt() + num.toInt()).toString() + stringLhv[index]
                 }
@@ -595,5 +595,5 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
 }
 
 fun main() {
-    printDivisionProcess(19935, 22, "temp.txt")
+    printDivisionProcess(111008, 31428, "temp.txt")
 }
