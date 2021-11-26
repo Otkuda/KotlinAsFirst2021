@@ -15,10 +15,6 @@ import kotlin.math.pow
 // Рекомендуемое количество баллов = 20
 // Вместе с предыдущими уроками (пять лучших, 3-7) = 55/103
 
-fun main() {
-    printDivisionProcess(883146, 5124, "temp.txt")
-}
-
 
 /**
  * Пример
@@ -201,6 +197,7 @@ fun centerFile(inputName: String, outputName: String) {
  * 8) Если входной файл удовлетворяет требованиям 1-7, то он должен быть в точности идентичен выходному файлу
  */
 fun alignFileByWidth(inputName: String, outputName: String) {
+    /*
     val text = File(inputName).readText()
     val longestLineLength = text.split("\n").maxOf { it.trim().length }
     val outputString = StringBuilder()
@@ -220,6 +217,8 @@ fun alignFileByWidth(inputName: String, outputName: String) {
         outputString.appendLine(finalLine)
     }
     File(outputName).writeText(outputString.toString())
+    */
+    TODO()
 }
 
 /**
@@ -567,20 +566,23 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     for (i in result.indices) {
         if (i == 0) {
             val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
-            if (stringLhv.length == num.length && result.length == 1) {
+            if ((stringLhv.length == num.length || stringLhv.length == remains.toString().length) && result.length == 1) {
                 outputString.appendLine("$lhv | $rhv")
                 listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
-                outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
+                if (stringLhv.length == remains.toString().length) outputString.appendLine(
+                    " ".repeat(stringLhv.length - num.length) + num + " ".repeat(3) + result
+                )
+                else outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
                 if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
                     "-".repeat(
-                        remains.toString().length + 1
+                        remains.toString().length
                     )
                 )
                 else outputString.appendLine("-".repeat(num.length))
                 numOfSpaces += num.length - listOfDifferences[0].toString().length
                 index += num.length - 1
                 lastLineLength =
-                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length + 1
+                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
                     else num.length
             } else {
                 outputString.appendLine(" $lhv | $rhv")
@@ -619,3 +621,6 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     File(outputName).writeText(outputString.toString())
 }
 
+fun main() {
+    printDivisionProcess(13090, 23699, "temp.txt")
+}
