@@ -540,16 +540,16 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
-19935 | 22
+ 19935 | 22
 -198     906
 ----
-13
--0
---
-135
--132
-----
-3
+   13
+   -0
+   --
+   135
+  -132
+  ----
+     3
 
  * Используемые пробелы, оступы и дефисы должны в точности соответствовать примеру.
  *
@@ -558,69 +558,42 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     val outputString = StringBuilder()
     val result = (lhv / rhv).toString()
     val remains = lhv % rhv
-    val listOfDifferences = mutableListOf<Int>()
     val stringLhv = lhv.toString()
-    var numOfSpaces = 0
-    var index = 0
-    var lastLineLength = 0
+    var index = "${result[0].toString().toInt() * rhv}".length - 1
+    var nextNum = lhv.toString().substring(0, index + 1)
     for (i in result.indices) {
+        index++
+        val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
         if (i == 0) {
-            val num = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
-            if ((stringLhv.length == num.length || stringLhv.length == remains.toString().length) && result.length == 1) {
+            if (result.length == 1 && stringLhv.length != num.length - 1) {
                 outputString.appendLine("$lhv | $rhv")
-                listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
-                if (stringLhv.length == remains.toString().length) outputString.appendLine(
-                    " ".repeat(stringLhv.length - num.length) + num + " ".repeat(3) + result
-                )
-                else outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length) + result)
-                if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
-                    "-".repeat(
-                        remains.toString().length
-                    )
-                )
-                else outputString.appendLine("-".repeat(num.length))
-                numOfSpaces += num.length - listOfDifferences[0].toString().length
-                index += num.length - 1
-                lastLineLength =
-                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length
-                    else num.length
+                outputString.appendLine(" ".repeat(stringLhv.length - num.length) + "$num   " + result)
+                outputString.appendLine("-".repeat(stringLhv.length))
+                outputString.appendLine(" ".repeat(stringLhv.length - remains.toString().length - 1) + remains.toString())
             } else {
                 outputString.appendLine(" $lhv | $rhv")
-                listOfDifferences.add(stringLhv.take(num.length - 1).toInt() + num.toInt())
                 outputString.appendLine(num + " ".repeat(stringLhv.length + 3 - num.length + 1) + result)
-                if (remains.toString().length >= stringLhv.length && result.toInt() == 0) outputString.appendLine(
-                    "-".repeat(
-                        remains.toString().length + 1
-                    )
-                )
-                else outputString.appendLine("-".repeat(num.length))
-                numOfSpaces += num.length - listOfDifferences[0].toString().length
-                index += num.length - 1
-                lastLineLength =
-                    if (remains.toString().length >= stringLhv.length && result.toInt() == 0) remains.toString().length + 1
-                    else num.length
+                outputString.appendLine("-".repeat(num.length))
+                if (result.length == 1)
+                    outputString.appendLine(" ".repeat(stringLhv.length - remains.toString().length + 1) + remains.toString())
+                else {
+                    nextNum = (nextNum.toInt() + num.toInt()).toString() + stringLhv[index]
+                }
             }
         } else {
-            val numUp = listOfDifferences[i - 1].toString() + stringLhv[index]
-            val numDown = if (result[i].toString().toInt() == 0) "-0" else "${result[i].toString().toInt() * rhv * -1}"
-            listOfDifferences.add(numUp.toInt() + numDown.toInt())
-            outputString.appendLine(" ".repeat(numOfSpaces) + numUp)
-            outputString.appendLine(" ".repeat(numOfSpaces + (numUp.length - numDown.length)) + numDown)
-            val lastLine =
-                if (result[i] == result.last() && remains.toString().length > numDown.length)
-                    " ".repeat(numOfSpaces) + "-".repeat(numUp.length)
-                else " ".repeat(numOfSpaces + (numUp.length - numDown.length)) + "-".repeat(numDown.length)
-            outputString.appendLine(lastLine)
-            index++
-            numOfSpaces += if (numDown.length - listOfDifferences[i].toString().length == 2) 1
-            else numDown.length - listOfDifferences[i].toString().length
-            lastLineLength = if (result[i] == result.last()) lastLine.length else 0
+            outputString.appendLine(" ".repeat(index + 1 - nextNum.length) + nextNum)
+            outputString.appendLine(" ".repeat(index - (num.length - 1)) + num)
+            if (num.length - 1 == nextNum.length)
+                outputString.appendLine(" ".repeat(index - (num.length - 1)) + "-".repeat(num.length))
+            else
+                outputString.appendLine(" ".repeat(index + 1 - nextNum.length) + "-".repeat(nextNum.length))
+            if (index < stringLhv.length) nextNum = (nextNum.toInt() + num.toInt()).toString() + stringLhv[index]
+            else outputString.appendLine(" ".repeat(stringLhv.length + 1 - remains.toString().length) + remains)
         }
     }
-    outputString.appendLine(" ".repeat(lastLineLength - remains.toString().length) + remains.toString())
     File(outputName).writeText(outputString.toString())
 }
 
 fun main() {
-    printDivisionProcess(13090, 23699, "temp.txt")
+    printDivisionProcess(19935, 22, "temp.txt")
 }
