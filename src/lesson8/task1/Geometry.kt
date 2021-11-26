@@ -3,6 +3,7 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
+import java.lang.IllegalArgumentException
 import kotlin.math.*
 
 // Урок 8: простые классы
@@ -177,8 +178,13 @@ class Line private constructor(val b: Double, val angle: Double) {
  */
 fun lineBySegment(s: Segment): Line {
     val tang = abs(s.end.y - s.begin.y) / abs(s.end.x - s.begin.x)
-    val angle = atan(tang)
-    return Line(s.begin, angle)
+    var angle = atan(tang)
+    if (angle < 0) angle += PI
+    return try {
+        Line(s.begin, angle)
+    } catch (e: IllegalArgumentException) {
+        Line(s.begin, angle - PI)
+    }
 }
 
 /**
