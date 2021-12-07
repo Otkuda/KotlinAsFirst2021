@@ -3,6 +3,7 @@
 package lesson8.task1
 
 import lesson1.task1.sqr
+import lesson8.task2.crossSquare
 import java.lang.IllegalArgumentException
 import kotlin.math.*
 
@@ -119,6 +120,7 @@ data class Segment(val begin: Point, val end: Point) {
         }
     }
 
+    fun length(): Double = begin.distance(end)
 }
 
 
@@ -254,9 +256,11 @@ fun circleByThreePoints(a: Point, b: Point, c: Point): Circle {
  * три точки данного множества, либо иметь своим диаметром отрезок,
  * соединяющий две самые удалённые точки в данном множестве.
  */
-fun minContainingCircle(vararg points: Point): Circle = TODO()
+
+fun minContainingCircle(vararg points: Point): Circle {
+    TODO()
+}
 
 fun main() {
-    val s = Segment(Point(0.0, 0.0), Point(0.0, 4.0))
-    println(s.middle())
+
 }

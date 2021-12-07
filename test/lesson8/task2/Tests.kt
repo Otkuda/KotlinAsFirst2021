@@ -22,7 +22,7 @@ class Tests {
 
     @Test
     @Tag("2")
-    fun notation() {
+        fun notation() {
         assertEquals("", Square(1, 0).notation())
         assertEquals("b3", Square(2, 3).notation())
         assertEquals("g6", Square(7, 6).notation())
