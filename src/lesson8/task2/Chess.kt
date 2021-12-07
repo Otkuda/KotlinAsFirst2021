@@ -119,7 +119,7 @@ fun rookTrajectory(start: Square, end: Square): List<Square> = when (rookMoveNum
 fun bishopMoveNumber(start: Square, end: Square): Int {
     require(start.inside() && end.inside())
     return when {
-        (start.column - end.column) % 2 != (start.row - end.row) % 2 -> -1
+        abs(start.column - end.column) % 2 != abs(start.row - end.row) % 2 -> -1
         start == end -> 0
         else -> if (abs(start.column - end.column) == abs(start.row - end.row)) 1 else 2
     }
