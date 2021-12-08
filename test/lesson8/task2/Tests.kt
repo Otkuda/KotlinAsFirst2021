@@ -174,4 +174,5 @@ class Tests {
         knightTrajectory(square("a1"), square("a8")).assertKnightTrajectory(square("a1"), square("a8"), 5)
         knightTrajectory(square("a8"), square("h1")).assertKnightTrajectory(square("a8"), square("h1"), 6)
     }
+
 }

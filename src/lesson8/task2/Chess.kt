@@ -2,8 +2,11 @@
 
 package lesson8.task2
 
+import java.util.*
 import java.lang.IllegalArgumentException
+import java.util.ArrayDeque
 import kotlin.math.*
+import lesson8.task3.Graph
 
 /**
  * Клетка шахматной доски. Шахматная доска квадратная и имеет 8 х 8 клеток.
@@ -221,7 +224,40 @@ fun kingTrajectory(start: Square, end: Square): List<Square> = TODO()
  * Пример: knightMoveNumber(Square(3, 1), Square(6, 3)) = 3.
  * Конь может последовательно пройти через клетки (5, 2) и (4, 4) к клетке (6, 3).
  */
-fun knightMoveNumber(start: Square, end: Square): Int = TODO()
+fun legalKnightMoves(square: Square): Set<Square> {
+    val setOfMoves = mutableSetOf<Square>()
+    val moveOffsets = listOf(
+        (-1 to -2), (-1 to 2), (-2 to -1), (-2 to 1),
+        (1 to -2), (1 to 2), (2 to -1), (2 to 1)
+    )
+    for ((x, y) in moveOffsets) {
+        val newSquare = Square(square.column + x, square.row + y)
+        if (newSquare.inside()) setOfMoves.add(newSquare)
+    }
+    return setOfMoves
+}
+
+fun knightGraph(): Graph {
+    val g = Graph()
+    for (row in 1..8) {
+        for (col in 1..8) {
+            val newSquare = Square(col, row)
+            val newMoves = legalKnightMoves(Square(col, row))
+            g.addVertex(newSquare.notation())
+            for (m in newMoves) {
+                g.addVertex(m.notation())
+                g.connect(m.notation(), newSquare.notation())
+            }
+        }
+    }
+    return g
+}
+
+fun knightMoveNumber(start: Square, end: Square): Int {
+    require(start.inside() && end.inside())
+    val g = knightGraph()
+    return g.bfs(start.notation(), end.notation())
+}
 
 /**
  * Очень сложная (10 баллов)
@@ -243,4 +279,11 @@ fun knightMoveNumber(start: Square, end: Square): Int = TODO()
  *
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
-fun knightTrajectory(start: Square, end: Square): List<Square> = TODO()
+fun knightTrajectory(start: Square, end: Square): List<Square> {
+    TODO()
+}
+
+fun main() {
+    val g = knightGraph()
+    println(g.neighbors("b3"))
+}

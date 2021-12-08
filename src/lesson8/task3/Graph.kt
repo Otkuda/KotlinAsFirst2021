@@ -12,7 +12,7 @@ class Graph {
     private operator fun get(name: String) = vertices[name] ?: throw IllegalArgumentException()
 
     fun addVertex(name: String) {
-        vertices[name] = Vertex(name)
+        if (name !in vertices) vertices[name] = Vertex(name)
     }
 
     private fun connect(first: Vertex, second: Vertex) {
@@ -21,6 +21,8 @@ class Graph {
     }
 
     fun connect(first: String, second: String) = connect(this[first], this[second])
+
+    fun neighbors(name: String) = vertices[name]?.neighbors?.map { it.name } ?: listOf()
 
     /**
      * Пример
@@ -68,4 +70,19 @@ class Graph {
                 .minOrNull()
             if (min == null) null else min + 1
         }
+}
+
+
+fun main() {
+    val graph = Graph()
+    graph.addVertex("A")
+    graph.addVertex("B")
+    graph.addVertex("C")
+    graph.addVertex("D")
+    graph.addVertex("E")
+    graph.addVertex("F")
+    graph.addVertex("G")
+    graph.addVertex("H")
+    graph.connect("A", "B")
+    println(graph)
 }
