@@ -280,10 +280,12 @@ fun knightMoveNumber(start: Square, end: Square): Int {
  * Если возможно несколько вариантов самой быстрой траектории, вернуть любой из них.
  */
 fun knightTrajectory(start: Square, end: Square): List<Square> {
-    TODO()
+    require(start.inside() && end.inside())
+    val g = knightGraph()
+    return g.listBfs(start.notation(), end.notation())
 }
 
 fun main() {
     val g = knightGraph()
-    println(g.neighbors("b3"))
+    println(knightTrajectory(square("a1"), square("b3")))
 }

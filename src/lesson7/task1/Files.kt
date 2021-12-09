@@ -540,16 +540,16 @@ fun printMultiplicationProcess(lhv: Int, rhv: Int, outputName: String) {
  * Вывести в выходной файл процесс деления столбиком числа lhv (> 0) на число rhv (> 0).
  *
  * Пример (для lhv == 19935, rhv == 22):
- 19935 | 22
+19935 | 22
 -198     906
 ----
-   13
-   -0
-   --
-   135
-  -132
-  ----
-     3
+13
+-0
+--
+135
+-132
+----
+3
 
  * Используемые пробелы, оступы и дефисы должны в точности соответствовать примеру.
  *
@@ -594,6 +594,29 @@ fun printDivisionProcess(lhv: Int, rhv: Int, outputName: String) {
     File(outputName).writeText(outputString.toString())
 }
 
+fun football(text: String, teams: List<String>): List<Pair<String, Int>> {
+    require(Regex("""([а-яА-ЯA-Za-zёЁ]+ \d+ - \d+ [а-яА-ЯA-Za-zёЁ]+(; )?)+""").matches(text))
+    val games = text.split("; ")
+    val results = mutableMapOf<String, Int>()
+    for (team in teams) results[team] = 0
+    for (game in games) {
+        val teamToScore = game.split(" - ")
+        val firstTeam = teamToScore[0].split(" ")
+        val secondTeam = teamToScore[1].split(" ")
+        when {
+            firstTeam[1].toInt() == secondTeam[0].toInt() -> {
+                results[firstTeam[0]] = results[firstTeam[0]]!! + 1
+                results[secondTeam[1]] = results[secondTeam[1]]!! + 1
+            }
+            firstTeam[1].toInt() > secondTeam[0].toInt() -> results[firstTeam[0]] = results[firstTeam[0]]!! + 3
+            else -> results[secondTeam[1]] = results[secondTeam[1]]!! + 3
+        }
+    }
+    val minScore = if (results.size >= 3) results.toList().sortedByDescending { it.second }[2].second else 0
+    return results.toList().sortedByDescending { it.second }.takeWhile { it.second >= minScore }
+}
+
 fun main() {
-    printDivisionProcess(111008, 31428, "temp.txt")
+    val reg = Regex("""([а-яА-ЯA-Za-zёЁ]+ \d+ - \d+ [а-яА-ЯA-Za-zёЁ]+(; )?)+""")
+    println(reg.matches("зенит 0 - 1 спартак; зенит 1 - 0 цска; барнаулец 0 - 2 зенит; подмоскович 4 - 4 барнаулец"))
 }

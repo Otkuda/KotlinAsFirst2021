@@ -1,5 +1,7 @@
 package lesson8.task3
 
+import lesson8.task2.Square
+import lesson8.task2.square
 import java.util.*
 
 class Graph {
@@ -49,6 +51,26 @@ class Graph {
             }
         }
         return -1
+    }
+
+    fun listBfs(start: String, finish: String) = listBfs(this[start], this[finish])
+
+    private fun listBfs(start: Vertex, finish: Vertex): List<Square> {
+        val queue = ArrayDeque<Vertex>()
+        queue.add(start)
+        val visited = mutableMapOf(start to mutableListOf(square(start.name)))
+        while (queue.isNotEmpty()) {
+            val next = queue.poll()
+            val list = visited[next]!!
+            if (next == finish) return list
+            for (neighbor in next.neighbors) {
+                if (neighbor in visited) continue
+                list.add(square(neighbor.name))
+                visited[neighbor] = list
+                queue.add(neighbor)
+            }
+        }
+        return listOf()
     }
 
     /**

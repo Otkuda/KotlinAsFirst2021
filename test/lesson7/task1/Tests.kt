@@ -1,5 +1,6 @@
 package lesson7.task1
 
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Tag
 import org.junit.jupiter.api.Test
@@ -377,6 +378,24 @@ Basic, Ruby, Swift.
         )
 
     }
+
+    @Test
+    fun football() {
+        assertEquals(
+            listOf(Pair("зенит", 6), Pair("спартак", 3), Pair("барнаулец", 1), Pair("подмоскович", 1)), football(
+                "зенит 0 - 1 спартакзенит 1 - 0 цска; барнаулец 0 - 2 зенит; подмоскович 4 - 4 барнаулец",
+                listOf("зенит", "цска", "барнаулец", "подмоскович", "спартак")
+            )
+        )
+        Assertions.assertThrows(IllegalArgumentException::class.java) { football("", listOf()) }
+        Assertions.assertThrows(IllegalArgumentException::class.java) {
+            football(
+                "зенит 0 - 1 спартакзенит 1 - 0 цска; барнаулец 0 - 2 зенит; подмоскович 4 - 4 барнаулец",
+                listOf("зенит", "цска", "барнаулец", "подмоскович", "спартак")
+            )
+        }
+    }
+
 
     @Test
     @Tag("25")
