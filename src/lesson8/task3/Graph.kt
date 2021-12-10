@@ -58,15 +58,21 @@ class Graph {
     private fun listBfs(start: Vertex, finish: Vertex): List<Square> {
         val queue = ArrayDeque<Vertex>()
         queue.add(start)
-        val visited = mutableMapOf(start to mutableListOf(square(start.name)))
+        val visited = mutableMapOf(start to Vertex(""))
         while (queue.isNotEmpty()) {
             val next = queue.poll()
-            val list = visited[next]!!
-            if (next == finish) return list
+            if (next == finish) {
+                val resPath = mutableListOf<Vertex>()
+                var nextVertex = finish
+                while (nextVertex != Vertex("")) {
+                    resPath.add(0, nextVertex)
+                    nextVertex = visited[nextVertex]!!
+                }
+                return resPath.map { square(it.name) }
+            }
             for (neighbor in next.neighbors) {
                 if (neighbor in visited) continue
-                list.add(square(neighbor.name))
-                visited[neighbor] = list
+                visited[neighbor] = next
                 queue.add(neighbor)
             }
         }
