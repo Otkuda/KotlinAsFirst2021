@@ -2,9 +2,7 @@
 
 package lesson8.task2
 
-import java.util.*
 import java.lang.IllegalArgumentException
-import java.util.ArrayDeque
 import kotlin.math.*
 import lesson8.task3.Graph
 
@@ -31,6 +29,7 @@ data class Square(val column: Int, val row: Int) {
     fun notation(): String = if (!inside()) ""
     else "${('a' + column - 1)}$row"
 }
+
 
 /**
  * Простая (2 балла)
@@ -285,7 +284,98 @@ fun knightTrajectory(start: Square, end: Square): List<Square> {
     return g.listBfs(start.notation(), end.notation())
 }
 
-fun main() {
-    val g = knightGraph()
-    println(knightTrajectory(square("a1"), square("b3")))
+// 0 - черные, 1 - белые
+fun returnBoard(situation: Map<Int, Set<String>>): String {
+    val blackSquares = situation[0]
+    val whiteSquares = situation[1]
+    val res = StringBuilder()
+    for (i in 1..8) {
+        val line = StringBuilder()
+        for (j in 1..8) {
+            when {
+                Square(j, i).notation() in blackSquares!! -> line.append("0")
+                Square(j, i).notation() in whiteSquares!! -> line.append("1")
+                else -> line.append("x")
+            }
+        }
+        res.appendLine(line)
+    }
+    return res.toString().split("\n").reversed().joinToString("\n")
 }
+
+fun stateToSituation(state: String): Map<Int, MutableSet<String>> {
+    require(state.split("\n").size == 8 && state.split("\n").filter { it.length == 8 }.size == 8)
+    var row = 8
+    val res = mutableMapOf(0 to mutableSetOf<String>(), 1 to mutableSetOf())
+    for (line in state.split("\n")) {
+        var col = 1
+        for (char in line) {
+            when (char) {
+                '1' -> res[1]!!.add(Square(col, row).notation())
+                '0' -> res[0]!!.add(Square(col, row).notation())
+                'x' -> {
+                    col += 1
+                    continue
+                }
+                else -> throw IllegalArgumentException()
+            }
+            col++
+        }
+        row--
+    }
+    return res
+}
+
+fun checkSquare(square: Square, situation: Map<Int, MutableSet<String>>): Int {
+    val whiteSquares = situation[1]
+    val blackSquares = situation[0]
+    return when (square.notation()) {
+        in whiteSquares!! -> 1
+        in blackSquares!! -> 0
+        else -> -1
+    }
+}
+
+fun legalMoves(start: Square, situation: Map<Int, MutableSet<String>>): Set<Square> {
+    val res = mutableSetOf<Square>()
+    val offset = mutableListOf(
+        1 to 1, -1 to -1, 1 to -1, -1 to 1
+    )
+    val startState = checkSquare(start, situation)
+    for ((x, y) in offset) {
+        val newSquare = Square(start.column + x, start.row + y)
+        val state = checkSquare(newSquare, situation)
+        when {
+            state == startState -> continue
+            state == -1 -> res.add(newSquare)
+            state != startState && state != -1 -> res.add(Square(newSquare.column + x, newSquare.row + y))
+        }
+    }
+    return res
+}
+
+fun move(move: String, state: String): String {
+    val situation = stateToSituation(state)
+    require(move.split(" ").size == 2)
+    val start = square(move.split(" ")[0])
+    val end = square(move.split(" ")[1])
+    val startColour = checkSquare(start, situation)
+    require(start.inside() && end.inside())
+    require(startColour != -1)
+    val legalMoves = legalMoves(start, situation)
+    require(end in legalMoves)
+    situation[startColour]!!.add(end.notation())
+    situation[startColour]!!.remove(start.notation())
+    if (abs(end.row - start.row) == 2) {
+        val killedSquare = Square((start.column + end.column) / 2, (start.row + end.row) / 2)
+        situation[abs(startColour - 1)]!!.remove(killedSquare.notation())
+    }
+    return returnBoard(situation)
+}
+
+fun main() {
+    val state = "xxxxxxxx\nxxxxxxxx\nxxxxxxx0\nxxxxxx1x\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx\nxxxxxxxx"
+    println(move("h6 g7", state))
+}
+
+

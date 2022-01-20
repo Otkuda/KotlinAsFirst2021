@@ -3,6 +3,7 @@
 package lesson5.task1
 
 import lesson4.task1.mean
+import kotlin.math.max
 
 // Урок 5: ассоциативные массивы и множества
 // Максимальное количество баллов = 14
@@ -363,14 +364,13 @@ fun bagPacking(treasures: Map<String, Pair<Int, Int>>, capacity: Int): Set<Strin
             val name = listOfTreasures[col - 1].first
             val weight = listOfTreasures[col - 1].second.first
             val price = listOfTreasures[col - 1].second.second
-            when {
-                weight > cap -> table[col][cap] = table[col - 1][cap]
-                table[col - 1][cap - weight].first + price > table[col - 1][cap].first ->
-                    table[col][cap] = Pair(
-                        table[col - 1][cap - weight].first + price,
-                        (table[col - 1][cap - weight].second + name).toMutableSet()
-                    )
-                else -> table[col][cap] = table[col - 1][cap]
+            table[col][cap] = table[col - 1][cap]
+            if (weight < cap) {
+                val maxPrice = max(table[col - 1][cap].first, table[col - 1][cap - weight].first + price)
+                table[col][cap] = Pair(
+                    table[col - 1][cap - weight].first + maxPrice,
+                    (table[col - 1][cap - weight].second + name).toMutableSet()
+                )
             }
         }
     }
